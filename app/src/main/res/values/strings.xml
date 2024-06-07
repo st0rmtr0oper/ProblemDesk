@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">ProblemDesk</string>
+    <string name="title_problem_form">Заявить</string>
+    <string name="title_my_problems">Мои проблемы</string>
+    <string name="title_my_tasks">Мои задачи</string>
+    <string name="title_master">Меню мастера</string>
+    <string name="title_profile">Мой профиль</string>
+    <string name="title_login">Войти</string>
+
+    <string name="login1">ivanov@sinara.ru</string>
+    <string name="password1">123456</string>
+    <string name="login2">smirnov@sinara.ru</string>
+    <string name="password2">911911</string>
+    <string name="login3">petrov@sinara.ru</string>
+    <string name="password3">024680</string>
+    <string name="login4">sidorov@sinara.ru</string>
+    <string name="password4">888888</string>
+</resources>

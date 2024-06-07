@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_login">
+
+    <fragment
+        android:id="@+id/navigation_problem_form"
+        android:name="com.example.problemdesk.presentation.problemform.ProblemFormFragment"
+        android:label="@string/title_problem_form"
+        tools:layout="@layout/fragment_problem_form" />
+
+    <fragment
+        android:id="@+id/navigation_my_problems"
+        android:name="com.example.problemdesk.presentation.myproblems.MyProblemsFragment"
+        android:label="@string/title_my_problems"
+        tools:layout="@layout/fragment_my_problems" />
+
+    <fragment
+        android:id="@+id/navigation_my_tasks"
+        android:name="com.example.problemdesk.presentation.mytasks.MyTasksFragment"
+        android:label="@string/title_my_tasks"
+        tools:layout="@layout/fragment_my_tasks" />
+
+    <fragment
+        android:id="@+id/navigation_master"
+        android:name="com.example.problemdesk.presentation.mastermenu.MasterFragment"
+        android:label="@string/title_master"
+        tools:layout="@layout/fragment_master" />
+
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.example.problemdesk.presentation.login.LoginFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_problem_form"
+            app:destination="@id/navigation_problem_form"
+            app:popUpTo="@id/navigation_problem_form"
+            app:popUpToInclusive="false"/>
+        <action
+            android:id="@+id/action_navigation_login_to_managerFragment"
+            app:destination="@id/navigation_manager"
+            app:popUpTo="@id/navigation_manager"
+            app:popUpToInclusive="false"/>
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.problemdesk.presentation.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/navigation_manager"
+        android:name="com.example.problemdesk.presentation.manager.ManagerFragment"
+        android:label="ManagerFragment"
+        tools:layout="@layout/fragment_manager"/>
+</navigation>

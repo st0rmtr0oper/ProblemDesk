@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_problem_form"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_problem_form" />
+
+    <item
+        android:id="@+id/navigation_my_problems"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_my_problems" />
+
+    <item
+        android:id="@+id/navigation_my_tasks"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_my_tasks" />
+
+    <item
+        android:id="@+id/navigation_master"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_master" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_profile" />
+
+</menu>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "282863164201",
+    "project_id": "horizons-champ",
+    "storage_bucket": "horizons-champ.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282863164201:android:aaf3e3a37b696a9137b538",
+        "android_client_info": {
+          "package_name": "com.example.problemdesk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUEODOhvGa_gPbRdX2X78w9wROvt4z7WY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

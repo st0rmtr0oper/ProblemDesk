@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="light_pr">#920695</color>
+    <color name="light_pr_txt">#555555</color>
+    <color name="light_sc_txt">#878787</color>
+    <color name="light_bg1">#F3F3F3</color>
+    <color name="light_bg2">#F9F8F9</color>
+
+    <color name="dark_pr">#FD7E09</color>
+    <color name="dark_pr_txt">#6F4670</color>
+    <color name="dark_sc_txt">#585158</color>
+    <color name="dark_bg1">#1D161D</color>
+    <color name="dark_bg2">#231922</color>
+</resources>
