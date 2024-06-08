@@ -14,8 +14,27 @@
         android:textAlignment="center"
         android:textSize="20sp"></TextView>
 
-    <EditText
-        android:id="@+id/user_info_for_problem"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <Spinner
+        android:id="@+id/problem_type_spinner"
+        style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:fontFamily="sans-serif-medium"
+        android:hint="Специализация"
+        android:inputType="textCapSentences"
+        android:textColor="#FE7E15"
+        android:textSize="16sp" />
+
+    <Spinner
+        android:id="@+id/user_workplace_spinner"
         style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +52,6 @@
         style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:textAlignment="gravity"
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
@@ -42,6 +60,7 @@
         android:hint="Текст обращения"
         android:inputType="textMultiLine"
         android:scrollbars="vertical"
+        android:textAlignment="gravity"
         android:textColor="#FE7E15"
         android:textSize="16sp" />
 

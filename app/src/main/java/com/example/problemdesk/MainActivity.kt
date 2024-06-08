@@ -22,6 +22,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.launch
 
 //TODO 1 - UI
+//TODO 1.0 - login UI
 //TODO 1.1 - problem_form UI, spinners
 //TODO 1.2 - my_problems UI, tabhost, recyclerViews, spinner click
 //TODO 1.3 - my_tasks UI, tabhost, recyclerViews, spinner click
