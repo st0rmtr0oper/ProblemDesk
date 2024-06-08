@@ -29,8 +29,8 @@ import kotlinx.coroutines.launch
 //TODO 1.4 - master UI, tabhost, recyclerViews, spinner click
 //TODO 1.5 - profile UI, tabhost
 //TODO 1.6 - manager UI
-//TODO 1.7 - navigation UI, bottom nav bar design
-//TODO 1.8 - themes
+//TODO 1.7 - navigation UI, bottom nav bar design, up bar design (notifications, messages)
+//TODO 1.8 - themes, string resources
 //TODO 1.9 - final design
 
 //TODO 2 - MVVM

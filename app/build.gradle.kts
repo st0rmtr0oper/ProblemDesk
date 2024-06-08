@@ -4,6 +4,7 @@ plugins {
     id("com.google.gms.google-services")
     id("androidx.navigation.safeargs.kotlin")
     id("org.jetbrains.kotlin.kapt")
+    id("kotlin-kapt")
 }
 
 android {
@@ -36,12 +37,18 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+//    dataBinding {
+//        enabled = true
+//    }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
 dependencies {
+    //kapt
+    kapt("com.android.databinding:compiler:3.1.4")
 
     //firebase
 //    implementation("com.google.firebase:firebase-messaging-ktx:24.0.0")
