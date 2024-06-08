@@ -21,6 +21,23 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.launch
 
+//TODO 1 - UI
+//TODO 1.1 - problem_form UI, spinners
+//TODO 1.2 - my_problems UI, tabhost, recyclerViews, spinner click
+//TODO 1.3 - my_tasks UI, tabhost, recyclerViews, spinner click
+//TODO 1.4 - master UI, tabhost, recyclerViews, spinner click
+//TODO 1.5 - profile UI, tabhost
+//TODO 1.6 - manager UI
+//TODO 1.7 - navigation UI, bottom nav bar design
+//TODO 1.8 - themes
+//TODO 1.9 - final design
+
+//TODO 2 - MVVM
+
+//TODO 3 - flow logic, mocking, navigation, dynamic bottom nav bar
+
+//TODO 4 - backend, firebase, pushs, api, retrofit ...   +  manager UI, graphs
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
