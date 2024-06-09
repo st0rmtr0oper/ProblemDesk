@@ -22,15 +22,15 @@ import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.launch
 
 //TODO 1 - UI
-//TODO 1.0 - login UI
-//TODO 1.1 - problem_form UI, spinners
-//TODO 1.2 - my_problems UI, tabhost, recyclerViews, spinner click
-//TODO 1.3 - my_tasks UI, tabhost, recyclerViews, spinner click
-//TODO 1.4 - master UI, tabhost, recyclerViews, spinner click
+
+//-- TODO 1.1 - problem_form UI, spinners
+//
+//-- TODO 1.4 - master UI, tabhost, recyclerViews, spinner click
 //TODO 1.5 - profile UI, tabhost
 //TODO 1.6 - manager UI
 //TODO 1.7 - navigation UI, bottom nav bar design, up bar design (notifications, messages)
-//TODO 1.8 - themes, string resources
+//TODO - spinner click handlers
+//TODO 1.8 - themes, custom styles, colors string resources
 //TODO 1.8.1 - popup messages (modal? idk)
 //TODO 1.9 - final design
 
