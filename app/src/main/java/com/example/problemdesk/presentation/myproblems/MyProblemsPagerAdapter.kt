@@ -1,11 +1,9 @@
 package com.example.problemdesk.presentation.myproblems
 
-import android.content.Context
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class MyProblemPagerAdapter(fragment: Fragment, private val fragments: List<Fragment>): FragmentStateAdapter(fragment) {
+class MyProblemsPagerAdapter(fragment: Fragment, private val fragments: List<Fragment>): FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = fragments.size
 
     override fun createFragment(position: Int): Fragment = fragments[position]

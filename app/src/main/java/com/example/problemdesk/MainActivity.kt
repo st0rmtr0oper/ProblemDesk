@@ -31,6 +31,7 @@ import kotlinx.coroutines.launch
 //TODO 1.6 - manager UI
 //TODO 1.7 - navigation UI, bottom nav bar design, up bar design (notifications, messages)
 //TODO 1.8 - themes, string resources
+//TODO 1.8.1 - popup messages (modal? idk)
 //TODO 1.9 - final design
 
 //TODO 2 - MVVM

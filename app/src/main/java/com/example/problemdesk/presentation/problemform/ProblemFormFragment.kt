@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.problemdesk.databinding.FragmentProblemFormBinding
 
+//TODO spinners are not working
+
 class ProblemFormFragment : Fragment() {
 
     private var _binding: FragmentProblemFormBinding? = null

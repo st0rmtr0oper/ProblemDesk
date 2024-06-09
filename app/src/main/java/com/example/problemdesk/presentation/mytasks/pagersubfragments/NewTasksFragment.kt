@@ -6,25 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.problemdesk.databinding.FragmentSubCompletedBinding
-import com.example.problemdesk.domain.models.Card
+import com.example.problemdesk.databinding.FragmentSubNewTasksBinding
 import com.example.problemdesk.domain.models.Specialization
 import com.example.problemdesk.domain.models.Status
+import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.domain.models.Workplace
 import com.example.problemdesk.presentation.CardRecyclerViewAdapter
 
-class CompletedFragment : Fragment() {
-    private var _binding: FragmentSubCompletedBinding? = null
+class NewTasksFragment : Fragment() {
+    private var _binding: FragmentSubNewTasksBinding? = null
     private val binding get() = _binding!!
 
     companion object {
-        fun newInstance() = CompletedFragment()
+        fun newInstance() = NewTasksFragment()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSubCompletedBinding.inflate(inflater, container, false)
+        _binding = FragmentSubNewTasksBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
     }
@@ -32,7 +32,8 @@ class CompletedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //::handleCardClick binding RV click logic with fragment
-        binding.completedRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
+        binding.newTasksRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
+
 
         //TODO delete mocking
         val cards = listOf(
@@ -41,14 +42,13 @@ class CompletedFragment : Fragment() {
             Card(Status.UNCHECKED, "111", Specialization.SANITARY_CONDITIONS, Workplace.N4, "хачю питсу"),
             Card(Status.COMPLETED, "111", Specialization.SANITARY_CONDITIONS, Workplace.N4, "vzlom zhopi")
         )
-        (binding.completedRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+        (binding.newTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
     }
 
     private fun handleCardClick(card: Card) {
         //TODO delete mocking
         Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show()
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

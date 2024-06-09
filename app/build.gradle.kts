@@ -47,6 +47,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.media3.common)
     //kapt
     kapt("com.android.databinding:compiler:3.1.4")
 

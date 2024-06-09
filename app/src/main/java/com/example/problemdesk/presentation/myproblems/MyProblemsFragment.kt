@@ -35,14 +35,17 @@ class MyProblemsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //initiating viewPager
         viewPager = binding.myProblemsPager
         val fragmentList = arrayListOf(
             InWorkFragment.newInstance(),
             CompletedFragment.newInstance(),
             CancelledFragment.newInstance()
         )
-        viewPager.adapter = MyProblemPagerAdapter(this, fragmentList)
+        viewPager.adapter = MyProblemsPagerAdapter(this, fragmentList)
 
+        //initiating tabLayout
         tabLayout = binding.myProblemsTabLayout
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -54,6 +57,7 @@ class MyProblemsFragment : Fragment() {
             }
         })
 
+        //sync tabLayout with viewPager
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = "В работе"

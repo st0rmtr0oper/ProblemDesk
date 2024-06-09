@@ -11,6 +11,7 @@ import com.example.problemdesk.domain.models.Specialization
 import com.example.problemdesk.domain.models.Status
 import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.domain.models.Workplace
+import com.example.problemdesk.presentation.CardRecyclerViewAdapter
 
 class CancelledFragment : Fragment() {
     private var _binding: FragmentSubCancelledBinding? = null
@@ -24,8 +25,6 @@ class CancelledFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSubCancelledBinding.inflate(inflater, container, false)
-
-
         val root: View = binding.root
         return root
     }
@@ -33,16 +32,16 @@ class CancelledFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //::handleCardClick binding RV click logic with fragment
-        binding.cancelledRv.adapter = CancelledAdapter(::handleCardClick)
-
+        binding.cancelledRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
 
         //TODO delete mocking
         val cards = listOf(
             Card(Status.CANCELLED, "222", Specialization.INSTRUMENTS, Workplace.N1, "aboba"),
             Card(Status.APPROVED, "0", Specialization.DOCUMENTS, Workplace.N3, "amogus"),
+            Card(Status.UNCHECKED, "111", Specialization.SANITARY_CONDITIONS, Workplace.N4, "хачю питсу"),
             Card(Status.COMPLETED, "111", Specialization.SANITARY_CONDITIONS, Workplace.N4, "vzlom zhopi")
         )
-        (binding.cancelledRv.adapter as? CancelledAdapter)?.cards = cards
+        (binding.cancelledRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
     }
 
     private fun handleCardClick(card: Card) {
