@@ -23,10 +23,7 @@ import kotlinx.coroutines.launch
 
 //TODO 1 - UI
 
-//-- TODO 1.1 - problem_form UI, spinners
-//
-//-- TODO 1.4 - master UI, tabhost, recyclerViews, spinner click
-//TODO 1.5 - profile UI, tabhost
+//-> TODO 1.5 - profile UI, tabhost
 //TODO 1.6 - manager UI
 //TODO 1.7 - navigation UI, bottom nav bar design, up bar design (notifications, messages)
 //TODO - spinner click handlers

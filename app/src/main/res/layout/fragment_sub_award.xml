@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/award_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Личная статистика" />
+
+    <TextView
+        android:id="@+id/token_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="150" />
+
+    <TextView
+        android:id="@+id/token"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3600" />
+
+    <TextView
+        android:id="@+id/created_tasks_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Заработанные токены" />
+
+    <TextView
+        android:id="@+id/created_tasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Кол-во заведенных заявок" />
+
+    <TextView
+        android:id="@+id/completed_tasks_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="160" />
+
+    <TextView
+        android:id="@+id/completed_tasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Кол-во выполненных заявок" />
+
+    <TextView
+        android:id="@+id/latest_task_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="22/05/2024" />
+
+    <TextView
+        android:id="@+id/latest_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Дата последней исполненной заявки" />
+</LinearLayout>

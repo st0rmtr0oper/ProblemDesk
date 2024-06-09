@@ -21,9 +21,7 @@ class NewTasksFragment : Fragment() {
         fun newInstance() = NewTasksFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentSubNewTasksBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
