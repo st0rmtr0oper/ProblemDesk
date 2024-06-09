@@ -12,6 +12,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 
+
+//TODO do we need swipe function??
+
 class MyProblemsFragment : Fragment() {
 
     private var _binding: FragmentMyProblemsBinding? = null
