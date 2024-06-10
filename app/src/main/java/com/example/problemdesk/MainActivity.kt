@@ -22,20 +22,18 @@ import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.launch
 
 //TODO 1 - UI
-
-//-> TODO 1.5 - profile UI, tabhost
-//TODO 1.6 - manager UI
 //TODO 1.7 - navigation UI, bottom nav bar design, up bar design (notifications, messages)
-//TODO - spinner click handlers
+//TODO - spinner click handlers (cards)
 //TODO 1.8 - themes, custom styles, colors string resources
 //TODO 1.8.1 - popup messages (modal? idk)
 //TODO 1.9 - final design
 
 //TODO 2 - MVVM
 
-//TODO 3 - flow logic, mocking, navigation, dynamic bottom nav bar
+//TODO 3 - flow logic, mocking, navigation, dynamic bottom nav bar, ROLES
 
 //TODO 4 - backend, firebase, pushs, api, retrofit ...   +  manager UI, graphs
+//manager ui
 
 class MainActivity : AppCompatActivity() {
 

@@ -31,6 +31,7 @@ class CardRecyclerViewAdapter(private val cardListener: (Card) -> Unit) : Recycl
 class CardsViewHolder(private val binding: FragmentSubCardItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(card: Card, cancelledCardListener: (Card) -> Unit) {
         with(binding) {
+
             cardStatus.text = card.status.toString()
             cardSpecialization.text = card.specialization.toString()
             cardWorkplace.text = card.workplace.toString()
