@@ -8,10 +8,12 @@
         <color name="secondary_variant_color">#CF84C9</color>
         <color name="on_secondary_color">#8C8C8D</color>
 
-        <color name="light_text_color">#696969</color>
-        <color name="light_background_color">#F7F7F7</color>
-        <color name="dark_text_color">#7B7179</color>
-        <color name="dark_background_color">#181118</color>
+        <color name="text_color">#222222</color>
+
+        <!--        <color name="light_text_color">#696969</color>-->
+<!--        <color name="light_background_color">#F7F7F7</color>-->
+<!--        <color name="dark_text_color">#7B7179</color>-->
+<!--        <color name="dark_background_color">#181118</color>-->
 
         <color name="status_unchecked_color">#7C1879</color>
         <color name="status_approved_color">#E4AF26</color>
