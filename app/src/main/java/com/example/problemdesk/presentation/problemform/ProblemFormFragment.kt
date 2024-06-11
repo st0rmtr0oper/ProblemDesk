@@ -9,8 +9,8 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import com.example.problemdesk.databinding.FragmentProblemFormBinding
-import com.example.problemdesk.domain.models.Specialization
-import com.example.problemdesk.domain.models.Workplace
+import com.example.problemdesk.domain.OLDMODELSrefactor.Specialization
+import com.example.problemdesk.domain.OLDMODELSrefactor.Workplace
 
 class ProblemFormFragment : Fragment() {
 

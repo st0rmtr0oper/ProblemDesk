@@ -1,4 +1,4 @@
-package com.example.problemdesk.domain.models
+package com.example.problemdesk.domain.OLDMODELSrefactor
 
 data class Card(
     val status: Status,

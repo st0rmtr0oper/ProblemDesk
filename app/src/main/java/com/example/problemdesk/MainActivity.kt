@@ -14,9 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.problemdesk.unfiltered.DeskRepository
 import com.example.problemdesk.databinding.ActivityMainBinding
-import com.example.problemdesk.unfiltered.Request
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.launch
@@ -30,6 +28,7 @@ import kotlinx.coroutines.launch
 
 //TODO 2 - MVVM
 
+// какие юзкейсы? какой ответ с бэка?
 //TODO 3 - flow logic, mocking, navigation, dynamic bottom nav bar, ROLES
 
 //TODO 4 - backend, firebase, pushs, api, retrofit ...   +  manager UI, graphs
@@ -63,26 +62,32 @@ class MainActivity : AppCompatActivity() {
             navView.isVisible = destination.id != R.id.navigation_login && destination.id != R.id.navigation_manager
         }
 
-        var Token = ""
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task -> if (!task.isSuccessful) {
-            Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-            return@OnCompleteListener
-        }
-            // Get new FCM registration token
-            val token = task.result
-            Token = token
-            Log.d("!!!---[FCM token]---!!!", token)
-        })
-//        e9foPUHNTlGrd89FjYdApU:APA91bGd8-fp0RYhVpSxgeJh4WVCAa0wAqMvs1xC_uRf1geAXU2Tj4ALjAC4DrkOyFfMnT8MNL1Sf9mwfrEDVM8hcJ2MC600FZn3e6mImVkCojxoFdOihixMpIYk3J7rOtEEJBV8W2Uu
 
-        lifecycleScope.launch {
-            try {
-                val repository = DeskRepository()
-                val request = Request(1, Token)
-                repository.sendMessage(request)
-            } catch(_: Exception) {
-            }
-        }
+
+
+//        var Token = ""
+//        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task -> if (!task.isSuccessful) {
+//            Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+//            return@OnCompleteListener
+//        }
+//            // Get new FCM registration token
+//            val token = task.result
+//            Token = token
+//            Log.d("!!!---[FCM token]---!!!", token)
+//        })
+////        e9foPUHNTlGrd89FjYdApU:APA91bGd8-fp0RYhVpSxgeJh4WVCAa0wAqMvs1xC_uRf1geAXU2Tj4ALjAC4DrkOyFfMnT8MNL1Sf9mwfrEDVM8hcJ2MC600FZn3e6mImVkCojxoFdOihixMpIYk3J7rOtEEJBV8W2Uu
+//
+//        lifecycleScope.launch {
+//            try {
+//                val repository = DeskRepository()
+//                val request = Request(1, Token)
+//                repository.sendMessage(request)
+//            } catch(_: Exception) {
+//            }
+//        }
+
+
+
         NavigationUI.setupActionBarWithNavController(this, navController)
     }
     override fun onSupportNavigateUp(): Boolean {

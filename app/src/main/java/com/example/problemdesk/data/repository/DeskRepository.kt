@@ -1,14 +1,17 @@
-package com.example.problemdesk.unfiltered
+package com.example.problemdesk.data.repository
 
+import com.example.problemdesk.data.datasource.DeskApi
+import com.example.problemdesk.domain.repository.DeskRepository
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class DeskRepository {
+class DeskRepositoryImplementation: DeskRepository {
     companion object {
-        const val BASE_URL = "http://158.160.66.207:8000/docs#/default/send_message_endpoint_send_message_post"
+        const val BASE_URL = ""
+//            "http://158.160.66.207:8000/docs#/default/send_message_endpoint_send_message_post"
     }
 
 
@@ -30,5 +33,5 @@ class DeskRepository {
         retrofit.create(DeskApi::class.java)
     }
 
-    suspend fun sendMessage(request: Request) = deskApi.sendMessage(request)
+//    suspend fun sendMessage(request: Request) = deskApi.sendMessage(request)
 }

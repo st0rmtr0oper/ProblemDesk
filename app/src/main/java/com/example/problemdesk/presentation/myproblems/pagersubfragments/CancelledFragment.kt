@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.problemdesk.databinding.FragmentSubCancelledBinding
-import com.example.problemdesk.domain.models.Specialization
-import com.example.problemdesk.domain.models.Status
-import com.example.problemdesk.domain.models.Card
-import com.example.problemdesk.domain.models.Workplace
+import com.example.problemdesk.domain.OLDMODELSrefactor.Specialization
+import com.example.problemdesk.domain.OLDMODELSrefactor.Status
+import com.example.problemdesk.domain.OLDMODELSrefactor.Card
+import com.example.problemdesk.domain.OLDMODELSrefactor.Workplace
 import com.example.problemdesk.presentation.CardRecyclerViewAdapter
 
 class CancelledFragment : Fragment() {
