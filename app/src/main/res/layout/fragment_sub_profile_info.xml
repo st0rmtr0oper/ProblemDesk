@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Employee Login -->
+    <TextView
+        android:id="@+id/tvEmployeeLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="TMK-328654"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <!-- Employment Date -->
+    <TextView
+        android:id="@+id/tvEmploymentDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Стаж с 02/04/2015"
+        android:textColor="#888888"
+        android:textSize="14sp" />
+
+    <!-- Personal Data Section Header -->
+    <TextView
+        android:id="@+id/tvPersonalDataHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="Персональные данные"
+        android:textColor="#555555"
+        android:textSize="16sp" />
+
+    <!-- Full Name Label -->
+    <TextView
+        android:id="@+id/tvFullNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="ФИО"
+        android:textColor="#888888"
+        android:textSize="14sp" />
+
+    <!-- Full Name -->
+    <TextView
+        android:id="@+id/tvFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Алексеев Виктор Петрович"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <!-- Contact Phone Label -->
+    <TextView
+        android:id="@+id/tvContactPhoneLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Контактный телефон"
+        android:textColor="#888888"
+        android:textSize="14sp" />
+
+    <!-- Contact Phone -->
+    <TextView
+        android:id="@+id/tvContactPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="+ 7 985 422 5541"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <!-- Date of Birth Label -->
+    <TextView
+        android:id="@+id/tvDateOfBirthLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Дата Рождения"
+        android:textColor="#888888"
+        android:textSize="14sp" />
+
+    <!-- Date of Birth -->
+    <TextView
+        android:id="@+id/tvDateOfBirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="12/03/1967"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <!-- Email Label -->
+    <TextView
+        android:id="@+id/tvEmailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Почта"
+        android:textColor="#888888"
+        android:textSize="14sp" />
+
+    <!-- Email -->
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="alexeev.a@tmk.ru"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <!-- Position Label -->
+    <TextView
+        android:id="@+id/tvPositionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Должность"
+        android:textColor="#888888"
+        android:textSize="14sp" />
+
+    <!-- Position -->
+    <TextView
+        android:id="@+id/tvPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Сварщик"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <!-- Warning -->
+    <TextView
+        android:id="@+id/tvWarning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Внимание! Информация автоматически отображается из вашего личного кабинета. Для изменения обратитесь в отдел кадров."
+        android:textColor="#FF0000"
+        android:textSize="14sp" />
+</LinearLayout>
+

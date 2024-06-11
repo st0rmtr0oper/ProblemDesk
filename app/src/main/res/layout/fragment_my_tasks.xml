@@ -4,10 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.myproblems.MyProblemsFragment" >
+    android:orientation="vertical"
+    tools:context=".presentation.myproblems.MyProblemsFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/my_tasks_rv"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/my_tasks_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Не назначены" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Мои задания" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/my_tasks_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.problemdesk.presentation.mastermenu
+package com.example.problemdesk.presentation.mytasks.pagersubfragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,21 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.problemdesk.databinding.FragmentMasterBinding
+import com.example.problemdesk.databinding.FragmentSubPickedTasksBinding
 import com.example.problemdesk.domain.OLDMODELSrefactor.Card
 import com.example.problemdesk.domain.OLDMODELSrefactor.Specialization
 import com.example.problemdesk.domain.OLDMODELSrefactor.Status
 import com.example.problemdesk.domain.OLDMODELSrefactor.Workplace
 import com.example.problemdesk.presentation.CardRecyclerViewAdapter
 
-
-class MasterFragment : Fragment() {
-
-    private var _binding: FragmentMasterBinding? = null
+class PickedTasksFragment: Fragment() {
+    private var _binding: FragmentSubPickedTasksBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentMasterBinding.inflate(inflater, container, false)
+    companion object {
+        fun newInstance() = PickedTasksFragment()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentSubPickedTasksBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
     }
@@ -28,7 +32,7 @@ class MasterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //::handleCardClick binding RV click logic with fragment
-        binding.masterRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
+        binding.pickedTasksRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
 
 
         //TODO delete mocking
@@ -38,7 +42,7 @@ class MasterFragment : Fragment() {
             Card(Status.UNCHECKED, "111", Specialization.SANITARY_CONDITIONS, Workplace.N4, "хачю питсу"),
             Card(Status.COMPLETED, "111", Specialization.SANITARY_CONDITIONS, Workplace.N4, "vzlom zhopi")
         )
-        (binding.masterRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+        (binding.pickedTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
     }
 
     private fun handleCardClick(card: Card) {

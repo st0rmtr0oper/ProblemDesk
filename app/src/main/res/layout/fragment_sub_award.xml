@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Личная статистика"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#958F97"
+        android:paddingBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvTokens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3600"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:paddingBottom="4dp" />
+
+    <TextView
+        android:id="@+id/tvTokensLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Заработанные токены"
+        android:textSize="16sp"
+        android:textColor="#958F97"
+        android:paddingBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvCreatedRequests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="150"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:paddingBottom="4dp" />
+
+    <TextView
+        android:id="@+id/tvCreatedRequestsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Кол-во заведенных заявок"
+        android:textSize="16sp"
+        android:textColor="#958F97"
+        android:paddingBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvCompletedRequests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="160"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:paddingBottom="4dp" />
+
+    <TextView
+        android:id="@+id/tvCompletedRequestsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Кол-во исполненных заявок"
+        android:textSize="16sp"
+        android:textColor="#958F97"
+        android:paddingBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvLastCompletedDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="22/05/2024"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:paddingBottom="4dp" />
+
+    <TextView
+        android:id="@+id/tvLastCompletedDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Дата последней исполненной заявки"
+        android:textSize="16sp"
+        android:textColor="#958F97" />
+</LinearLayout>
