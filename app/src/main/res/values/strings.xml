@@ -15,4 +15,16 @@
     <string name="password3">024680</string>
     <string name="login4">sidorov@sinara.ru</string>
     <string name="password4">888888</string>
+    <string name="profile_sub_info_warning_label">Внимание! Информация автоматически отображается из вашего личного кабинета. Для изменения обратитесь в отдел кадров.</string>
+    <string name="profile_sub_info_personal_data_label">Персональные данные</string>
+    <string name="profile_sub_info_fullname_label">ФИО</string>
+    <string name="profile_sub_info_contact_phone">Контактный телефон</string>
+    <string name="profile_sub_info_birth_date_label">Дата рождения</string>
+    <string name="profile_sub_info_email_label">Почта</string>
+    <string name="profile_sub_info_position_label">Должность</string>
+    <string name="profile_sub_award_header_label">Личная статистика</string>
+    <string name="profile_sub_award_earned_tokens_label">Заработанные токены</string>
+    <string name="profile_sub_created_requests_label">Кол-во заведенных заявок</string>
+    <string name="profile_sub_completed_requests_label">Кол-во исполненных заявок</string>
+    <string name="profile_sub_last_completed_date_label">Дата последней исполненной заявки</string>
 </resources>

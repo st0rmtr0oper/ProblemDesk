@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.problemdesk.R
 import com.example.problemdesk.databinding.FragmentLoginBinding
 import com.example.problemdesk.domain.OLDMODELSrefactor.Role
 
@@ -37,7 +36,12 @@ class LoginFragment : Fragment() {
         loginViewModel.loginResult.observe(viewLifecycleOwner, Observer { role ->
             when (role) {
                 Role.MANAGER -> findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToManagerFragment())
-                Role.NONE -> Toast.makeText(requireContext(), "Invalid login or password", Toast.LENGTH_SHORT).show()
+                Role.NONE -> Toast.makeText(
+                    requireContext(),
+                    "Invalid login or password",
+                    Toast.LENGTH_SHORT
+                ).show()
+
                 else -> findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationProblemForm())
             }
         })

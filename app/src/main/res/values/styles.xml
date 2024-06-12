@@ -1,10 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--TODO styles-->
 <resources>
-    <style name="appStyle" parent="android:Widget.TextView">
+
+    <!--TODO shitty colors-->
+
+    <style name="headerTextViewStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/on_secondary_color</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="labelTextViewStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/on_secondary_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="dataTextViewStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/on_secondary_color</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <!--TODO styles-->
+
+    <style name="buttonStyle" parent="android:Widget.TextView">
         <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">8dp</item>
     </style>
+
+    <style name="warningStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="spinnerStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="editTextStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="bottomNavBarStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="tabViewTabsStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
 </resources>
