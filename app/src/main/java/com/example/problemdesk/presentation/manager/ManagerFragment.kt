@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.problemdesk.databinding.FragmentManagerBinding
 
 class ManagerFragment : Fragment() {
@@ -12,6 +13,7 @@ class ManagerFragment : Fragment() {
     private var _binding: FragmentManagerBinding? = null
     private val binding get() = _binding!!
 
+    private val managerViewModel: ManagerViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

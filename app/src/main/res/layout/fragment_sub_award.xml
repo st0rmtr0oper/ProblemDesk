@@ -7,83 +7,67 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/tvHeader"
+        android:id="@+id/award_header_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Личная статистика"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="#958F97"
-        android:paddingBottom="16dp" />
+        android:text="@string/profile_sub_award_header_label"
+        style="@style/headerTextViewStyle"/>
 
     <TextView
-        android:id="@+id/tvTokens"
+        android:id="@+id/award_tokens_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3600"
+        android:text="@string/profile_sub_award_earned_tokens_label"
+        style="@style/labelTextViewStyle"/>
+
+    <TextView
+        android:id="@+id/award_tokens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/dataTextViewStyle"/>
+
+    <TextView
+        android:id="@+id/award_created_requests_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_sub_created_requests_label"
+        style="@style/labelTextViewStyle"/>
+
+    <TextView
+        android:id="@+id/award_created_requests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textSize="24sp"
         android:textColor="#000000"
         android:paddingBottom="4dp" />
 
     <TextView
-        android:id="@+id/tvTokensLabel"
+        android:id="@+id/award_completed_requests_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Заработанные токены"
-        android:textSize="16sp"
-        android:textColor="#958F97"
-        android:paddingBottom="16dp" />
+        android:text="@string/profile_sub_completed_requests_label"
+        style="@style/labelTextViewStyle"/>
 
     <TextView
-        android:id="@+id/tvCreatedRequests"
+        android:id="@+id/award_completed_requests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="150"
         android:textSize="24sp"
         android:textColor="#000000"
         android:paddingBottom="4dp" />
 
     <TextView
-        android:id="@+id/tvCreatedRequestsLabel"
+        android:id="@+id/award_last_completed_date_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Кол-во заведенных заявок"
-        android:textSize="16sp"
-        android:textColor="#958F97"
-        android:paddingBottom="16dp" />
+        android:text="@string/profile_sub_last_completed_date_label"
+        style="@style/labelTextViewStyle"/>
 
     <TextView
-        android:id="@+id/tvCompletedRequests"
+        android:id="@+id/award_last_completed_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="160"
         android:textSize="24sp"
         android:textColor="#000000"
         android:paddingBottom="4dp" />
-
-    <TextView
-        android:id="@+id/tvCompletedRequestsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Кол-во исполненных заявок"
-        android:textSize="16sp"
-        android:textColor="#958F97"
-        android:paddingBottom="16dp" />
-
-    <TextView
-        android:id="@+id/tvLastCompletedDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="22/05/2024"
-        android:textSize="24sp"
-        android:textColor="#000000"
-        android:paddingBottom="4dp" />
-
-    <TextView
-        android:id="@+id/tvLastCompletedDateLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Дата последней исполненной заявки"
-        android:textSize="16sp"
-        android:textColor="#958F97" />
 </LinearLayout>

@@ -6,143 +6,136 @@
 
     <!-- Employee Login -->
     <TextView
-        android:id="@+id/tvEmployeeLogin"
+        android:id="@+id/profile_employee_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="TMK-328654"
         android:textColor="#000000"
         android:textSize="18sp" />
 
     <!-- Employment Date -->
     <TextView
-        android:id="@+id/tvEmploymentDate"
+        android:id="@+id/profile_employment_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Стаж с 02/04/2015"
         android:textColor="#888888"
         android:textSize="14sp" />
 
     <!-- Personal Data Section Header -->
     <TextView
-        android:id="@+id/tvPersonalDataHeader"
+        android:id="@+id/profile_data_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:text="Персональные данные"
+        android:text="@string/profile_sub_info_personal_data_label"
         android:textColor="#555555"
         android:textSize="16sp" />
 
-    <!-- Full Name Label -->
-    <TextView
-        android:id="@+id/tvFullNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:text="ФИО"
-        android:textColor="#888888"
-        android:textSize="14sp" />
-
     <!-- Full Name -->
     <TextView
-        android:id="@+id/tvFullName"
+        android:id="@+id/profile_full_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Алексеев Виктор Петрович"
         android:textColor="#000000"
         android:textSize="18sp" />
 
-    <!-- Contact Phone Label -->
+    <!-- Full Name Label -->
     <TextView
-        android:id="@+id/tvContactPhoneLabel"
+        android:id="@+id/profile_full_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="Контактный телефон"
+        android:text="@string/profile_sub_info_fullname_label"
         android:textColor="#888888"
         android:textSize="14sp" />
 
     <!-- Contact Phone -->
     <TextView
-        android:id="@+id/tvContactPhone"
+        android:id="@+id/profile_contact_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="+ 7 985 422 5541"
         android:textColor="#000000"
         android:textSize="16sp" />
 
-    <!-- Date of Birth Label -->
+    <!-- Contact Phone Label -->
     <TextView
-        android:id="@+id/tvDateOfBirthLabel"
+        android:id="@+id/profile_contact_phone_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="Дата Рождения"
+        android:text="@string/profile_sub_info_contact_phone"
         android:textColor="#888888"
         android:textSize="14sp" />
 
     <!-- Date of Birth -->
     <TextView
-        android:id="@+id/tvDateOfBirth"
+        android:id="@+id/profile_date_of_birth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="12/03/1967"
         android:textColor="#000000"
         android:textSize="16sp" />
 
-    <!-- Email Label -->
+    <!-- Date of Birth Label -->
     <TextView
-        android:id="@+id/tvEmailLabel"
+        android:id="@+id/profile_date_of_birth_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="Почта"
+        android:text="@string/profile_sub_info_birth_date_label"
         android:textColor="#888888"
         android:textSize="14sp" />
 
     <!-- Email -->
     <TextView
-        android:id="@+id/tvEmail"
+        android:id="@+id/profile_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="alexeev.a@tmk.ru"
         android:textColor="#000000"
         android:textSize="16sp" />
 
-    <!-- Position Label -->
+    <!-- Email Label -->
     <TextView
-        android:id="@+id/tvPositionLabel"
+        android:id="@+id/profile_email_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="Должность"
+        android:text="@string/profile_sub_info_email_label"
         android:textColor="#888888"
         android:textSize="14sp" />
 
     <!-- Position -->
     <TextView
-        android:id="@+id/tvPosition"
+        android:id="@+id/tprofile_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Сварщик"
         android:textColor="#000000"
         android:textSize="16sp" />
 
+    <!-- Position Label -->
+    <TextView
+        android:id="@+id/profile_position_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/profile_sub_info_position_label"
+        android:textColor="#888888"
+        android:textSize="14sp" />
+
     <!-- Warning -->
     <TextView
-        android:id="@+id/tvWarning"
+        android:id="@+id/profile_warning_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Внимание! Информация автоматически отображается из вашего личного кабинета. Для изменения обратитесь в отдел кадров."
+        android:text="@string/profile_sub_info_warning_label"
         android:textColor="#FF0000"
         android:textSize="14sp" />
 </LinearLayout>
