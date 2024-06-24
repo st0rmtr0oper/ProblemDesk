@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.example.problemdesk"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.problemdesk"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -54,7 +54,7 @@ dependencies {
     //firebase
 //    implementation("com.google.firebase:firebase-messaging-ktx:24.0.0")
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
-    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-messaging")
 
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
