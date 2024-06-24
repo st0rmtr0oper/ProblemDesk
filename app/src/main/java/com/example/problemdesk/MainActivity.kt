@@ -14,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.problemdesk.data.repository.DeskRepositoryImplementation
 import com.example.problemdesk.databinding.ActivityMainBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
@@ -65,21 +66,20 @@ class MainActivity : AppCompatActivity() {
 
 
 
-//        var Token = ""
-//        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task -> if (!task.isSuccessful) {
-//            Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-//            return@OnCompleteListener
-//        }
-//            // Get new FCM registration token
-//            val token = task.result
-//            Token = token
-//            Log.d("!!!---[FCM token]---!!!", token)
-//        })
-////        e9foPUHNTlGrd89FjYdApU:APA91bGd8-fp0RYhVpSxgeJh4WVCAa0wAqMvs1xC_uRf1geAXU2Tj4ALjAC4DrkOyFfMnT8MNL1Sf9mwfrEDVM8hcJ2MC600FZn3e6mImVkCojxoFdOihixMpIYk3J7rOtEEJBV8W2Uu
-//
+        var Token: String
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task -> if (!task.isSuccessful) {
+            Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+            return@OnCompleteListener
+        }
+            // Get new FCM registration token
+            val token = task.result
+            Token = token
+            Log.d("!!!---[FCM token]---!!!", token)
+        })
+//        dI3wqql_Rhi5an3cdExtaL:APA91bHv_pr2paxL_1ocO40Xwh_PIQxmJW-jHCisZuFBwyLhscXS9e27s4Kw_wEkvPzuCywB7-Cq_9iZ_bLbvMJcxMRRk1Kw3QIkOHWb3tSuByhW_RkO3RKw9cQuwjpqoklisE4SKiqx
 //        lifecycleScope.launch {
 //            try {
-//                val repository = DeskRepository()
+//                val repository = DeskRepositoryImplementation()
 //                val request = Request(1, Token)
 //                repository.sendMessage(request)
 //            } catch(_: Exception) {
