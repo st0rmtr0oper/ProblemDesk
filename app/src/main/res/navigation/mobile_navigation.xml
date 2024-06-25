@@ -38,21 +38,29 @@
             android:id="@+id/action_navigation_login_to_navigation_problem_form"
             app:destination="@id/navigation_problem_form"
             app:popUpTo="@id/navigation_problem_form"
-            app:popUpToInclusive="false"/>
+            app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_navigation_login_to_managerFragment"
-            app:destination="@id/navigation_manager"
-            app:popUpTo="@id/navigation_manager"
-            app:popUpToInclusive="false"/>
+            android:id="@+id/action_navigation_login_to_navigation_master"
+            app:destination="@id/navigation_master"
+            app:popUpTo="@id/navigation_master"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_statistics"
+            app:destination="@id/navigation_statistics"
+            app:popUpTo="@id/navigation_statistics"
+            app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.problemdesk.presentation.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile" />
+
     <fragment
-        android:id="@+id/navigation_manager"
+        android:id="@+id/navigation_statistics"
         android:name="com.example.problemdesk.presentation.manager.ManagerFragment"
-        android:label="ManagerFragment"
-        tools:layout="@layout/fragment_manager"/>
+        android:label="@string/title_statistics"
+        tools:layout="@layout/fragment_statistics" />
+
 </navigation>

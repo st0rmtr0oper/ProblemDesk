@@ -27,4 +27,6 @@
     <string name="profile_sub_created_requests_label">Кол-во заведенных заявок</string>
     <string name="profile_sub_completed_requests_label">Кол-во исполненных заявок</string>
     <string name="profile_sub_last_completed_date_label">Дата последней исполненной заявки</string>
+    <string name="title_statistics">Статистика</string>
+    <string name="profile_exit_button_title">Выйти</string>
 </resources>

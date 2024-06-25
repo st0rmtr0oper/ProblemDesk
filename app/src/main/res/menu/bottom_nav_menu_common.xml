@@ -13,13 +13,8 @@
 
     <item
         android:id="@+id/navigation_my_tasks"
-        android:icon="@android:drawable/ic_menu_today"
+        android:icon="@android:drawable/ic_menu_manage"
         android:title="@string/title_my_tasks" />
-
-    <item
-        android:id="@+id/navigation_master"
-        android:icon="@android:drawable/ic_menu_myplaces"
-        android:title="@string/title_master" />
 
     <item
         android:id="@+id/navigation_profile"

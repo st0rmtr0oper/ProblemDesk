@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--TODO working now-->
+
+    <!--interactive-->
+
+    <style name="textInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:color">@color/primary_color</item>
+        <item name="android:textColor">@color/primary_color</item>
+        <item name="android:fontFamily">sans-serif</item>
+<!--        <item name="android:layout_width">match_parent</item>-->
+<!--        <item name="android:layout_height">wrap_content</item>-->
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <!--    <style name="textInputEditTextStyle" parent="Widget.MaterialComponents.TextЮ"-->
+    <!--this is the actual edit text which takes the input-->
+    <!--    <com.google.android.material.textfield.TextInputEditText-->
+    <!--        android:id="@+id/edit_text"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content" />-->
+
+    <style name="buttonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+
     <!--TODO shitty colors-->
+    <!--TODO styles-->
+
+    <!--text-->
 
     <style name="headerTextViewStyle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/on_secondary_color</item>
@@ -22,31 +53,13 @@
         <item name="android:padding">8dp</item>
     </style>
 
-    <!--TODO styles-->
-
-    <style name="buttonStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/text_color</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:padding">8dp</item>
-    </style>
-
     <style name="warningStyle" parent="android:Widget.TextView">
         <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">8dp</item>
     </style>
 
-    <style name="spinnerStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/text_color</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:padding">8dp</item>
-    </style>
-
-    <style name="editTextStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/text_color</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:padding">8dp</item>
-    </style>
+    <!--navigation-->
 
     <style name="bottomNavBarStyle" parent="android:Widget.TextView">
         <item name="android:textColor">@color/text_color</item>

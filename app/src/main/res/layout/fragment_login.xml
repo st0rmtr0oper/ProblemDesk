@@ -8,11 +8,11 @@
 
     <ImageView
         android:id="@+id/login_image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        app:srcCompat="@drawable/lo2"></ImageView>
+        app:srcCompat="@drawable/lo2"/>
 
     <EditText
         android:id="@+id/login_text"
