@@ -5,76 +5,47 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="sans-serif-medium"
-        android:hint="Текст заявки"
-        android:textAlignment="center"
-        android:textSize="20sp"></TextView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
-
     <Spinner
         android:id="@+id/problem_type_spinner"
-        style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+        style="@style/spinnerStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
-        android:fontFamily="sans-serif-medium"
-        android:hint="Специализация"
-        android:inputType="textCapSentences"
-        android:textColor="#FE7E15"
-        android:textSize="16sp" />
+        android:layout_marginEnd="40dp" />
 
     <Spinner
         android:id="@+id/user_workplace_spinner"
-        style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+        style="@style/spinnerStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
-        android:fontFamily="sans-serif-medium"
-        android:hint="Специализация"
-        android:inputType="textCapSentences"
-        android:textColor="#FE7E15"
-        android:textSize="16sp" />
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp" />
 
     <EditText
         android:id="@+id/problem_description"
-        style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+        style="@style/multiLineEditTextStyle"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="360dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
         android:ems="10"
-        android:fontFamily="sans-serif-medium"
-        android:hint="Текст обращения"
+        android:hint="@string/problem_form_edit_text_hint"
         android:inputType="textMultiLine"
-        android:scrollbars="vertical"
-        android:textAlignment="gravity"
-        android:textColor="#FE7E15"
-        android:textSize="16sp" />
+        android:scrollbars="vertical" />
 
 
     <Button
         android:id="@+id/login_button"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/buttonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:fontFamily="sans-serif-medium"
-        android:text="оТПРАВИТЬ ПРОБЛЕМу"
-        android:textColor="#FE7E14"
-        android:textSize="16sp" />
+        android:layout_gravity="center"
+        android:text="@string/problem_form_button_send_title"/>
 </LinearLayout>

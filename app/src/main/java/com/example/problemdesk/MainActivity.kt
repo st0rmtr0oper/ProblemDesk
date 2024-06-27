@@ -20,15 +20,14 @@ import com.google.firebase.messaging.FirebaseMessaging
 
 
 //TODO 1 - UI
-//TODO - login design
 //TODO - problem form design
 //TODO - collections representation
+//TODO 1.8.1 - popup messages (modal? idk), card handling
 
 //TODO 1.8 - themes, custom styles, colors string resources
-//TODO 1.8.1 - popup messages (modal? idk), card handling
 //TODO 1.9 - final design
 
-//TODO 2 - MVVM
+//TODO 2 - MVVM for the rest
 
 // какие юзкейсы? какой ответ с бэка?
 //TODO 3 - final flow logic

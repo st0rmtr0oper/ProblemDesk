@@ -12,6 +12,8 @@ import com.example.problemdesk.MainActivity
 import com.example.problemdesk.databinding.FragmentLoginBinding
 import com.example.problemdesk.domain.OLDMODELSrefactor.Role
 
+//TODO validation
+
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
@@ -45,7 +47,7 @@ class LoginFragment : Fragment() {
                     }
                     binding.loginPasswordLayout.apply {
                         isErrorEnabled = true
-                        error = ""
+                        error = "Неверный логин или пароль"
                     }
                 }
 

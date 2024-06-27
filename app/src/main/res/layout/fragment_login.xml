@@ -30,11 +30,11 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
         app:errorEnabled="true"
-        app:errorTextAppearance="@style/TextInputLayoutError">
+        app:errorTextAppearance="@style/textInputLayoutErrorStyle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_text"
-            style="@style/editTextStyle"
+            style="@style/nestedEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -51,11 +51,11 @@
         app:passwordToggleEnabled="true"
         app:counterEnabled="true"
         app:errorEnabled="true"
-        app:errorTextAppearance="@style/TextInputLayoutError">
+        app:errorTextAppearance="@style/textInputLayoutErrorStyle">
 
     <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_password"
-            style="@style/editTextStyle"
+            style="@style/nestedEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"

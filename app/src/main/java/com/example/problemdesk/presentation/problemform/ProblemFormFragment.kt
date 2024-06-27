@@ -12,6 +12,9 @@ import com.example.problemdesk.databinding.FragmentProblemFormBinding
 import com.example.problemdesk.domain.OLDMODELSrefactor.Specialization
 import com.example.problemdesk.domain.OLDMODELSrefactor.Workplace
 
+//TODO spinners/edit text validation
+//TODO errors
+
 class ProblemFormFragment : Fragment() {
 
     private var _binding: FragmentProblemFormBinding? = null
@@ -50,11 +53,12 @@ class ProblemFormFragment : Fragment() {
         _binding = null
     }
 
-
+    //TODO add hint emulation
 
     //TODO this shouldn't be here
     private fun getSpecializationArray(): Array<String> {
         val specializations: Array<String> = arrayOf(
+            "Выберите тип проблемы...",
             Specialization.DOCUMENTS.toString(),
             Specialization.INSTRUMENTS.toString(),
             Specialization.SANITARY_CONDITIONS.toString(),
@@ -64,6 +68,7 @@ class ProblemFormFragment : Fragment() {
     }
     private fun getWorkplaceArray(): Array<String> {
         val workplaces: Array<String> = arrayOf(
+            "Выберите участок...",
             Workplace.N1.toString(),
             Workplace.N2.toString(),
             Workplace.N3.toString(),

@@ -34,4 +34,6 @@
     <string name="edit_text_hint_password">Пароль</string>
     <string name="edit_text_hint_login">Логин</string>
     <string name="login_problemdesk_title">ProblemDesk</string>
+    <string name="problem_form_edit_text_hint">Опишите проблему...</string>
+    <string name="problem_form_button_send_title">Отправить</string>
 </resources>
