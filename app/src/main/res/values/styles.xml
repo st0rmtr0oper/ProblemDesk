@@ -1,31 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--TODO working now-->
+    <!--TODO final colors-->
 
-    <!--interactive-->
-
-    <style name="textInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:color">@color/primary_color</item>
-        <item name="android:textColor">@color/primary_color</item>
-        <item name="android:fontFamily">sans-serif</item>
-<!--        <item name="android:layout_width">match_parent</item>-->
-<!--        <item name="android:layout_height">wrap_content</item>-->
+    <!-- Interactive -->
+    <!-- Button Style -->
+    <style name="buttonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <!-- ?attr -->
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="strokeColor">@color/primary_color</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">8dp</item>
     </style>
 
-    <!--    <style name="textInputEditTextStyle" parent="Widget.MaterialComponents.TextЮ"-->
-    <!--this is the actual edit text which takes the input-->
-    <!--    <com.google.android.material.textfield.TextInputEditText-->
-    <!--        android:id="@+id/edit_text"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content" />-->
-
-    <style name="buttonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:textColor">@color/text_color</item>
-        <item name="android:textSize">16sp</item>
+    <!-- TextInputLayout Style -->
+    <style name="textInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/text_input_outline_color</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
         <item name="android:padding">8dp</item>
+    </style>
+
+    <!-- EditText Style -->
+    <style name="editTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">@color/primary_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:padding">8dp</item>
+        <!-- ?attr -->
+        <item name="hintTextColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <!-- Error message Style -->
+    <style name="TextInputLayoutError" parent="TextAppearance.Design.Error">
+        <item name="android:textColor">@color/design_default_color_error</item>
+        <item name="android:textSize">10sp</item>
     </style>
 
 
@@ -33,30 +48,33 @@
     <!--TODO styles-->
 
     <!--text-->
-
     <style name="headerTextViewStyle" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/on_secondary_color</item>
+        <item name="android:textColor">@color/primary_color</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">10dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="labelTextViewStyle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/on_secondary_color</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">8dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="dataTextViewStyle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/on_secondary_color</item>
         <item name="android:textSize">18sp</item>
         <item name="android:padding">8dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="warningStyle" parent="android:Widget.TextView">
         <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">8dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <!--navigation-->

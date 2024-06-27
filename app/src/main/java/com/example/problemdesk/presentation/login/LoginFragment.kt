@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -31,16 +30,24 @@ class LoginFragment : Fragment() {
         binding.loginButton.setOnClickListener {
             val login = binding.loginText.text.toString()
             val password = binding.loginPassword.text.toString()
+            binding.loginTextLayout.error = null
+            binding.loginPasswordLayout.error = null
             loginViewModel.validate(login, password, resources)
         }
 
         loginViewModel.loginResult.observe(viewLifecycleOwner, Observer { role ->
             when (role) {
-                Role.NONE -> Toast.makeText(
-                    requireContext(),
-                    "Неверный логин или пароль",
-                    Toast.LENGTH_SHORT
-                ).show()
+
+                Role.NONE -> {
+                    binding.loginTextLayout.apply {
+                        isErrorEnabled = true
+                        error = "Неверный логин или пароль"
+                    }
+                    binding.loginPasswordLayout.apply {
+                        isErrorEnabled = true
+                        error = ""
+                    }
+                }
 
                 Role.MANAGER -> {
                     (activity as MainActivity).setupBottomNavMenu("manager")

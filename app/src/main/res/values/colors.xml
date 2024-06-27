@@ -1,35 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--        TODO colors, themes, style colors, etc-->
         <color name="primary_color">#F87E16</color>
         <color name="primary_variant_color">#C87035</color>
-        <color name="on_primary_color">#7B7179</color>
 
-        <color name="secondary_color">#8E0093</color>
-        <color name="secondary_variant_color">#CF84C9</color>
-        <color name="on_secondary_color">#8C8C8D</color>
+<!--        <color name="secondary_color">#8E0093</color>-->
+<!--        <color name="secondary_variant_color">#CF84C9</color>-->
 
+        <color name="light_theme_text">#222222</color>
+        <color name="dark_theme_text">#FFFFFF</color>
+
+        <color name="on_secondary_color">#222222</color>
         <color name="text_color">#222222</color>
-
-        <!--        <color name="light_text_color">#696969</color>-->
-<!--        <color name="light_background_color">#F7F7F7</color>-->
-<!--        <color name="dark_text_color">#7B7179</color>-->
-<!--        <color name="dark_background_color">#181118</color>-->
 
         <color name="status_unchecked_color">#7C1879</color>
         <color name="status_approved_color">#E4AF26</color>
         <color name="status_in_work_color">#FD7215</color>
         <color name="status_completed_color">#339371</color>
         <color name="status_cancelled_color">#F0000F</color>
-
-        <!--    <color name="light_pr">#920695</color>-->
-    <!--    <color name="light_pr_txt">#555555</color>-->
-    <!--    <color name="light_sc_txt">#878787</color>-->
-    <!--    <color name="light_bg1">#F3F3F3</color>-->
-    <!--    <color name="light_bg2">#F9F8F9</color>-->
-
-    <!--    <color name="dark_pr">#FD7E09</color>-->
-    <!--    <color name="dark_pr_txt">#6F4670</color>-->
-    <!--    <color name="dark_sc_txt">#585158</color>-->
-    <!--    <color name="dark_bg1">#1D161D</color>-->
-    <!--    <color name="dark_bg2">#231922</color>-->
 </resources>
+

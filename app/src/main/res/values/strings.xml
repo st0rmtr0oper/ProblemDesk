@@ -29,4 +29,9 @@
     <string name="profile_sub_last_completed_date_label">Дата последней исполненной заявки</string>
     <string name="title_statistics">Статистика</string>
     <string name="profile_exit_button_title">Выйти</string>
+    <string name="login_password_forgot_button_title">Забыли пароль?</string>
+    <string name="login_button_title">Вход</string>
+    <string name="edit_text_hint_password">Пароль</string>
+    <string name="edit_text_hint_login">Логин</string>
+    <string name="login_problemdesk_title">ProblemDesk</string>
 </resources>
