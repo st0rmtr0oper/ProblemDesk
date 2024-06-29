@@ -38,7 +38,7 @@ class ProfileInfoFragment : Fragment() {
                     profileContactPhone.text = profileData.contactPhone
                     profileDateOfBirth.text = profileData.dateOfBirth
                     profileEmail.text = profileData.email
-                    tprofilePosition.text = profileData.position
+                    profilePosition.text = profileData.position
                 }
             })
         profileInfoViewModel.loadInfo()

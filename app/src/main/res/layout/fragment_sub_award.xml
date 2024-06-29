@@ -8,66 +8,60 @@
 
     <TextView
         android:id="@+id/award_header_label"
+        style="@style/headerTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_sub_award_header_label"
-        style="@style/headerTextViewStyle"/>
+        android:text="@string/profile_sub_award_header_label" />
 
     <TextView
         android:id="@+id/award_tokens_label"
+        style="@style/labelTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_sub_award_earned_tokens_label"
-        style="@style/labelTextViewStyle"/>
+        android:text="@string/profile_sub_award_earned_tokens_label" />
 
     <TextView
         android:id="@+id/award_tokens"
+        style="@style/dataTextViewStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/dataTextViewStyle"/>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/award_created_requests_label"
+        style="@style/labelTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_sub_created_requests_label"
-        style="@style/labelTextViewStyle"/>
+        android:text="@string/profile_sub_created_requests_label" />
 
     <TextView
         android:id="@+id/award_created_requests"
+        style="@style/dataTextViewStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textColor="#000000"
-        android:paddingBottom="4dp" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/award_completed_requests_label"
+        style="@style/labelTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_sub_completed_requests_label"
-        style="@style/labelTextViewStyle"/>
+        android:text="@string/profile_sub_completed_requests_label" />
 
     <TextView
         android:id="@+id/award_completed_requests"
+        style="@style/dataTextViewStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textColor="#000000"
-        android:paddingBottom="4dp" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/award_last_completed_date_label"
+        style="@style/labelTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_sub_last_completed_date_label"
-        style="@style/labelTextViewStyle"/>
+        android:text="@string/profile_sub_last_completed_date_label" />
 
     <TextView
         android:id="@+id/award_last_completed_date"
+        style="@style/dataTextViewStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textColor="#000000"
-        android:paddingBottom="4dp" />
+        android:layout_height="wrap_content" />
 </LinearLayout>

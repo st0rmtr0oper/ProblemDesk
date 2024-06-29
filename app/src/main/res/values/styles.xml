@@ -91,7 +91,7 @@
     <!--TODO shitty colors-->
     <!--TODO styles-->
 
-    <!--text-->
+    <!-- Texts -->
     <style name="headerTextViewStyle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/primary_color</item>
         <item name="android:textSize">22sp</item>
@@ -101,21 +101,23 @@
     </style>
 
     <style name="labelTextViewStyle" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/on_secondary_color</item>
+        <item name="android:textColor">@color/primary_variant_color</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">8dp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="dataTextViewStyle" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/on_secondary_color</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:padding">8dp</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="warningStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textColor">@color/design_default_color_error</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">8dp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
