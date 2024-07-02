@@ -33,10 +33,11 @@ class MasterFragment : Fragment() {
 
         //TODO delete mocking
         val cards = listOf(
-            Card(Status.CANCELLED, "222", Specialization.INSTRUMENTS, Workplace.N1, "aboba"),
-            Card(Status.APPROVED, "0", Specialization.DOCUMENTS, Workplace.N3, "amogus"),
-            Card(Status.UNCHECKED, "111", Specialization.SANITARY_CONDITIONS, Workplace.N4, "хачю питсу"),
-            Card(Status.COMPLETED, "111", Specialization.SANITARY_CONDITIONS, Workplace.N4, "vzlom zhopi")
+            Card(Status.APPROVED, "01.07.24", Specialization.INSTRUMENTS, Workplace.N1, "сломалась болгарка"),
+            Card(Status.IN_PROGRESS, "30.06.24", Specialization.SAFETY, Workplace.N2, "проблема с проводкой"),
+            Card(Status.CANCELLED, "01.07.24", Specialization.DOCUMENTS, Workplace.N3, "проблема с документами"),
+            Card(Status.UNCHECKED, "02.07.24", Specialization.SANITARY_CONDITIONS, Workplace.N4, "закончилось мыло"),
+            Card(Status.COMPLETED, "27.06.24", Specialization.SANITARY_CONDITIONS, Workplace.N4, "поменять лампочку")
         )
         (binding.masterRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
     }

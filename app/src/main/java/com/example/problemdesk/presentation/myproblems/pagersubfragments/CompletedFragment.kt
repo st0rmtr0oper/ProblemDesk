@@ -36,10 +36,7 @@ class CompletedFragment : Fragment() {
 
         //TODO delete mocking
         val cards = listOf(
-            Card(Status.CANCELLED, "222", Specialization.INSTRUMENTS, Workplace.N1, "aboba"),
-            Card(Status.APPROVED, "0", Specialization.DOCUMENTS, Workplace.N3, "amogus"),
-            Card(Status.UNCHECKED, "111", Specialization.SANITARY_CONDITIONS, Workplace.N4, "хачю питсу"),
-            Card(Status.COMPLETED, "111", Specialization.SANITARY_CONDITIONS, Workplace.N4, "vzlom zhopi")
+            Card(Status.COMPLETED, "27.06.24", Specialization.SANITARY_CONDITIONS, Workplace.N4, "поменять лампочку")
         )
         (binding.completedRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
     }

@@ -5,7 +5,7 @@ data class Card(
     val date: String,
     val specialization: Specialization,
     val workplace: Workplace,
-    val taskText: String,
+    val taskText: String
 )
 
 //TODO draft variant

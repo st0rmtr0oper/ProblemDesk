@@ -123,6 +123,24 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <!--Card Style-->
+
+    <!-- CardView Style -->
+    <style name="cardViewStyle">
+        <item name="cardCornerRadius">10dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">?attr/colorOnSecondary</item>
+        <item name="strokeColor">@color/primary_color</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+
+    <!-- TextView Style -->
+    <style name="textViewStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
     <!--navigation-->
 
     <style name="bottomNavBarStyle" parent="android:Widget.TextView">
