@@ -59,20 +59,28 @@ class ProblemFormFragment : Fragment() {
     private fun getSpecializationArray(): Array<String> {
         val specializations: Array<String> = arrayOf(
             "Выберите тип проблемы...",
-            Specialization.DOCUMENTS.toString(),
-            Specialization.INSTRUMENTS.toString(),
-            Specialization.SANITARY_CONDITIONS.toString(),
-            Specialization.SAFETY.toString()
+            "Документы",
+            "Инструменты",
+            "Санитарно-бытовые условия",
+            "Безопасность"
+//            Specialization.DOCUMENTS.toString(),
+//            Specialization.INSTRUMENTS.toString(),
+//            Specialization.SANITARY_CONDITIONS.toString(),
+//            Specialization.SAFETY.toString()
         )
         return specializations
     }
     private fun getWorkplaceArray(): Array<String> {
         val workplaces: Array<String> = arrayOf(
             "Выберите участок...",
-            Workplace.N1.toString(),
-            Workplace.N2.toString(),
-            Workplace.N3.toString(),
-            Workplace.N4.toString()
+            "№1",
+            "№2",
+            "№3",
+            "№4"
+//            Workplace.N1.toString(),
+//            Workplace.N2.toString(),
+//            Workplace.N3.toString(),
+//            Workplace.N4.toString()
         )
         return workplaces
     }

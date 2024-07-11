@@ -37,7 +37,9 @@ class PickedTasksFragment: Fragment() {
 
         //TODO delete mocking
         val cards = listOf(
-            Card(Status.IN_PROGRESS, "30.06.24", Specialization.SAFETY, Workplace.N2, "проблема с проводкой")
+            Card("В работе", "30.06.24", "Безопасность", "№2", "проблема с проводкой"),
+
+//                    Card(Status.IN_PROGRESS, "30.06.24", Specialization.SAFETY, Workplace.N2, "проблема с проводкой")
         )
         (binding.pickedTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
     }

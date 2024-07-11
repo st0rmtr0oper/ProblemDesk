@@ -36,7 +36,9 @@ class CancelledFragment : Fragment() {
 
         //TODO delete mocking
         val cards = listOf(
-            Card(Status.CANCELLED, "01.07.24", Specialization.DOCUMENTS, Workplace.N3, "проблема с документами")
+            Card("Отменено", "01.07.24", "Документооборот", "№3", "проблема с документами"),
+
+//            Card(Status.CANCELLED, "01.07.24", Specialization.DOCUMENTS, Workplace.N3, "проблема с документами")
         )
         (binding.cancelledRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
     }

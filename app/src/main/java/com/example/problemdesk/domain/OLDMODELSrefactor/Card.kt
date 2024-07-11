@@ -1,10 +1,13 @@
 package com.example.problemdesk.domain.OLDMODELSrefactor
 
 data class Card(
-    val status: Status,
+    val status: String,
+//    val status: Status,
     val date: String,
-    val specialization: Specialization,
-    val workplace: Workplace,
+    val specialization: String,
+    val workplace: String,
+//    val specialization: Specialization,
+//    val workplace: Workplace,
     val taskText: String
 )
 

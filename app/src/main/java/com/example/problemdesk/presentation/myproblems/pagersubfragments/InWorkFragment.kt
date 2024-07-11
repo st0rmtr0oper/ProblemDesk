@@ -36,9 +36,13 @@ class InWorkFragment : Fragment() {
 
         //TODO delete mocking
         val cards = listOf(
-            Card(Status.APPROVED, "01.07.24", Specialization.INSTRUMENTS, Workplace.N1, "сломалась болгарка"),
-            Card(Status.IN_PROGRESS, "30.06.24", Specialization.SAFETY, Workplace.N2, "проблема с проводкой"),
-            Card(Status.UNCHECKED, "02.07.24", Specialization.SANITARY_CONDITIONS, Workplace.N4, "закончилось мыло")
+            Card("Принято", "01.07.24", "Инструменты", "№1", "сломалась болгарка"),
+            Card("В работе", "30.06.24", "Безопасность", "№2", "проблема с проводкой"),
+            Card("На рассмотрении", "02.07.24", "Санитарно-бытовые условия", "№4", "закончилось мыло"),
+
+//                    Card(Status.APPROVED, "01.07.24", Specialization.INSTRUMENTS, Workplace.N1, "сломалась болгарка"),
+//            Card(Status.IN_PROGRESS, "30.06.24", Specialization.SAFETY, Workplace.N2, "проблема с проводкой"),
+//            Card(Status.UNCHECKED, "02.07.24", Specialization.SANITARY_CONDITIONS, Workplace.N4, "закончилось мыло")
         )
         (binding.inWorkRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
     }
