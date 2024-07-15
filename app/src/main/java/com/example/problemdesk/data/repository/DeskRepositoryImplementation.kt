@@ -33,5 +33,11 @@ class DeskRepositoryImplementation: DeskRepository {
         retrofit.create(DeskApi::class.java)
     }
 
-//    suspend fun sendMessage(request: Request) = deskApi.sendMessage(request)
+    suspend fun login(username: String, password: String) = deskApi.login(username, password)
+    suspend fun createRequest(requestType: Int, userId: Int, areaId: Int, description: String) = deskApi.createRequest(requestType, userId, areaId, description)
+    suspend fun approveRequest(userId: Int, requestId: Int, assignTo: Int, deadline: String) = deskApi.approveRequest(userId, requestId, assignTo, deadline)
+    suspend fun rejectRequest(userId: Int, requestId: Int) = deskApi.rejectRequest(userId, requestId)
+    suspend fun completeRequest(userId: Int, requestId: Int) = deskApi.completeRequest(userId, requestId)
+    suspend fun confirmRequests(userId: Int, requestId: Int) = deskApi.confirmRequest(userId, requestId)
+    suspend fun getRequests() = deskApi.getRequests()
 }

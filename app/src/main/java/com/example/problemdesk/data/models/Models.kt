@@ -1,4 +1,13 @@
-package com.example.problemdesk.data
+package com.example.problemdesk.data.models
+
+data class LoginResponse(
+    val userId: Int,
+    val positionId: Int
+)
+
+data class RequestResponse(
+    val detail: Detail
+)
 
 data class Detail(
     val items: List<DetailItem>

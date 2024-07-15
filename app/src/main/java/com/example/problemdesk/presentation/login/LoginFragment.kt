@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.problemdesk.MainActivity
 import com.example.problemdesk.databinding.FragmentLoginBinding
 import com.example.problemdesk.domain.OLDMODELSrefactor.Role
+import kotlinx.coroutines.launch
 
 //TODO validation
 
@@ -34,13 +36,28 @@ class LoginFragment : Fragment() {
             val password = binding.loginPassword.text.toString()
             binding.loginTextLayout.error = null
             binding.loginPasswordLayout.error = null
-            loginViewModel.validate(login, password, resources)
+
+            lifecycleScope.launch {
+                loginViewModel.validate(login, password)
+            }
         }
 
-        loginViewModel.loginResult.observe(viewLifecycleOwner, Observer { role ->
+        loginViewModel.userRole.observe(viewLifecycleOwner, Observer { role ->
             when (role) {
-
-                Role.NONE -> {
+                1 -> {
+                    (activity as MainActivity).setupBottomNavMenu("executor")
+                    findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationProblemForm())
+                }
+                2 -> {
+                    (activity as MainActivity).setupBottomNavMenu("master")
+                    findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationMaster())
+                }
+                3 -> {
+                    (activity as MainActivity).setupBottomNavMenu("manager")
+                    findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationStatistics())
+                }
+                0 -> {
+                    //TODO need to handle error!!!
                     binding.loginTextLayout.apply {
                         isErrorEnabled = true
                         error = "Неверный логин или пароль"
@@ -49,21 +66,6 @@ class LoginFragment : Fragment() {
                         isErrorEnabled = true
                         error = "Неверный логин или пароль"
                     }
-                }
-
-                Role.MANAGER -> {
-                    (activity as MainActivity).setupBottomNavMenu("manager")
-                    findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationStatistics())
-                }
-
-                Role.MASTER -> {
-                    (activity as MainActivity).setupBottomNavMenu("master")
-                    findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationMaster())
-                }
-
-                else -> {
-                    (activity as MainActivity).setupBottomNavMenu("executor")
-                    findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationProblemForm())
                 }
             }
         })

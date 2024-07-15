@@ -1,4 +1,4 @@
-package com.example.problemdesk.data.firebase
+package com.example.problemdesk.data.notifications
 
 import android.Manifest
 import android.app.NotificationChannel
@@ -15,6 +15,8 @@ import com.example.problemdesk.MainActivity
 import com.example.problemdesk.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+
+//TODO idk how its works
 
 class PushNotificationService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
