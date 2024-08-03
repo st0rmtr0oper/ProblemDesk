@@ -5,6 +5,10 @@ data class LoginResponse(
     val positionId: Int
 )
 
+data class DetailResponse(
+    val detail: String
+)
+
 data class RequestResponse(
     val detail: Detail
 )

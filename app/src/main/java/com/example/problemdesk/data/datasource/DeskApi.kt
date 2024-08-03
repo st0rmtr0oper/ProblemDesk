@@ -9,7 +9,7 @@ import retrofit2.http.Path
 
 interface DeskApi {
 
-    @POST("/login")
+    @POST("/login/{username}{password}")
     suspend fun login(
         @Path("username") username: String,
         @Path("password") password: String

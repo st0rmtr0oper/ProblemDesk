@@ -10,8 +10,7 @@ import java.util.concurrent.TimeUnit
 
 class DeskRepositoryImplementation: DeskRepository {
     companion object {
-        const val BASE_URL = "http://34.141.180.59:443/docs/"
-//            "http://158.160.66.207:8000/docs#/default/send_message_endpoint_send_message_post"
+        const val BASE_URL = "http://34.141.180.59:443/docs"
     }
 
 
