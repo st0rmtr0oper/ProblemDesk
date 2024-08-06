@@ -1,8 +1,10 @@
 package com.example.problemdesk.data.datasource
 
+import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
 import com.example.problemdesk.data.models.RequestResponse
 import com.example.problemdesk.data.models.Requests
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -10,12 +12,11 @@ import retrofit2.http.Path
 interface DeskApi {
 
     //TODO idk what the problem here
-    @POST("/login/{username}{password}{fcm_token}")
+    @POST("/login")
     suspend fun login(
-        @Path("username") username: String,
-        @Path("password") password: String,
-        @Path("fcm_token") fsmToken: String
+        @Body loginRequest: LoginRequest
     ): LoginResponse
+
 
     @POST("/create-request")
     suspend fun createRequest(

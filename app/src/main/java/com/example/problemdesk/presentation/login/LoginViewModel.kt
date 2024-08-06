@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
 import com.example.problemdesk.data.notifications.getFcmToken
 import com.example.problemdesk.data.repository.DeskRepositoryImplementation
@@ -31,7 +32,8 @@ class LoginViewModel : ViewModel() {
                 if (fcmToken != null) {
                     Log.d("!!!---[FCM token]---!!!", fcmToken!!)
                     try {
-                        loginResponse = repository.login(login, password, fcmToken!!)
+                        val loginRequest = LoginRequest(login, password, fcmToken!!)
+                        loginResponse = repository.login(loginRequest)
                         //TODO need to handle error!!!
                         Log.i("!--{{{LOGIN}}}--!",loginResponse.positionId.toString())
                         _userRole.postValue(loginResponse.positionId)
