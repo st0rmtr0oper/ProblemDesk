@@ -120,15 +120,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        // Get new FCM registration token
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
-            val token = task.result
-            Log.d("!!!---[FCM token]---!!!", token)
-        })
+
 //        dI3wqql_Rhi5an3cdExtaL:APA91bHv_pr2paxL_1ocO40Xwh_PIQxmJW-jHCisZuFBwyLhscXS9e27s4Kw_wEkvPzuCywB7-Cq_9iZ_bLbvMJcxMRRk1Kw3QIkOHWb3tSuByhW_RkO3RKw9cQuwjpqoklisE4SKiqx
 //        lifecycleScope.launch {
 //            try {
@@ -175,6 +167,10 @@ class MainActivity : AppCompatActivity() {
             show()
         }
     }
+
+
+
+
 
 //    override fun onSupportNavigateUp(): Boolean {
 //        val navHostFragment =

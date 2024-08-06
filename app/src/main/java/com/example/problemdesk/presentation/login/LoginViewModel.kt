@@ -5,7 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.problemdesk.data.models.LoginResponse
+import com.example.problemdesk.data.notifications.getFcmToken
 import com.example.problemdesk.data.repository.DeskRepositoryImplementation
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
@@ -17,19 +21,34 @@ class LoginViewModel : ViewModel() {
 
     suspend fun validate(
         login: String,
-        password: String  /*, resources: android.content.res.Resources*/
+        password: String
     ) {
         val repository = DeskRepositoryImplementation()
-        val loginResponse: LoginResponse
-        try {
-            loginResponse = repository.login(login, password)
-            //TODO need to handle error!!!
-//        _userId.value = loginResponse.userId
-            Log.i("!--{{{LOGIN ANSWER}}}--!",loginResponse.positionId.toString())
-            _userRole.value = loginResponse.positionId
-        } catch (e: Exception) {
-            Log.i("!--{{{LOGIN ANSWER}}}--!", e.toString())
-            _userRole.value = 0
-        }
+        var loginResponse: LoginResponse
+        var fcmToken: String?
+        CoroutineScope(Dispatchers.IO).launch {
+                fcmToken = getFcmToken()
+                if (fcmToken != null) {
+                    Log.d("!!!---[FCM token]---!!!", fcmToken!!)
+                    try {
+                        loginResponse = repository.login(login, password, fcmToken!!)
+                        //TODO need to handle error!!!
+                        Log.i("!--{{{LOGIN}}}--!",loginResponse.positionId.toString())
+                        _userRole.postValue(loginResponse.positionId)
+                    } catch (e: Exception) {
+                        Log.i("!--{{{LOGIN}}}--!", e.toString())
+                        _userRole.postValue(0)
+
+                        //postValue used because of anync work - live data update allowed only ion main thread
+                        //this thing somehow helps with this ussue
+                        //how - idk
+                    }
+                } else {
+                    Log.d("!!!---[FCM token]---!!!", "FCM token is NULL")
+                }
+            }
+
+
+
     }
 }

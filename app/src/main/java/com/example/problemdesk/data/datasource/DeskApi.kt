@@ -10,10 +10,11 @@ import retrofit2.http.Path
 interface DeskApi {
 
     //TODO idk what the problem here
-    @POST("/login/{username}{password}")
+    @POST("/login/{username}{password}{fcm_token}")
     suspend fun login(
         @Path("username") username: String,
-        @Path("password") password: String
+        @Path("password") password: String,
+        @Path("fcm_token") fsmToken: String
     ): LoginResponse
 
     @POST("/create-request")
