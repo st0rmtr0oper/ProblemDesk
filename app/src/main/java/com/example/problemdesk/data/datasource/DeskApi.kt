@@ -1,16 +1,14 @@
 package com.example.problemdesk.data.datasource
 
+import com.example.problemdesk.data.models.CreateRequestRequest
+import com.example.problemdesk.data.models.CreateRequestResponse
 import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
 import com.example.problemdesk.data.models.MyAwardsResponse
-import com.example.problemdesk.data.models.MyDataRequest
 import com.example.problemdesk.data.models.MyDataResponse
-import com.example.problemdesk.data.models.RequestResponse
-import com.example.problemdesk.data.models.Requests
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface DeskApi {
@@ -19,6 +17,11 @@ interface DeskApi {
     suspend fun login(
         @Body loginRequest: LoginRequest
     ): LoginResponse
+
+    @POST("/create-request")
+    suspend fun createRequest(
+        @Body createRequestRequest: CreateRequestRequest
+    ): CreateRequestResponse
 
     @GET("/my-data")
     suspend fun getMyData(
@@ -30,6 +33,7 @@ interface DeskApi {
     suspend fun getMyAwards(
         @Query("user_id") userId: Int
     ): MyAwardsResponse
+
 
 //
 //    @POST("/create-request")

@@ -1,10 +1,11 @@
 package com.example.problemdesk.data.repository
 
 import com.example.problemdesk.data.datasource.DeskApi
+import com.example.problemdesk.data.models.CreateRequestRequest
+import com.example.problemdesk.data.models.CreateRequestResponse
 import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
 import com.example.problemdesk.data.models.MyAwardsResponse
-import com.example.problemdesk.data.models.MyDataRequest
 import com.example.problemdesk.data.models.MyDataResponse
 import com.example.problemdesk.domain.repository.DeskRepository
 import com.google.gson.GsonBuilder
@@ -45,6 +46,8 @@ class DeskRepositoryImplementation : DeskRepository {
     }
 
     suspend fun login(loginRequest: LoginRequest): LoginResponse = deskApi.login(loginRequest)
+
+    suspend fun createRequest(createRequestRequest: CreateRequestRequest): CreateRequestResponse = deskApi.createRequest(createRequestRequest)
 
     suspend fun getMyData(userId: Int): MyDataResponse = deskApi.getMyData(userId)
     suspend fun getMyAwards(userId: Int): MyAwardsResponse = deskApi.getMyAwards(userId)

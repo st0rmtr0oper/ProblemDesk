@@ -6,6 +6,9 @@ data class LoginRequest(
     val fcm_token: String
 )
 
-data class MyDataRequest(
-    val user_id: String
+data class CreateRequestRequest(
+    val request_type: Int,
+    val user_id: Int,
+    val area_id: Int,
+    val description: String
 )
