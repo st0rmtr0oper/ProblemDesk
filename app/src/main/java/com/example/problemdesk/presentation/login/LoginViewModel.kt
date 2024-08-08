@@ -28,29 +28,25 @@ class LoginViewModel : ViewModel() {
         var loginResponse: LoginResponse
         var fcmToken: String?
         CoroutineScope(Dispatchers.IO).launch {
-                fcmToken = getFcmToken()
-                if (fcmToken != null) {
-                    Log.d("!!!---[FCM token]---!!!", fcmToken!!)
-                    try {
-                        val loginRequest = LoginRequest(login, password, fcmToken!!)
-                        loginResponse = repository.login(loginRequest)
-                        //TODO need to handle error!!!
-                        Log.i("!--{{{LOGIN}}}--!",loginResponse.positionId.toString())
-                        _userRole.postValue(loginResponse.positionId)
-                    } catch (e: Exception) {
-                        Log.i("!--{{{LOGIN}}}--!", e.toString())
-                        _userRole.postValue(0)
+            fcmToken = getFcmToken()
+            if (fcmToken != null) {
+                Log.d("!!!---[FCM token]---!!!", fcmToken!!)
+                try {
+                    val loginRequest = LoginRequest(login, password, fcmToken!!)
+                    loginResponse = repository.login(loginRequest)
+                    Log.i("!--{{{LOGIN}}}--!", loginResponse.toString())
+                    _userRole.postValue(loginResponse.roleId)
+                } catch (e: Exception) {
+                    Log.i("!--{{{LOGIN}}}--!", e.toString())
+                    _userRole.postValue(0)
 
-                        //postValue used because of anync work - live data update allowed only ion main thread
-                        //this thing somehow helps with this ussue
-                        //how - idk
-                    }
-                } else {
-                    Log.d("!!!---[FCM token]---!!!", "FCM token is NULL")
+                    //postValue used because of anync work - live data update allowed only in main thread
+                    //this thing somehow helps with this ussue
+                    //how - idk
                 }
+            } else {
+                Log.d("!!!---[FCM token]---!!!", "FCM token is NULL")
             }
-
-
-
+        }
     }
 }

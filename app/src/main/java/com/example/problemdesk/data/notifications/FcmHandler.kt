@@ -13,16 +13,3 @@ suspend fun getFcmToken(): String? {
         null
     }
 }
-
-//fun getFcmToken(callback: TokenCallback) {
-//    FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-//        if (!task.isSuccessful) {
-//            Log.w(TAG, "Fetching FCM registration token failed", task.exception)
-//            callback.onError(task.exception)
-//            return@addOnCompleteListener
-//        }
-//        val token = task.result
-//        Log.d("!!!---[FCM token]---!!!", token)
-//        callback.onTokenReceived(token)
-//    }
-//}

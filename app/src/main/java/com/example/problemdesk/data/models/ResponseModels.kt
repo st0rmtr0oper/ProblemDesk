@@ -1,9 +1,15 @@
 package com.example.problemdesk.data.models
 
+import com.google.gson.annotations.SerializedName
+
 data class LoginResponse(
-    val userId: Int,
-    val positionId: Int
+    @SerializedName("user_id") val userId: Int,
+    @SerializedName("role_id") val roleId: Int
 )
+
+
+
+
 
 data class DetailResponse(
     val detail: String

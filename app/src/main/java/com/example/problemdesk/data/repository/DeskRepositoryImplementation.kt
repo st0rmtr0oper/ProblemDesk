@@ -2,6 +2,7 @@ package com.example.problemdesk.data.repository
 
 import com.example.problemdesk.data.datasource.DeskApi
 import com.example.problemdesk.data.models.LoginRequest
+import com.example.problemdesk.data.models.LoginResponse
 import com.example.problemdesk.domain.repository.DeskRepository
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -15,7 +16,6 @@ class DeskRepositoryImplementation : DeskRepository {
         const val BASE_URL = "http://34.141.180.59:443"
     }
 
-
     private val gson = GsonBuilder().create()
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
@@ -27,10 +27,6 @@ class DeskRepositoryImplementation : DeskRepository {
         .baseUrl("$BASE_URL/")
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
-
-//    private val loggingInterceptor = HttpLoggingInterceptor().apply {
-//        level = HttpLoggingInterceptor.Level.BODY
-//    }
 
     private fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder() // Use OkHttpClient.Builder directly
@@ -45,8 +41,10 @@ class DeskRepositoryImplementation : DeskRepository {
         retrofit.create(DeskApi::class.java)
     }
 
-    suspend fun login(loginRequest: LoginRequest) = deskApi.login(loginRequest)
+    suspend fun login(loginRequest: LoginRequest): LoginResponse = deskApi.login(loginRequest)
 
+
+    //TODO backend
     suspend fun createRequest(requestType: Int, userId: Int, areaId: Int, description: String) =
         deskApi.createRequest(requestType, userId, areaId, description)
 
