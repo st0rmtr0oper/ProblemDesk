@@ -4,7 +4,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 
-//TODO is it necessary???
+//TODO is it necessary???            DELETE
 
 public object DateHelper {
     private const val ISO_8601_24H_FULL_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"

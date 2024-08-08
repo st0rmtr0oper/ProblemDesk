@@ -3,6 +3,8 @@ package com.example.problemdesk.data.repository
 import com.example.problemdesk.data.datasource.DeskApi
 import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
+import com.example.problemdesk.data.models.MyDataRequest
+import com.example.problemdesk.data.models.MyDataResponse
 import com.example.problemdesk.domain.repository.DeskRepository
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -43,22 +45,24 @@ class DeskRepositoryImplementation : DeskRepository {
 
     suspend fun login(loginRequest: LoginRequest): LoginResponse = deskApi.login(loginRequest)
 
+//    suspend fun getMyData(myDataRequest: MyDataRequest): MyDataResponse = deskApi.getMyData(myDataRequest)
+    suspend fun getMyData(userId: Int): MyDataResponse = deskApi.getMyData(userId)
 
     //TODO backend
-    suspend fun createRequest(requestType: Int, userId: Int, areaId: Int, description: String) =
-        deskApi.createRequest(requestType, userId, areaId, description)
-
-    suspend fun approveRequest(userId: Int, requestId: Int, assignTo: Int, deadline: String) =
-        deskApi.approveRequest(userId, requestId, assignTo, deadline)
-
-    suspend fun rejectRequest(userId: Int, requestId: Int) =
-        deskApi.rejectRequest(userId, requestId)
-
-    suspend fun completeRequest(userId: Int, requestId: Int) =
-        deskApi.completeRequest(userId, requestId)
-
-    suspend fun confirmRequests(userId: Int, requestId: Int) =
-        deskApi.confirmRequest(userId, requestId)
-
-    suspend fun getRequests() = deskApi.getRequests()
+//    suspend fun createRequest(requestType: Int, userId: Int, areaId: Int, description: String) =
+//        deskApi.createRequest(requestType, userId, areaId, description)
+//
+//    suspend fun approveRequest(userId: Int, requestId: Int, assignTo: Int, deadline: String) =
+//        deskApi.approveRequest(userId, requestId, assignTo, deadline)
+//
+//    suspend fun rejectRequest(userId: Int, requestId: Int) =
+//        deskApi.rejectRequest(userId, requestId)
+//
+//    suspend fun completeRequest(userId: Int, requestId: Int) =
+//        deskApi.completeRequest(userId, requestId)
+//
+//    suspend fun confirmRequests(userId: Int, requestId: Int) =
+//        deskApi.confirmRequest(userId, requestId)
+//
+//    suspend fun getRequests() = deskApi.getRequests()
 }

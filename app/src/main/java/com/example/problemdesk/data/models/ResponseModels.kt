@@ -7,6 +7,21 @@ data class LoginResponse(
     @SerializedName("role_id") val roleId: Int
 )
 
+data class MyDataResponse(
+    @SerializedName("user_id") val userId: Int,
+    @SerializedName("username") val username: String,
+    @SerializedName("surname") val surname: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("middle_name") val middleName: String,
+    @SerializedName("hire_date") val hireDate: String, // You might want to use LocalDate or another date type
+    @SerializedName("phone_number") val phoneNumber: String,
+    @SerializedName("birth_date") val birthDate: String, // Same as above
+    @SerializedName("email") val email: String,
+    @SerializedName("spec_id") val specId: Int,
+    @SerializedName("fcm_token") val fcmToken: String,
+    @SerializedName("role_id") val roleId: Int,
+    @SerializedName("shift_id") val shiftId: Int
+)
 
 
 

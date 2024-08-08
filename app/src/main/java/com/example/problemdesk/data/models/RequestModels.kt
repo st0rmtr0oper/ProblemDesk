@@ -5,3 +5,7 @@ data class LoginRequest(
     val password: String,
     val fcm_token: String
 )
+
+data class MyDataRequest(
+    val user_id: String
+)

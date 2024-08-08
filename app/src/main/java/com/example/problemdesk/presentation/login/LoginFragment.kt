@@ -13,10 +13,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.problemdesk.MainActivity
 import com.example.problemdesk.databinding.FragmentLoginBinding
-import com.example.problemdesk.domain.OLDMODELSrefactor.Role
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
+import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import kotlinx.coroutines.launch
 
 //TODO кеширование? шобы не заходить постоянно в акк раз за разом
+
+//TODO loading animation
+//TODO error messages for user (no connection, dead server and etc)
 
 class LoginFragment : Fragment() {
 
@@ -64,6 +69,29 @@ class LoginFragment : Fragment() {
                 loginViewModel.validate(login, password)
             }
         }
+
+        loginViewModel.userId.observe(viewLifecycleOwner, Observer { userId ->
+
+            //TODO is a encryption necessary?
+            //i dont know is this a good way to use SP, cause it have troubles with context inside ViewModel
+
+            val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+                //TODO remove this plz
+//            val sharedPreferences = context?.let {
+//                EncryptedSharedPreferences.create(
+//                    "secure_prefs",
+//                    MasterKey.DEFAULT_MASTER_KEY_ALIAS,
+//                    it,
+//                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+//                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+//                )
+//            }
+            //Storing user ID
+            //null hell - looks like shit
+            userId?.let {
+                sharedPreferences?.edit()?.putInt("user_id", it)?.apply()
+            }
+        })
 
         loginViewModel.userRole.observe(viewLifecycleOwner, Observer { role ->
             when (role) {

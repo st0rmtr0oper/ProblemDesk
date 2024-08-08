@@ -10,7 +10,7 @@ class ProblemFormViewModel : ViewModel() {
     suspend fun createRequest(requestType: Int, userId: Int, areaId: Int, description: String) {
         val repository = DeskRepositoryImplementation()
         viewModelScope.launch {
-            repository.createRequest(requestType, userId, areaId, description)
+//            repository.createRequest(requestType, userId, areaId, description)
         }
         return
     }

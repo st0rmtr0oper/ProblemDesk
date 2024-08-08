@@ -22,6 +22,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root

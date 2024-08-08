@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
-//    private val _userId = MutableLiveData<Int>()
-//    val userId: LiveData<Int> get() = _userId
+    private val _userId = MutableLiveData<Int>()
+    val userId: LiveData<Int> get() = _userId
 
     private val _userRole = MutableLiveData<Int>()
     val userRole: LiveData<Int> get() = _userRole
@@ -36,6 +36,8 @@ class LoginViewModel : ViewModel() {
                     loginResponse = repository.login(loginRequest)
                     Log.i("!--{{{LOGIN}}}--!", loginResponse.toString())
                     _userRole.postValue(loginResponse.roleId)
+                    _userId.postValue(loginResponse.userId)
+
                 } catch (e: Exception) {
                     Log.i("!--{{{LOGIN}}}--!", e.toString())
                     _userRole.postValue(0)
