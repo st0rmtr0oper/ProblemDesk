@@ -26,7 +26,7 @@ class ProfileInfoFragment : Fragment() {
         fun newInstance() = ProfileInfoFragment()
     }
 
-    //TODO need to add a loading shit
+    //TODO need to add a loading shit?
 
     override fun onCreateView(
         inflater: LayoutInflater,

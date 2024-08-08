@@ -2,6 +2,7 @@ package com.example.problemdesk.data.datasource
 
 import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
+import com.example.problemdesk.data.models.MyAwardsResponse
 import com.example.problemdesk.data.models.MyDataRequest
 import com.example.problemdesk.data.models.MyDataResponse
 import com.example.problemdesk.data.models.RequestResponse
@@ -24,6 +25,11 @@ interface DeskApi {
         @Query("user_id") userId: Int
  //        @Body myDataRequest: MyDataRequest
     ): MyDataResponse
+
+    @GET("rewards")
+    suspend fun getMyAwards(
+        @Query("user_id") userId: Int
+    ): MyAwardsResponse
 
 //
 //    @POST("/create-request")

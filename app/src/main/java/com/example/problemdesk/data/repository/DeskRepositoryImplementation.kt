@@ -3,6 +3,7 @@ package com.example.problemdesk.data.repository
 import com.example.problemdesk.data.datasource.DeskApi
 import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
+import com.example.problemdesk.data.models.MyAwardsResponse
 import com.example.problemdesk.data.models.MyDataRequest
 import com.example.problemdesk.data.models.MyDataResponse
 import com.example.problemdesk.domain.repository.DeskRepository
@@ -45,8 +46,8 @@ class DeskRepositoryImplementation : DeskRepository {
 
     suspend fun login(loginRequest: LoginRequest): LoginResponse = deskApi.login(loginRequest)
 
-//    suspend fun getMyData(myDataRequest: MyDataRequest): MyDataResponse = deskApi.getMyData(myDataRequest)
     suspend fun getMyData(userId: Int): MyDataResponse = deskApi.getMyData(userId)
+    suspend fun getMyAwards(userId: Int): MyAwardsResponse = deskApi.getMyAwards(userId)
 
     //TODO backend
 //    suspend fun createRequest(requestType: Int, userId: Int, areaId: Int, description: String) =

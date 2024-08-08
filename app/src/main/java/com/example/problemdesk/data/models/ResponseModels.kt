@@ -23,6 +23,12 @@ data class MyDataResponse(
     @SerializedName("shift_id") val shiftId: Int
 )
 
+data class MyAwardsResponse(
+    @SerializedName("tokens") val tokens: Int,
+    @SerializedName("num_created") val numCreated: Int,
+    @SerializedName("num_completed") val numCompleted: Int,
+    @SerializedName("last_completed") val lastCompleted: String
+)
 
 
 
