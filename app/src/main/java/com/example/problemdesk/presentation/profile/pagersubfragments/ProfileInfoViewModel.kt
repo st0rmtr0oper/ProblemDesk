@@ -4,11 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.problemdesk.data.models.MyDataRequest
+import androidx.lifecycle.viewModelScope
 import com.example.problemdesk.data.models.MyDataResponse
 import com.example.problemdesk.data.repository.DeskRepositoryImplementation
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProfileInfoViewModel : ViewModel() {
@@ -21,7 +19,9 @@ class ProfileInfoViewModel : ViewModel() {
         val repository = DeskRepositoryImplementation()
         var myDataResponse: MyDataResponse
 
-        CoroutineScope(Dispatchers.IO).launch {
+        //i don't get the difference perfectly, but viewModelScope.launch should work only when ViewModel is Alive
+        viewModelScope.launch {
+//        CoroutineScope(Dispatchers.IO).launch {
             try {
                 myDataResponse = repository.getMyData(userId)
                 Log.i("!--{{{PROFILE DATA}}}--!", myDataResponse.toString())

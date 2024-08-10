@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import com.example.problemdesk.databinding.FragmentSubCardItemBinding
-import com.example.problemdesk.domain.OLDMODELSrefactor.Card
+import com.example.problemdesk.domain.models.Card
 
 class CardRecyclerViewAdapter(private val cardListener: (Card) -> Unit) : RecyclerView.Adapter<CardsViewHolder>() {
 

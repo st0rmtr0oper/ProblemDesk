@@ -38,6 +38,9 @@ import com.google.firebase.messaging.FirebaseMessaging
 //TODO 4 - backend, firebase, pushs, api, retrofit ...   +  manager UI, graphs
 //manager ui
 
+
+//TODO need to check all for following MVVM, Clean Arch and SOLID   ---!!!
+
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!

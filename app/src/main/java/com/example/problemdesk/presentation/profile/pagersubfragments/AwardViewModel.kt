@@ -4,11 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.problemdesk.data.models.MyAwardsResponse
 import com.example.problemdesk.data.repository.DeskRepositoryImplementation
-import com.example.problemdesk.domain.OLDMODELSrefactor.AwardData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AwardViewModel : ViewModel() {
@@ -23,7 +21,10 @@ class AwardViewModel : ViewModel() {
         val repository = DeskRepositoryImplementation()
         var myAwardsResponse: MyAwardsResponse
 
-        CoroutineScope(Dispatchers.IO).launch {
+
+        //i don't get the difference perfectly, but viewModelScope.launch should work only when ViewModel is Alive
+        viewModelScope.launch {
+//        CoroutineScope(Dispatchers.IO).launch {
             try {
                 myAwardsResponse = repository.getMyAwards(userId)
                 Log.i("!--{{{AWARD DATA}}}--!", myAwardsResponse.toString())

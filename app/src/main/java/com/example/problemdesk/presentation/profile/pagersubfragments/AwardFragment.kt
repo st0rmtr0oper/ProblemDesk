@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.data.models.MyAwardsResponse
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.databinding.FragmentSubAwardBinding
-import com.example.problemdesk.domain.OLDMODELSrefactor.AwardData
 import kotlinx.coroutines.launch
 
 class AwardFragment : Fragment() {

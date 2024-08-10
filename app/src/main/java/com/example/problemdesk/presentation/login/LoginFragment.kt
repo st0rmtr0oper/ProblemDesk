@@ -71,21 +71,8 @@ class LoginFragment : Fragment() {
         }
 
         loginViewModel.userId.observe(viewLifecycleOwner, Observer { userId ->
-
-            //TODO is a encryption necessary?
             //i dont know is this a good way to use SP, cause it have troubles with context inside ViewModel
-
             val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-                //TODO remove this plz
-//            val sharedPreferences = context?.let {
-//                EncryptedSharedPreferences.create(
-//                    "secure_prefs",
-//                    MasterKey.DEFAULT_MASTER_KEY_ALIAS,
-//                    it,
-//                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-//                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-//                )
-//            }
             //Storing user ID
             //null hell - looks like shit
             userId?.let {
