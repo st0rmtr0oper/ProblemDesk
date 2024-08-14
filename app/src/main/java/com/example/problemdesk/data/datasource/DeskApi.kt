@@ -2,6 +2,8 @@ package com.example.problemdesk.data.datasource
 
 import com.example.problemdesk.data.models.CreateRequestRequest
 import com.example.problemdesk.data.models.CreateRequestResponse
+import com.example.problemdesk.data.models.LogOutRequest
+import com.example.problemdesk.data.models.LogOutResponse
 import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
 import com.example.problemdesk.data.models.MyAwardsResponse
@@ -17,6 +19,11 @@ interface DeskApi {
     suspend fun login(
         @Body loginRequest: LoginRequest
     ): LoginResponse
+
+    @POST("/logout")
+    suspend fun logout(
+        @Body logoutRequest: LogOutRequest
+    ): LogOutResponse
 
     @POST("/create-request")
     suspend fun createRequest(

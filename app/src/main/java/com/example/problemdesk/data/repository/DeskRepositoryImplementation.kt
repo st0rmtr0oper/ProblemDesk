@@ -3,6 +3,8 @@ package com.example.problemdesk.data.repository
 import com.example.problemdesk.data.datasource.DeskApi
 import com.example.problemdesk.data.models.CreateRequestRequest
 import com.example.problemdesk.data.models.CreateRequestResponse
+import com.example.problemdesk.data.models.LogOutRequest
+import com.example.problemdesk.data.models.LogOutResponse
 import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
 import com.example.problemdesk.data.models.MyAwardsResponse
@@ -46,6 +48,7 @@ class DeskRepositoryImplementation : DeskRepository {
     }
 
     suspend fun login(loginRequest: LoginRequest): LoginResponse = deskApi.login(loginRequest)
+    suspend fun logout(logoutRequest: LogOutRequest): LogOutResponse = deskApi.logout(logoutRequest)
 
     suspend fun createRequest(createRequestRequest: CreateRequestRequest): CreateRequestResponse = deskApi.createRequest(createRequestRequest)
 

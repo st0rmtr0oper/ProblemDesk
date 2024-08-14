@@ -8,6 +8,8 @@ import android.widget.TextView
 import com.example.problemdesk.domain.models.Specialization
 import com.example.problemdesk.domain.models.Workplace
 
+
+//custom adapters for handling custom data classes (name-id pairs)
 class SpecializationAdapter(context: Context, specializations: Array<Specialization>) :
     ArrayAdapter<Specialization>(context, android.R.layout.simple_spinner_item, specializations) {
 

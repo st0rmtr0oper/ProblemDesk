@@ -1,6 +1,5 @@
 package com.example.problemdesk.presentation.problemform
 
-//import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,7 @@ import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
 import com.example.problemdesk.data.models.CreateRequestRequest
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.databinding.FragmentProblemFormBinding
@@ -21,7 +20,7 @@ import kotlinx.coroutines.launch
 
 
 //TODO errors
-//TODO success response
+
 //TODO visual issues with spinners!
 
 class ProblemFormFragment : Fragment() {
@@ -42,6 +41,16 @@ class ProblemFormFragment : Fragment() {
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
         val userId = sharedPreferences?.getInt("user_id", 0)
 
+        problemFormViewModel.successStatus.observe(viewLifecycleOwner, Observer { successStatus ->
+            //Storing user ID
+            //null hell - looks like shit
+            if (successStatus) {
+                showSuccessDialog()
+                binding.problemDescription.text.clear()
+                binding.problemTypeSpinner.setSelection(0)
+                binding.userWorkplaceSpinner.setSelection(0)
+            }
+        })
 
         binding.loginButton.setOnClickListener {
 
@@ -130,6 +139,15 @@ class ProblemFormFragment : Fragment() {
         AlertDialog.Builder(requireContext()).apply {
             setTitle("Неполные данные")
             setMessage("Пожалуйста, заполните все поля")
+            setNegativeButton("Ок", null)
+            show()
+        }
+    }
+
+    private fun showSuccessDialog() {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Успешно")
+            setMessage("Ваш запрос успешно отправлен")
             setNegativeButton("Ок", null)
             show()
         }

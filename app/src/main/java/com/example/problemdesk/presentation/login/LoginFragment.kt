@@ -59,20 +59,24 @@ class LoginFragment : Fragment() {
             }
         })
 
+        //i dont know is this a good way to use SP, cause it have troubles with context inside ViewModel
+        val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+
         binding.loginButton.setOnClickListener {
             val login = binding.loginText.text.toString()
             val password = binding.loginPassword.text.toString()
             binding.loginTextLayout.error = null
             binding.loginPasswordLayout.error = null
 
+            var fcm: String?
             lifecycleScope.launch {
                 loginViewModel.validate(login, password)
+                fcm = loginViewModel.getFcm()
+                fcm?.let { sharedPreferences?.edit()?.putString("old_fcm", it)?.apply() }
             }
         }
 
         loginViewModel.userId.observe(viewLifecycleOwner, Observer { userId ->
-            //i dont know is this a good way to use SP, cause it have troubles with context inside ViewModel
-            val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
             //Storing user ID
             //null hell - looks like shit
             userId?.let {

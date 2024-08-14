@@ -23,7 +23,7 @@ data class MyDataResponse(
     @SerializedName("birth_date") val birthDate: String, // Same as above
     val email: String,
     @SerializedName("spec_id") val specId: Int,
-    @SerializedName("fcm_token") val fcmToken: String,
+    @SerializedName("fcm_token") val fcmToken: Array<String>,
     @SerializedName("role_id") val roleId: Int,
     @SerializedName("shift_id") val shiftId: Int
 )
@@ -33,4 +33,8 @@ data class MyAwardsResponse(
     @SerializedName("num_created") val numCreated: Int,
     @SerializedName("num_completed") val numCompleted: Int,
     @SerializedName("last_completed") val lastCompleted: String
+)
+
+data class LogOutResponse(
+    val message: String
 )

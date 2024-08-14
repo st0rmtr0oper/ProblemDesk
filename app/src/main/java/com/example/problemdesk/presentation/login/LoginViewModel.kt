@@ -28,7 +28,7 @@ class LoginViewModel : ViewModel() {
         var loginResponse: LoginResponse
         var fcmToken: String?
         CoroutineScope(Dispatchers.IO).launch {
-            fcmToken = getFcmToken()
+            fcmToken = getFcm()
             if (fcmToken != null) {
                 Log.d("!!!---[FCM token]---!!!", fcmToken!!)
                 try {
@@ -50,5 +50,9 @@ class LoginViewModel : ViewModel() {
                 Log.d("!!!---[FCM token]---!!!", "FCM token is NULL")
             }
         }
+    }
+    suspend fun getFcm(): String? {
+        val fcm = getFcmToken()
+        return fcm
     }
 }

@@ -12,8 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProblemFormViewModel : ViewModel() {
-
-
     private val _successStatus = MutableLiveData<Boolean>()
     val successStatus: LiveData<Boolean> get() = _successStatus
 
@@ -24,24 +22,13 @@ class ProblemFormViewModel : ViewModel() {
         var createRequestResponse: CreateRequestResponse
 
         //TODO test with 0 area (invalid input)
-//        viewModelScope.launch {
-//            val response = repository.createRequest(request)
-//            if (response.message=="Request created successfully") {
-//                success = true
-//                return@launch success
-//            }
-//            else {
-//                success = false
-//            }
-//        }
-//        return
 
         //coroutineScope is more suitable in this case
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 createRequestResponse = repository.createRequest(request)
                 Log.i("!--{{{CREATE REQUEST}}}--!", createRequestResponse.toString())
-                _successStatus.postValue((createRequestResponse.requestId.toString() == "Request created successfully"))
+                _successStatus.postValue((createRequestResponse.message == "Request created successfully"))
             } catch (e: Exception) {
                 Log.i("!--{{{CREATE REQUEST}}}--!", e.toString())
                 _successStatus.postValue(false)

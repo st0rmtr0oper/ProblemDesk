@@ -1,26 +1,18 @@
 package com.example.problemdesk
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.problemdesk.databinding.ActivityMainBinding
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.messaging.FirebaseMessaging
 
 
 //TODO 1 - UI
-//TODO - problem form design
 //TODO - collections representation
 //TODO 1.8.1 - popup messages (modal? idk), card handling
 
@@ -29,11 +21,13 @@ import com.google.firebase.messaging.FirebaseMessaging
 
 //TODO 2 - MVVM for the rest
 
-// какие юзкейсы? какой ответ с бэка?
+// usecases?
 //TODO 3 - final flow logic
 //TODO cards transfer
 //TODO caching? app should remember user login
 //TODO need to add an exit button in profile?
+
+//TODO final redesign
 
 //TODO 4 - backend, firebase, pushs, api, retrofit ...   +  manager UI, graphs
 //manager ui
@@ -43,7 +37,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 //    private lateinit var navView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,10 +102,16 @@ class MainActivity : AppCompatActivity() {
                     toolbar.menu.clear()
                     toolbar.inflateMenu(R.menu.profile_exit_menu)
                     supportActionBar?.title = getString(R.string.title_profile)
+                    binding.navView.visibility = View.VISIBLE // Show Bottom Navigation Bar
+                }
+                R.id.navigation_login -> {
+                    binding.navView.visibility = View.GONE // Hide Bottom Navigation Bar
+                    supportActionBar?.title = getString(R.string.title_login) // Set title for Login
                 }
                 else -> {
                     toolbar.menu.clear()
                     supportActionBar?.title = destination.label
+                    binding.navView.visibility = View.VISIBLE // Show Bottom Navigation Bar for other destinations
                 }
             }
         }
@@ -122,17 +122,6 @@ class MainActivity : AppCompatActivity() {
                 showExitConfirmationDialog()
             }
         })
-
-
-//        dI3wqql_Rhi5an3cdExtaL:APA91bHv_pr2paxL_1ocO40Xwh_PIQxmJW-jHCisZuFBwyLhscXS9e27s4Kw_wEkvPzuCywB7-Cq_9iZ_bLbvMJcxMRRk1Kw3QIkOHWb3tSuByhW_RkO3RKw9cQuwjpqoklisE4SKiqx
-//        lifecycleScope.launch {
-//            try {
-//                val repository = DeskRepositoryImplementation()
-//                val request = Request(1, Token)
-//                repository.sendMessage(request)
-//            } catch(_: Exception) {
-//            }
-//        }
     }
 
     // set up dynamic bottomNavBar
@@ -170,15 +159,4 @@ class MainActivity : AppCompatActivity() {
             show()
         }
     }
-
-
-
-
-
-//    override fun onSupportNavigateUp(): Boolean {
-//        val navHostFragment =
-//            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
-//        val navController = navHostFragment.navController
-//        return navController.navigateUp()
-//    }
 }
