@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.problemdesk.databinding.FragmentMyTasksBinding
 import com.example.problemdesk.presentation.myproblems.MyProblemsPagerAdapter
-import com.example.problemdesk.presentation.myproblems.pagersubfragments.NewTasksFragment
+import com.example.problemdesk.presentation.mytasks.pagersubfragments.NewTasksFragment
 import com.example.problemdesk.presentation.mytasks.pagersubfragments.PickedTasksFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator

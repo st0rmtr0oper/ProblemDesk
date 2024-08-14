@@ -6,13 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.databinding.FragmentSubCancelledBinding
 import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.presentation.CardRecyclerViewAdapter
+import kotlinx.coroutines.launch
 
 class CancelledFragment : Fragment() {
     private var _binding: FragmentSubCancelledBinding? = null
     private val binding get() = _binding!!
+
+    private val cancelledViewModel: CancelledViewModel by viewModels()
 
     companion object {
         fun newInstance() = CancelledFragment()
@@ -23,6 +30,20 @@ class CancelledFragment : Fragment() {
     ): View? {
         _binding = FragmentSubCancelledBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        cancelledViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
+            (binding.cancelledRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+        })
+
+        val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+        val userId = sharedPreferences?.getInt("user_id", 0)
+
+        lifecycleScope.launch {
+            if (userId != null) {
+                cancelledViewModel.loadCards(userId)
+            }
+        }
+
         return root
     }
 
@@ -30,14 +51,6 @@ class CancelledFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //::handleCardClick binding RV click logic with fragment
         binding.cancelledRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
-
-        //TODO delete mocking
-        val cards = listOf(
-            Card("Отменено", "01.07.24", "Документооборот", "№3", "проблема с документами"),
-
-//            Card(Status.CANCELLED, "01.07.24", Specialization.DOCUMENTS, Workplace.N3, "проблема с документами")
-        )
-        (binding.cancelledRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
     }
 
     private fun handleCardClick(card: Card) {

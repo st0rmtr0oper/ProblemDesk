@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.problemdesk.databinding.FragmentSubCardItemBinding
 import com.example.problemdesk.domain.models.Card
 
+//TODO remake UI
+
 class CardRecyclerViewAdapter(private val cardListener: (Card) -> Unit) : RecyclerView.Adapter<CardsViewHolder>() {
 
     var cards: List<Card> = emptyList()
@@ -32,11 +34,12 @@ class CardsViewHolder(private val binding: FragmentSubCardItemBinding) : Recycle
     fun bind(card: Card, cancelledCardListener: (Card) -> Unit) {
         with(binding) {
 
-            cardStatus.text = card.status.toString()
-            cardSpecialization.text = card.specialization.toString()
-            cardWorkplace.text = card.workplace.toString()
-            cardDate.text = card.date
-            cardText.text = card.taskText
+            //TODO cards
+            cardStatus.text = card.reason
+            cardSpecialization.text = card.requestType.toString()
+            cardWorkplace.text = card.areaId.toString()
+            cardDate.text = card.createdAt
+            cardText.text = card.description
         }
 
         itemView.setOnClickListener {

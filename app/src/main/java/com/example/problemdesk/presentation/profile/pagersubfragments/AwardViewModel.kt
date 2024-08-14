@@ -14,13 +14,11 @@ class AwardViewModel : ViewModel() {
     private val _awardData = MutableLiveData<MyAwardsResponse>()
     val awardData: LiveData<MyAwardsResponse> get() = _awardData
 
-
     //TODO what if user_id = 0????
     fun loadInfo(userId: Int) {
         //TODO award data login realization
         val repository = DeskRepositoryImplementation()
         var myAwardsResponse: MyAwardsResponse
-
 
         //i don't get the difference perfectly, but viewModelScope.launch should work only when ViewModel is Alive
         viewModelScope.launch {

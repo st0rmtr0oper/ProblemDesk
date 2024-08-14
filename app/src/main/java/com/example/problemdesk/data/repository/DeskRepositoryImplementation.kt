@@ -9,6 +9,7 @@ import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
 import com.example.problemdesk.data.models.MyAwardsResponse
 import com.example.problemdesk.data.models.MyDataResponse
+import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.domain.repository.DeskRepository
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -50,26 +51,21 @@ class DeskRepositoryImplementation : DeskRepository {
     suspend fun login(loginRequest: LoginRequest): LoginResponse = deskApi.login(loginRequest)
     suspend fun logout(logoutRequest: LogOutRequest): LogOutResponse = deskApi.logout(logoutRequest)
 
-    suspend fun createRequest(createRequestRequest: CreateRequestRequest): CreateRequestResponse = deskApi.createRequest(createRequestRequest)
+    suspend fun createRequest(createRequestRequest: CreateRequestRequest): CreateRequestResponse =
+        deskApi.createRequest(createRequestRequest)
 
     suspend fun getMyData(userId: Int): MyDataResponse = deskApi.getMyData(userId)
     suspend fun getMyAwards(userId: Int): MyAwardsResponse = deskApi.getMyAwards(userId)
 
-    //TODO backend
-//    suspend fun createRequest(requestType: Int, userId: Int, areaId: Int, description: String) =
-//        deskApi.createRequest(requestType, userId, areaId, description)
-//
-//    suspend fun approveRequest(userId: Int, requestId: Int, assignTo: Int, deadline: String) =
-//        deskApi.approveRequest(userId, requestId, assignTo, deadline)
-//
-//    suspend fun rejectRequest(userId: Int, requestId: Int) =
-//        deskApi.rejectRequest(userId, requestId)
-//
-//    suspend fun completeRequest(userId: Int, requestId: Int) =
-//        deskApi.completeRequest(userId, requestId)
-//
-//    suspend fun confirmRequests(userId: Int, requestId: Int) =
-//        deskApi.confirmRequest(userId, requestId)
-//
-//    suspend fun getRequests() = deskApi.getRequests()
+    suspend fun getExecutorUnassigned(userId: Int): List<Card> =
+        deskApi.getExecutorUnassigned(userId)
+
+    suspend fun getExecutorAssigned(userId: Int): List<Card> = deskApi.getExecutorAssigned(userId)
+    suspend fun getDenied(userId: Int): List<Card> = deskApi.getDenied(userId)
+    suspend fun getCompleted(userId: Int): List<Card> = deskApi.getCompleted(userId)
+
+    //TODO что то странное выдает, надо перепроверить
+    suspend fun getInWork(userId: Int): List<Card> =
+        deskApi.getInProgress(userId) + deskApi.getUnderMasterMonitor(userId) +
+                deskApi.getUnderMasterApproval(userId) + deskApi.getUnderRequestorApproval(userId)
 }

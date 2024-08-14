@@ -18,10 +18,12 @@ import androidx.security.crypto.MasterKey
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import kotlinx.coroutines.launch
 
-//TODO кеширование? шобы не заходить постоянно в акк раз за разом
+//TODO remember me. шобы не заходить постоянно в акк раз за разом
 
 //TODO loading animation
 //TODO error messages for user (no connection, dead server and etc)
+
+//TODO password recovery
 
 class LoginFragment : Fragment() {
 

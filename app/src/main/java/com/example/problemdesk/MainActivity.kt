@@ -32,6 +32,8 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //TODO 4 - backend, firebase, pushs, api, retrofit ...   +  manager UI, graphs
 //manager ui
 
+//TODO add a empty lists placeholders
+
 
 //TODO need to check all for following MVVM, Clean Arch and SOLID   ---!!!
 

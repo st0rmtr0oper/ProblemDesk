@@ -146,8 +146,8 @@ class ProblemFormFragment : Fragment() {
 
     private fun showSuccessDialog() {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle("Успешно")
-            setMessage("Ваш запрос успешно отправлен")
+            setTitle("Заявка успешно создана")
+            setMessage("Ваша заявка отправлена на рассмотрение. Благодарим!")
             setNegativeButton("Ок", null)
             show()
         }

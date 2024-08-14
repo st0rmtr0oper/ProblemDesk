@@ -1,6 +1,10 @@
 package com.example.problemdesk.data.models
 
+import com.example.problemdesk.domain.models.Card
 import com.google.gson.annotations.SerializedName
+
+//nulls?
+//TODO something with dates (ISO 8601)
 
 data class LoginResponse(
     @SerializedName("user_id") val userId: Int,
@@ -23,7 +27,7 @@ data class MyDataResponse(
     @SerializedName("birth_date") val birthDate: String, // Same as above
     val email: String,
     @SerializedName("spec_id") val specId: Int,
-    @SerializedName("fcm_token") val fcmToken: Array<String>,
+    @SerializedName("fcm_token") val fcmToken: List<String>,
     @SerializedName("role_id") val roleId: Int,
     @SerializedName("shift_id") val shiftId: Int
 )
@@ -38,3 +42,7 @@ data class MyAwardsResponse(
 data class LogOutResponse(
     val message: String
 )
+
+//data class CardsRequestResponse(
+//    val Items: List<Card>
+//)

@@ -8,6 +8,7 @@ import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
 import com.example.problemdesk.data.models.MyAwardsResponse
 import com.example.problemdesk.data.models.MyDataResponse
+import com.example.problemdesk.domain.models.Card
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -33,7 +34,6 @@ interface DeskApi {
     @GET("/my-data")
     suspend fun getMyData(
         @Query("user_id") userId: Int
- //        @Body myDataRequest: MyDataRequest
     ): MyDataResponse
 
     @GET("rewards")
@@ -41,43 +41,49 @@ interface DeskApi {
         @Query("user_id") userId: Int
     ): MyAwardsResponse
 
+    @GET("executor-unassigned")
+    suspend fun getExecutorUnassigned(
+        @Query("user_id") userId: Int
+    ): List<Card>
 
-//
-//    @POST("/create-request")
-//    suspend fun createRequest(
-//        @Path("request_type") requestType: Int,
-//        @Path("user_id") userId: Int,
-//        @Path("area_id") areaId: Int,
-//        @Path("description") description: String
-//    ): RequestResponse
-//
-//
-//    @POST("/approve-request")
-//    suspend fun approveRequest(
-//        @Path("user_id") userId: Int,
-//        @Path("request_id") requestId: Int,
-//        @Path("assign_to") assignTo: Int,
-//        @Path("deadline") deadline: String
-//    ): RequestResponse
-//
-//    @POST("/reject-request")
-//    suspend fun rejectRequest(
-//        @Path("user_id") userId: Int,
-//        @Path("request_id") requestId: Int
-//    ): RequestResponse
-//
-//    @POST("/complete-request")
-//    suspend fun completeRequest(
-//        @Path("user_id") userId: Int,
-//        @Path("request_id") requestId: Int
-//    ): RequestResponse
-//
-//    @POST("/confirm-request")
-//    suspend fun confirmRequest(
-//        @Path("user_id") userId: Int,
-//        @Path("request_id") requestId: Int
-//    ): RequestResponse
-//
-//    @GET("/requests")
-//    suspend fun getRequests(): Requests
+    @GET("executor-assigned")
+    suspend fun getExecutorAssigned(
+        @Query("user_id") userId: Int
+    ): List<Card>
+
+    @GET("denied")
+    suspend fun getDenied(
+        @Query("user_id") userId: Int
+    ): List<Card>
+
+    @GET("completed")
+    suspend fun getCompleted(
+        @Query("user_id") userId: Int
+    ): List<Card>
+
+    @GET("under-master-approval")
+    suspend fun getUnderMasterApproval(
+        @Query("user_id") userId: Int
+    ): List<Card>
+
+    @GET("under-master-monitor")
+    suspend fun getUnderMasterMonitor(
+        @Query("user_id") userId: Int
+    ): List<Card>
+
+    @GET("in-progress")
+    suspend fun getInProgress(
+        @Query("user_id") userId: Int
+    ): List<Card>
+
+    @GET("under-requestor-approval")
+    suspend fun getUnderRequestorApproval(
+        @Query("user_id") userId: Int
+    ): List<Card>
+
+
+//    @GET("executor-assigned")
+//    suspend fun getExecutorAssigned(
+//        @Query("user_id") userId: Int
+//    ): List<Card>
 }

@@ -6,13 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.databinding.FragmentSubPickedTasksBinding
 import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.presentation.CardRecyclerViewAdapter
+import kotlinx.coroutines.launch
 
 class PickedTasksFragment: Fragment() {
     private var _binding: FragmentSubPickedTasksBinding? = null
     private val binding get() = _binding!!
+
+    private val pickedTasksViewModel: PickedTasksViewModel by viewModels()
 
     companion object {
         fun newInstance() = PickedTasksFragment()
@@ -23,6 +30,20 @@ class PickedTasksFragment: Fragment() {
     ): View? {
         _binding = FragmentSubPickedTasksBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        pickedTasksViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
+            (binding.pickedTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+        })
+
+        val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+        val userId = sharedPreferences?.getInt("user_id", 0)
+
+        lifecycleScope.launch {
+            if (userId != null) {
+                pickedTasksViewModel.loadCards(userId)
+            }
+        }
+
         return root
     }
 
@@ -30,15 +51,6 @@ class PickedTasksFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //::handleCardClick binding RV click logic with fragment
         binding.pickedTasksRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
-
-
-        //TODO delete mocking
-        val cards = listOf(
-            Card("В работе", "30.06.24", "Безопасность", "№2", "проблема с проводкой"),
-
-//                    Card(Status.IN_PROGRESS, "30.06.24", Specialization.SAFETY, Workplace.N2, "проблема с проводкой")
-        )
-        (binding.pickedTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
     }
 
     private fun handleCardClick(card: Card) {
