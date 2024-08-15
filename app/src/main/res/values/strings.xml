@@ -36,4 +36,9 @@
     <string name="login_problemdesk_title">MobileDesk</string>
     <string name="problem_form_edit_text_hint">Опишите проблему...</string>
     <string name="problem_form_button_send_title">Отправить</string>
+    <string name="dialog_unassigned_take">Взять в работу</string>
+    <string name="dialog_details">Детали</string>
+    <string name="dialog_logs">Просмотр логов</string>
+    <string name="dialog_cancel">Отмена</string>
+    <string name="dialog_assigned_send">Отправить на проверку</string>
 </resources>

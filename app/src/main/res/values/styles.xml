@@ -155,4 +155,22 @@
         <item name="android:padding">8dp</item>
     </style>
 
+    <!-- Dialog Style -->
+<!--    <style name="CustomDialog" parent="Theme.MaterialComponents.Dialog">-->
+<!--        <item name="android:padding">16dp</item>-->
+<!--        <item name="android:background">?attr/colorOnPrimary</item>-->
+<!--        <item name="android:windowMinWidthMajor">80%</item> &lt;!&ndash; Optional: Set minimum width &ndash;&gt;-->
+<!--        <item name="android:windowMinWidthMinor">80%</item> &lt;!&ndash; Optional: Set minimum width &ndash;&gt;-->
+<!--    </style>-->
+
+    <!-- Button Style for Dialog -->
+<!--    <style name="DialogButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">-->
+<!--        <item name="android:layout_width">match_parent</item>-->
+<!--        <item name="android:layout_height">wrap_content</item>-->
+<!--        <item name="android:textColor">?attr/colorOnPrimary</item>-->
+<!--        <item name="android:padding">12dp</item>-->
+<!--        <item name="android:textSize">16sp</item>-->
+<!--        <item name="android:backgroundTint">?attr/colorPrimary</item>-->
+<!--    </style>-->
+
 </resources>
