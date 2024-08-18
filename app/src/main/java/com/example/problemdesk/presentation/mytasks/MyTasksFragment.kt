@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.problemdesk.databinding.FragmentMyTasksBinding
-import com.example.problemdesk.presentation.myproblems.MyProblemsPagerAdapter
+import com.example.problemdesk.presentation.PagerAdapter
 import com.example.problemdesk.presentation.mytasks.pagersubfragments.NewTasksFragment
 import com.example.problemdesk.presentation.mytasks.pagersubfragments.PickedTasksFragment
 import com.google.android.material.tabs.TabLayout
@@ -36,7 +36,7 @@ class MyTasksFragment : Fragment() {
             NewTasksFragment.newInstance(),
             PickedTasksFragment.newInstance()
         )
-        viewPager.adapter = MyProblemsPagerAdapter(this, fragmentList)
+        viewPager.adapter = PagerAdapter(this, fragmentList)
 
         //initiating tabLayout
         tabLayout = binding.myTasksTabLayout

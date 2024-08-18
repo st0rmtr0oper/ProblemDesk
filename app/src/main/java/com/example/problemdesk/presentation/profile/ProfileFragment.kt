@@ -15,7 +15,7 @@ import com.example.problemdesk.R
 import com.example.problemdesk.data.models.LogOutRequest
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.databinding.FragmentProfileBinding
-import com.example.problemdesk.presentation.myproblems.MyProblemsPagerAdapter
+import com.example.problemdesk.presentation.PagerAdapter
 import com.example.problemdesk.presentation.profile.pagersubfragments.AwardFragment
 import com.example.problemdesk.presentation.profile.pagersubfragments.ProfileInfoFragment
 import com.google.android.material.tabs.TabLayout
@@ -71,7 +71,7 @@ class ProfileFragment : Fragment() {
             ProfileInfoFragment.newInstance(),
             AwardFragment.newInstance()
         )
-        viewPager.adapter = MyProblemsPagerAdapter(this, fragmentList)
+        viewPager.adapter = PagerAdapter(this, fragmentList)
 
         //initiating tabLayout
         tabLayout = binding.profileTabLayout
