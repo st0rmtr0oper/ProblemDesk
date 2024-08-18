@@ -1,20 +1,38 @@
 package com.example.problemdesk.data.models
 
-import com.example.problemdesk.domain.models.Card
 import com.google.gson.annotations.SerializedName
 
 //nulls?
 //TODO something with dates (ISO 8601)
+
+
 
 data class LoginResponse(
     @SerializedName("user_id") val userId: Int,
     @SerializedName("role_id") val roleId: Int
 )
 
+data class LogOutResponse(
+    val message: String
+)
+
+data class RefreshResponse(
+    val message: String  //FCM token refreshed successfully
+)
+
+
+
 data class CreateRequestResponse(
     val message: String,
     @SerializedName("request_id") val requestId: Int
 )
+
+data class TaskManipulationResponse(
+    val message: String,
+    val request: Int
+)
+
+
 
 data class MyDataResponse(
     @SerializedName("user_id") val userId: Int,
@@ -32,17 +50,11 @@ data class MyDataResponse(
     @SerializedName("shift_id") val shiftId: Int
 )
 
-data class MyAwardsResponse(
+data class MyRewardsResponse(
     val tokens: Int,
     @SerializedName("num_created") val numCreated: Int,
     @SerializedName("num_completed") val numCompleted: Int,
     @SerializedName("last_completed") val lastCompleted: String
 )
 
-data class LogOutResponse(
-    val message: String
-)
 
-//data class CardsRequestResponse(
-//    val Items: List<Card>
-//)

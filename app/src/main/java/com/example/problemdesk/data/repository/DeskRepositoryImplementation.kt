@@ -7,9 +7,14 @@ import com.example.problemdesk.data.models.LogOutRequest
 import com.example.problemdesk.data.models.LogOutResponse
 import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
-import com.example.problemdesk.data.models.MyAwardsResponse
+import com.example.problemdesk.data.models.MyRewardsResponse
 import com.example.problemdesk.data.models.MyDataResponse
+import com.example.problemdesk.data.models.RefreshRequest
+import com.example.problemdesk.data.models.RefreshResponse
+import com.example.problemdesk.data.models.TaskManipulationRequest
+import com.example.problemdesk.data.models.TaskManipulationResponse
 import com.example.problemdesk.domain.models.Card
+import com.example.problemdesk.domain.models.RequestLog
 import com.example.problemdesk.domain.repository.DeskRepository
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -50,22 +55,34 @@ class DeskRepositoryImplementation : DeskRepository {
 
     suspend fun login(loginRequest: LoginRequest): LoginResponse = deskApi.login(loginRequest)
     suspend fun logout(logoutRequest: LogOutRequest): LogOutResponse = deskApi.logout(logoutRequest)
+    //TODO
+    suspend fun refreshUserToken(refreshRequest: RefreshRequest): RefreshResponse = deskApi.refreshUserToken(refreshRequest)
 
-    suspend fun createRequest(createRequestRequest: CreateRequestRequest): CreateRequestResponse =
-        deskApi.createRequest(createRequestRequest)
+    suspend fun createRequest(createRequestRequest: CreateRequestRequest): CreateRequestResponse = deskApi.createRequest(createRequestRequest)
+    suspend fun takeOnWork(request: TaskManipulationRequest): TaskManipulationResponse = deskApi.takeOnWork(request)
+    //TODO
+    suspend fun masterApprove(taskManipulationRequest: TaskManipulationRequest): TaskManipulationResponse = deskApi.masterApprove(taskManipulationRequest)
+    suspend fun masterDeny(taskManipulationRequest: TaskManipulationRequest): TaskManipulationResponse = deskApi.masterDeny(taskManipulationRequest)
+    suspend fun executorCancel(taskManipulationRequest: TaskManipulationRequest): TaskManipulationResponse = deskApi.executorCancel(taskManipulationRequest)
+    suspend fun executorComplete(taskManipulationRequest: TaskManipulationRequest): TaskManipulationResponse = deskApi.executorComplete(taskManipulationRequest)
+    suspend fun requestorConfirm(taskManipulationRequest: TaskManipulationRequest): TaskManipulationResponse = deskApi.requestorConfirm(taskManipulationRequest)
+    suspend fun requestorDeny(taskManipulationRequest: TaskManipulationRequest): TaskManipulationResponse = deskApi.requestorDeny(taskManipulationRequest)
+    suspend fun requestorDelete(taskManipulationRequest: TaskManipulationRequest): TaskManipulationResponse = deskApi.requestorDelete(taskManipulationRequest)
+
+    //TODO
+    suspend fun requestHistory(requestId: Int): List<RequestLog> = deskApi.requestHistory(requestId)
 
     suspend fun getMyData(userId: Int): MyDataResponse = deskApi.getMyData(userId)
-    suspend fun getMyAwards(userId: Int): MyAwardsResponse = deskApi.getMyAwards(userId)
+    suspend fun getMyRewards(userId: Int): MyRewardsResponse = deskApi.getMyRewards(userId)
 
-    suspend fun getExecutorUnassigned(userId: Int): List<Card> =
-        deskApi.getExecutorUnassigned(userId)
-
+    suspend fun getExecutorUnassigned(userId: Int): List<Card> = deskApi.getExecutorUnassigned(userId)
     suspend fun getExecutorAssigned(userId: Int): List<Card> = deskApi.getExecutorAssigned(userId)
+
     suspend fun getDenied(userId: Int): List<Card> = deskApi.getDenied(userId)
     suspend fun getCompleted(userId: Int): List<Card> = deskApi.getCompleted(userId)
+    suspend fun getInProgress(userId: Int): List<Card> = deskApi.getInProgress(userId) + deskApi.getUnderRequestorApproval(userId)
 
-    //TODO что то странное выдает, надо перепроверить
-    suspend fun getInWork(userId: Int): List<Card> =
-        deskApi.getInProgress(userId) + deskApi.getUnderMasterMonitor(userId) +
-                deskApi.getUnderMasterApproval(userId) + deskApi.getUnderRequestorApproval(userId)
+    //TODO
+    suspend fun getUnderMasterMonitor(userId: Int): List<Card> = deskApi.getUnderMasterMonitor(userId)
+    suspend fun getUnderMasterApproval(userId: Int): List<Card> = deskApi.getUnderMasterApproval(userId)
 }

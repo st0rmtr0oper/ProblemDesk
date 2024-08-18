@@ -19,7 +19,7 @@ class InWorkViewModel : ViewModel() {
 
         viewModelScope.launch {
             try {
-                response = repository.getInWork(userId)
+                response = repository.getInProgress(userId)
                 Log.i("!--{{{IN WORK}}}--!", response.toString())
                 _cards.postValue(response)
             } catch (e: Exception) {

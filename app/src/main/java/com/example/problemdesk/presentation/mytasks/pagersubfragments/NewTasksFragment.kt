@@ -6,17 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.R
+import com.example.problemdesk.data.models.TaskManipulationRequest
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.databinding.FragmentSubNewTasksBinding
 import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.presentation.CardRecyclerViewAdapter
 import kotlinx.coroutines.launch
+
+//TODO modal windows: logs, details
+//TODO reason
 
 class NewTasksFragment : Fragment() {
     private var _binding: FragmentSubNewTasksBinding? = null
@@ -34,6 +37,12 @@ class NewTasksFragment : Fragment() {
 
         newTasksViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
             (binding.newTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+        })
+
+        newTasksViewModel.takeSuccess.observe(viewLifecycleOwner, Observer { success: Boolean ->
+            if (success) {
+                showSuccessTakeDialog()
+            }
         })
 
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
@@ -55,9 +64,10 @@ class NewTasksFragment : Fragment() {
     }
 
     private fun handleCardClick(card: Card) {
-        //TODO delete mocking
-//        Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show()
-        showButtonsDialog()
+        val requestId = card.requestId
+        //TODO    reason!
+        val reason = ""
+        showButtonsDialog(requestId, reason)
     }
 
     override fun onDestroyView() {
@@ -65,14 +75,12 @@ class NewTasksFragment : Fragment() {
         _binding = null
     }
 
-    private fun showButtonsDialog() {
+    private fun showButtonsDialog(requestId: Int, reason: String) {
         // Inflate the custom layout
         val dialogView = layoutInflater.inflate(R.layout.dialog_unassigned, null)
-
         // Create an AlertDialog Builder
         val builder = AlertDialog.Builder(requireContext())
             .setView(dialogView)
-
         // Create and show the AlertDialog
         val dialog = builder.create()
         dialog.show()
@@ -80,6 +88,19 @@ class NewTasksFragment : Fragment() {
         // Set up the button click listeners
         dialogView.findViewById<Button>(R.id.button_take).setOnClickListener {
             // Handle Take button click
+
+            val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+            val userId = sharedPreferences?.getInt("user_id", 0)
+
+            //TODO implement Take on work
+            lifecycleScope.launch {
+                if (userId != null) {
+                    val request = TaskManipulationRequest(userId, requestId, reason)
+                    newTasksViewModel.takeTask(request)
+
+                    newTasksViewModel.loadCards(userId)
+                }
+            }
             dialog.dismiss()
         }
 
@@ -96,6 +117,15 @@ class NewTasksFragment : Fragment() {
         dialogView.findViewById<Button>(R.id.button_cancel).setOnClickListener {
             // Handle Cancel button click
             dialog.dismiss()
+        }
+    }
+
+    private fun showSuccessTakeDialog() {
+        androidx.appcompat.app.AlertDialog.Builder(requireContext()).apply {
+            setTitle("Заявка принята")
+            setMessage("Заявка принята вами на выполнение")
+            setNegativeButton("Ок", null)
+            show()
         }
     }
 }

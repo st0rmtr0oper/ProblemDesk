@@ -1,14 +1,16 @@
 package com.example.problemdesk.presentation.mytasks.pagersubfragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import com.example.problemdesk.R
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.databinding.FragmentSubPickedTasksBinding
 import com.example.problemdesk.domain.models.Card
@@ -54,12 +56,48 @@ class PickedTasksFragment: Fragment() {
     }
 
     private fun handleCardClick(card: Card) {
-        //TODO delete mocking
-        Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show()
+        showButtonsDialog()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showButtonsDialog() {
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.dialog_assigned, null)
+
+        // Create an AlertDialog Builder
+        val builder = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+
+        // Create and show the AlertDialog
+        val dialog = builder.create()
+        dialog.show()
+
+        // Set up the button click listeners
+        dialogView.findViewById<Button>(R.id.button_send).setOnClickListener {
+            // Handle Take button click
+            dialog.dismiss()
+
+        }
+
+        dialogView.findViewById<Button>(R.id.button_details).setOnClickListener {
+            // Handle Details button click
+            dialog.dismiss()
+
+        }
+
+        dialogView.findViewById<Button>(R.id.button_logs).setOnClickListener {
+            // Handle Logs button click
+            dialog.dismiss()
+
+        }
+
+        dialogView.findViewById<Button>(R.id.button_cancel).setOnClickListener {
+            // Handle Cancel button click
+            dialog.dismiss()
+        }
     }
 }

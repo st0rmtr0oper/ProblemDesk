@@ -6,6 +6,8 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!--TODO style and proper UI-->
+
     <Button
         android:id="@+id/button_send"
         style="?android:attr/buttonBarButtonStyle"

@@ -8,6 +8,18 @@ data class LoginRequest(
     val fcm_token: String
 )
 
+data class LogOutRequest(
+    val user_id: Int,
+    val old_fcm: String
+)
+
+data class RefreshRequest(
+    val user_id: Int,
+    val new_fcm: String
+)
+
+
+
 data class CreateRequestRequest(
     val request_type: Int,
     val user_id: Int,
@@ -15,7 +27,8 @@ data class CreateRequestRequest(
     val description: String
 )
 
-data class LogOutRequest(
+data class TaskManipulationRequest(
     val user_id: Int,
-    val old_fcm: String
+    val request_id: Int,
+    val reason: String
 )
