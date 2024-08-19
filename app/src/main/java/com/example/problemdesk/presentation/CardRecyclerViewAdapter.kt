@@ -33,13 +33,14 @@ class CardRecyclerViewAdapter(private val cardListener: (Card) -> Unit) : Recycl
 class CardsViewHolder(private val binding: FragmentSubCardItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(card: Card, cancelledCardListener: (Card) -> Unit) {
         with(binding) {
+            cardSpecialization.text = getSpecialization(card.requestType)
+            cardArea.text = getArea(card.areaId)
 
-            //TODO cards
-            cardStatus.text = card.reason
-            cardSpecialization.text = card.requestType.toString()
-            cardWorkplace.text = card.areaId.toString()
-            cardDate.text = card.createdAt
+            statusBar.setBackgroundColor(getStatusBarColor(card.statusId)) //TODO getStatusColor
+            cardStatus.text = getStatus(card.statusId) //TODO fun returnStatus
+
             cardText.text = card.description
+            cardDate.text = getDate(card.createdAt)
         }
 
         itemView.setOnClickListener {
