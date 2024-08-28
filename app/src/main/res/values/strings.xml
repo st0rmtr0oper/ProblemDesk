@@ -41,4 +41,11 @@
     <string name="dialog_logs">Просмотр логов</string>
     <string name="dialog_cancel">Отмена</string>
     <string name="dialog_assigned_send">Отправить на проверку</string>
+    <string name="master_approve_bottom_sheet_dialog_creation_date_label">Дата создания</string>
+    <string name="master_approve_bottom_sheet_dialog_specialization_label">Специализация</string>
+    <string name="master_approve_bottom_sheet_dialog_area_label">Участок</string>
+    <string name="master_approve_bottom_sheet_dialog_description_label">Текст заявки</string>
+    <string name="master_approve_bottom_sheet_dialog_edit_text_hint">Пояснение к заявке</string>
+    <string name="master_approve_bottom_sheet_dialog_cancel_button">Отклонить</string>
+    <string name="master_approve_bottom_sheet_dialog_approve_button">Подтвердить</string>
 </resources>

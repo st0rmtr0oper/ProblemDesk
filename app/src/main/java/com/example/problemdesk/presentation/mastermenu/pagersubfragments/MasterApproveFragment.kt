@@ -27,7 +27,11 @@ class MasterApproveFragment : Fragment() {
         fun newInstance() = MasterApproveFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentSubApproveBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -35,11 +39,21 @@ class MasterApproveFragment : Fragment() {
             (binding.approveRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
         })
 
-//        newTasksViewModel.takeSuccess.observe(viewLifecycleOwner, Observer { success: Boolean ->
-//            if (success) {
-//                showSuccessTakeDialog()
-//            }
-//        })
+        masterApproveViewModel.approveSuccess.observe(
+            viewLifecycleOwner,
+            Observer { success: Boolean ->
+                if (success) {
+                    showApproveDialog()
+                }
+            })
+
+        masterApproveViewModel.denySuccess.observe(
+            viewLifecycleOwner,
+            Observer { success: Boolean ->
+                if (success) {
+                    showDenyDialog()
+                }
+            })
 
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
         val userId = sharedPreferences?.getInt("user_id", 0)
@@ -64,11 +78,28 @@ class MasterApproveFragment : Fragment() {
 //        TODO    reason!
 //        val reason = ""
 //        showButtonsDialog(requestId, reason)
+
+        val requestId = card.requestId
+
+
+        showBottomSheetDialog(requestId)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showBottomSheetDialog(requestId: Int) {
+        val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+        val userId = sharedPreferences?.getInt("user_id", 0)
+
+        if (userId != null) {
+            val bottomSheet =
+                MasterApproveBottomSheetDialog(requestId, userId, masterApproveViewModel)
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+            //parentFragmentManager - Fragment, supportFragmentManager - Activity
+        }
     }
 
 //    private fun showButtonsDialog(requestId: Int, reason: String) {
@@ -116,12 +147,21 @@ class MasterApproveFragment : Fragment() {
 //        }
 //    }
 
-//    private fun showSuccessTakeDialog() {
-//        androidx.appcompat.app.AlertDialog.Builder(requireContext()).apply {
-//            setTitle("Заявка принята")
-//            setMessage("Заявка принята вами на выполнение")
-//            setNegativeButton("Ок", null)
-//            show()
-//        }
-//    }
+    private fun showApproveDialog() {
+        androidx.appcompat.app.AlertDialog.Builder(requireContext()).apply {
+            setTitle("Заявка принята")
+            setMessage("Заявка успешно принятя")
+            setNegativeButton("Ок", null)
+            show()
+        }
+    }
+
+    private fun showDenyDialog() {
+        androidx.appcompat.app.AlertDialog.Builder(requireContext()).apply {
+            setTitle("Заявка отклонена")
+            setMessage("Заявка успешно отклонена")
+            setNegativeButton("Ок", null)
+            show()
+        }
+    }
 }

@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 //TODO remember me. шобы не заходить постоянно в акк раз за разом
 
 //TODO loading animation
-//TODO error messages for user (no connection, dead server and etc)
+//TODO error messages for user (no connection, dead server and etc)     ---------------!!!!!!!!!s
 
 //TODO password recovery
 
