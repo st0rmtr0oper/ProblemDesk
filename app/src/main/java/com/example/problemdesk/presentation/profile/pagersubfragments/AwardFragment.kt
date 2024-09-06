@@ -24,7 +24,7 @@ class AwardFragment : Fragment() {
         fun newInstance() = AwardFragment()
     }
 
-    //TODO need to add a loading shit
+    //TODO need to add a loading
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,11 +53,6 @@ class AwardFragment : Fragment() {
         }
 
         return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //TODO award fragment
     }
 
     override fun onDestroyView() {

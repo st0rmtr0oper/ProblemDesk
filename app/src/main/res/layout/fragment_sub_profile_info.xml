@@ -1,100 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Employee Login and Employment Date -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Employee Login -->
+        <TextView
+            android:id="@+id/profile_employee_login"
+            style="@style/headerTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            tools:text="TMK-1001" />
+
+        <!-- Employment Date -->
+        <TextView
+            android:id="@+id/profile_employment_date"
+            style="@style/headerTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:paddingRight="40dp"
+            android:textColor="?attr/colorOnPrimary"
+            tools:text="Стаж с 04/02/2020" />
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View style="@style/dividerStyle" />
+
+    <!-- Personal Data Section Header -->
     <TextView
         android:id="@+id/profile_data_header"
         style="@style/headerTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_sub_info_personal_data_label" />
+        android:layout_marginBottom="8dp"
+        android:text="Персональные данные" />
 
+    <!-- Personal Data Items -->
+    <!-- Full Name -->
     <TextView
-        android:id="@+id/profile_employee_login"
-        style="@style/labelTextViewStyle"
+        android:id="@+id/profile_full_name"
+        style="@style/infoDataTextViewStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/profile_employment_date"
-        style="@style/dataTextViewStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:text="Михаил Проблемович Создателев" />
 
     <TextView
         android:id="@+id/profile_full_name_label"
-        style="@style/labelTextViewStyle"
+        style="@style/infoLabelTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_sub_info_fullname_label" />
+        android:text="ФИО" />
 
+    <!-- Contact Phone -->
     <TextView
-        android:id="@+id/profile_full_name"
-        style="@style/dataTextViewStyle"
+        android:id="@+id/profile_contact_phone"
+        style="@style/infoDataTextViewStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:text="string" />
 
     <TextView
         android:id="@+id/profile_contact_phone_label"
-        style="@style/labelTextViewStyle"
+        style="@style/infoLabelTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_sub_info_contact_phone" />
+        android:text="Контактный телефон" />
 
+    <!-- Date of Birth -->
     <TextView
-        android:id="@+id/profile_contact_phone"
-        style="@style/dataTextViewStyle"
+        android:id="@+id/profile_date_of_birth"
+        style="@style/infoDataTextViewStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:text="09/04/1945" />
 
     <TextView
         android:id="@+id/profile_date_of_birth_label"
-        style="@style/labelTextViewStyle"
+        style="@style/infoLabelTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_sub_info_birth_date_label" />
+        android:text="Дата рождения" />
 
+    <!-- Email -->
     <TextView
-        android:id="@+id/profile_date_of_birth"
-        style="@style/dataTextViewStyle"
+        android:id="@+id/profile_email"
+        style="@style/infoDataTextViewStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:text="sozdat-miha@tmk.ru" />
 
     <TextView
         android:id="@+id/profile_email_label"
-        style="@style/labelTextViewStyle"
+        style="@style/infoLabelTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_sub_info_email_label" />
+        android:text="Почта" />
 
-    <TextView
-        android:id="@+id/profile_email"
-        style="@style/dataTextViewStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <!-- Divider -->
+    <View style="@style/dividerStyle" />
 
-    <TextView
-        android:id="@+id/profile_position_label"
-        style="@style/labelTextViewStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/profile_sub_info_position_label" />
-
-    <TextView
-        android:id="@+id/profile_position"
-        style="@style/dataTextViewStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+    <!-- Warning Section -->
     <TextView
         android:id="@+id/profile_warning_label"
         style="@style/warningStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="@string/profile_sub_info_warning_label" />
+        android:layout_marginTop="16dp"
+        android:text="Внимание! Информация автоматически отображается из вашего личного кабинета. Для изменения обратитесь в отдел кадров." />
 </LinearLayout>
-

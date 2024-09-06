@@ -22,7 +22,7 @@ class ManagerFragment : Fragment() {
         _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        //графики
+        //TODO графики
 
         return root
     }

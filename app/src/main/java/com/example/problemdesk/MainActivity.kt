@@ -11,15 +11,18 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.problemdesk.databinding.ActivityMainBinding
 
-
 //TODO 1 - UI
-//TODO - collections representation
 //TODO 1.8.1 - popup messages (modal? idk), card handling
 
 //TODO 1.8 - themes, custom styles, colors string resources
 //TODO 1.9 - final design
 
-//TODO 2 - MVVM for the rest
+//TODO logs into fragments
+//TODO shared prefs
+//TODO setups
+
+
+//TODO data storage?
 
 // usecases?
 //TODO 3 - final flow logic
@@ -29,11 +32,12 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 
 //TODO final redesign
 
-//TODO 4 - backend, firebase, pushs, api, retrofit ...   +  manager UI, graphs
+//TODO 4 - firebase, pushs...   +  manager UI, graphs
 //manager ui
 
 //TODO add a empty lists placeholders
-
+//TODO loading animation
+//TODO drag refresh gesture
 
 //TODO need to check all for following MVVM, Clean Arch and SOLID   ---!!!
 

@@ -55,7 +55,7 @@ class ProfileInfoFragment : Fragment() {
                     profileContactPhone.text = profileData.phoneNumber
                     profileDateOfBirth.text = profileData.birthDate
                     profileEmail.text = profileData.email
-                    profilePosition.text = profileData.specId.toString()
+//                    profilePosition.text = profileData.specId.toString()
                 }
             })
 

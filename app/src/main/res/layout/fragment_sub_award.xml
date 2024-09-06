@@ -6,6 +6,10 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Divider -->
+    <View
+        style="@style/dividerStyle" />
+
     <TextView
         android:id="@+id/award_header_label"
         style="@style/headerTextViewStyle"

@@ -31,11 +31,5 @@ class AwardViewModel : ViewModel() {
                 Log.i("!--{{{AWARD DATA}}}--!", e.toString())
             }
         }
-//        _awardData.value = AwardData(
-//            3600,
-//            150,
-//            160,
-//            "22/05/2024"
-//        )
     }
 }

@@ -99,6 +99,9 @@ class ProfileFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
+
     private fun showLogOutConfirmationDialog(request: LogOutRequest) {
         AlertDialog.Builder(requireContext()).apply {
             setTitle("Выход из аккаунта")
@@ -110,6 +113,7 @@ class ProfileFragment : Fragment() {
             show()
         }
     }
+
     private fun showErrorDialog() {
         androidx.appcompat.app.AlertDialog.Builder(requireContext()).apply {
             setTitle("Ошибка")
