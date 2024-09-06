@@ -10,17 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.problemdesk.data.models.CreateRequestRequest
-import com.example.problemdesk.data.sharedprefs.PreferenceUtil
-import com.example.problemdesk.data.sharedprefs.USER_ID
+import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentProblemFormBinding
 import com.example.problemdesk.domain.models.Specialization
 import com.example.problemdesk.domain.models.Workplace
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
-
-//TODO errors
 
 //TODO visual issues with spinners!
 
@@ -39,46 +35,28 @@ class ProblemFormFragment : Fragment() {
         _binding = FragmentProblemFormBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-        val userId = sharedPreferences?.getInt(USER_ID, 0)
-
-        problemFormViewModel.successStatus.observe(viewLifecycleOwner, Observer { event ->
-            event.getContentIfNotHandled()?.let { successStatus ->
-                if (successStatus) {
-                    showSuccessDialog()
-                    binding.problemDescription.text.clear()
-                    binding.problemTypeSpinner.setSelection(0)
-                    binding.userWorkplaceSpinner.setSelection(0)
-                }
-            }
-        })
-
-        binding.loginButton.setOnClickListener {
-
-            val selectedSpecialization = binding.problemTypeSpinner.selectedItem as Specialization
-            val selectedWorkplace = binding.userWorkplaceSpinner.selectedItem as Workplace
-
-            val requestType: Int = selectedSpecialization.id
-            val areaId: Int = selectedWorkplace.id
-            val description: String = binding.problemDescription.text.toString()
-
-            if (validate(requestType, areaId, description)) {
-                if (userId != null) {
-                    val request = CreateRequestRequest(requestType, userId, areaId, description)
-                    showConfirmationDialog(request)
-                }
-            } else {
-                showNotValidatedDialog()
-            }
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        if (userId != null) {
+            setUpClickListeners(userId)
         }
+        setUpObservers()
+
         return root
     }
 
-
-    //spinners should receive areas and specialisations list from backend. In ideal world
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpSpinners()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
+
+    private fun setUpSpinners() {
         val problemTypeSpinner: Spinner = binding.problemTypeSpinner
         val specializationAdapter = SpecializationAdapter(requireContext(), getSpecializationArray())
         problemTypeSpinner.adapter = specializationAdapter
@@ -86,6 +64,7 @@ class ProblemFormFragment : Fragment() {
         val userWorkplaceSpinner: Spinner = binding.userWorkplaceSpinner
         val workplaceAdapter = WorkplaceAdapter(requireContext(), getWorkplaceArray())
         userWorkplaceSpinner.adapter = workplaceAdapter
+        //spinners should receive areas and specialisations list from backend. In ideal world
 
 
 //        val problemTypeSpinner: Spinner = binding.problemTypeSpinner
@@ -113,9 +92,42 @@ class ProblemFormFragment : Fragment() {
 //        //https://metanit.com/java/android/5.4.php
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setUpObservers() {
+        problemFormViewModel.successStatus.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let { successStatus ->
+                if (successStatus) {
+                    showSuccessDialog()
+                    binding.problemDescription.text.clear()
+                    binding.problemTypeSpinner.setSelection(0)
+                    binding.userWorkplaceSpinner.setSelection(0)
+                }
+            }
+        })
+
+        problemFormViewModel.errorStatus.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let { errorStatus ->
+                showErrorDialog(errorStatus)
+            }
+        })
+    }
+
+    private fun setUpClickListeners(userId: Int) {
+        binding.loginButton.setOnClickListener {
+
+            val selectedSpecialization = binding.problemTypeSpinner.selectedItem as Specialization
+            val selectedWorkplace = binding.userWorkplaceSpinner.selectedItem as Workplace
+
+            val requestType: Int = selectedSpecialization.id
+            val areaId: Int = selectedWorkplace.id
+            val description: String = binding.problemDescription.text.toString()
+
+            if (validate(requestType, areaId, description)) {
+                val request = CreateRequestRequest(requestType, userId, areaId, description)
+                showConfirmationDialog(request)
+            } else {
+                showNotValidatedDialog()
+            }
+        }
     }
 
     private fun validate(requestType: Int, areaId: Int, description: String): Boolean {
@@ -132,6 +144,15 @@ class ProblemFormFragment : Fragment() {
                 } //TODO error handling - when something goes wrong (internet connection, dead server, etc)
             }
             setNegativeButton("Нет", null)
+            show()
+        }
+    }
+
+    private fun showErrorDialog(text: String) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Ошибка")
+            setMessage("Произошла ошибка: \n$text")
+            setNegativeButton("Ок", null)
             show()
         }
     }

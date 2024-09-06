@@ -1,5 +1,6 @@
 package com.example.problemdesk.presentation.login
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,13 +19,13 @@ import com.example.problemdesk.databinding.FragmentLoginBinding
 import com.example.problemdesk.data.sharedprefs.OLD_FCM
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.USER_ID
+import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import kotlinx.coroutines.launch
 
 //TODO remember me. шобы не заходить постоянно в акк раз за разом
-
 //TODO loading animation
-//TODO error messages for user (no connection, dead server and etc)     ---------------!!!!!!!!!s
-
+//TODO error messages for user (no connection, dead server and etc) ---
+// --- implemented, but in primitive way. returns shit when you type wrong credentials
 //TODO password recovery
 
 class LoginFragment : Fragment() {
@@ -42,51 +43,26 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Add TextWatcher to loginText for clearing errors when users type smthng
-        binding.loginText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                binding.loginTextLayout.error = null // Clear error when user starts typing
-            }
-        })
-        // Add TextWatcher to loginPassword
-        binding.loginPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                binding.loginPasswordLayout.error = null // Clear error when user starts typing
-            }
-        })
-
-        //i dont know is this a good way to use SP, cause it have troubles with context inside ViewModel
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+        //i dont know is this a good way to use SP, cause it have troubles with context inside ViewModel
+        setUpTextChangedListeners()
+        setUpClickListeners(sharedPreferences)
+        setUpObservers(sharedPreferences)
 
-        binding.loginButton.setOnClickListener {
-            val login = binding.loginText.text.toString()
-            val password = binding.loginPassword.text.toString()
-            binding.loginTextLayout.error = null
-            binding.loginPasswordLayout.error = null
+        return root
+    }
 
-            if (validate(login, password)) {
-                var fcm: String?
-                lifecycleScope.launch {
-                    loginViewModel.validate(login, password)
-                    fcm = loginViewModel.getFcm()
-                    fcm?.let { sharedPreferences?.edit()?.putString(OLD_FCM, it)?.apply() }
-                }
-            } else {
-                showNotValidatedDialog()
-            }
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
+
+
+    private fun setUpObservers(sharedPreferences: SharedPreferences?) {
         loginViewModel.errorStatus.observe(viewLifecycleOwner, Observer { event ->
             event.getContentIfNotHandled()?.let { errorStatus ->
-                    showErrorDialog(errorStatus.toString())
+                showErrorDialog(errorStatus)
             }
         })
 
@@ -127,12 +103,49 @@ class LoginFragment : Fragment() {
                 }
             }
         })
-        return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setUpClickListeners(sharedPreferences: SharedPreferences?) {
+        binding.loginButton.setOnClickListener {
+            val login = binding.loginText.text.toString()
+            val password = binding.loginPassword.text.toString()
+            binding.loginTextLayout.error = null
+            binding.loginPasswordLayout.error = null
+
+            if (validate(login, password)) {
+                var fcm: String?
+                lifecycleScope.launch {
+                    loginViewModel.validate(login, password)
+                    fcm = loginViewModel.getFcm()
+                    fcm?.let { sharedPreferences?.edit()?.putString(OLD_FCM, it)?.apply() }
+                }
+            } else {
+                showNotValidatedDialog()
+            }
+        }
+    }
+
+    private fun setUpTextChangedListeners() {
+        // Add TextWatcher to loginText for clearing errors when users type smthng
+        binding.loginText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                binding.loginTextLayout.error = null // Clear error when user starts typing
+            }
+        })
+        // Add TextWatcher to loginPassword
+        binding.loginPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                binding.loginPasswordLayout.error = null // Clear error when user starts typing
+            }
+        })
     }
 
     private fun showErrorDialog(text: String) {

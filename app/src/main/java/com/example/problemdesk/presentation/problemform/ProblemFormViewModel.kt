@@ -16,6 +16,9 @@ class ProblemFormViewModel : ViewModel() {
     private val _successStatus = MutableLiveData<SingleLiveEvent<Boolean>>()
     val successStatus: LiveData<SingleLiveEvent<Boolean>> get() = _successStatus
 
+    private val _errorStatus = MutableLiveData<SingleLiveEvent<String>>()
+    val errorStatus: LiveData<SingleLiveEvent<String>> get() = _errorStatus
+
     //TODO user's inputs should be remembered through app destroy??
 
     suspend fun createRequest(request: CreateRequestRequest) {
@@ -33,6 +36,7 @@ class ProblemFormViewModel : ViewModel() {
             } catch (e: Exception) {
                 Log.i("!--{{{CREATE REQUEST}}}--!", e.toString())
                 _successStatus.postValue(SingleLiveEvent(false))
+                _errorStatus.postValue(SingleLiveEvent(e.toString()))
             }
         }
     }
