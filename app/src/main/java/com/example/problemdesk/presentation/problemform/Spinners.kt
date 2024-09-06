@@ -15,8 +15,8 @@ class SpecializationAdapter(context: Context, specializations: Array<Specializat
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getDropDownView(position, convertView, parent)
-        val specialization = getItem(position)
-        view.findViewById<TextView>(android.R.id.text1).text = specialization?.name
+        val item = getItem(position)
+        view.findViewById<TextView>(android.R.id.text1).text = item?.name
         return view
     }
 }
@@ -26,8 +26,8 @@ class WorkplaceAdapter(context: Context, workplaces: Array<Workplace>) :
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getDropDownView(position, convertView, parent)
-        val workplace = getItem(position)
-        view.findViewById<TextView>(android.R.id.text1).text = workplace?.name
+        val item = getItem(position)
+        view.findViewById<TextView>(android.R.id.text1).text = item?.name
         return view
     }
 }
