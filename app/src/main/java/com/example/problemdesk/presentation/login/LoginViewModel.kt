@@ -8,6 +8,7 @@ import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
 import com.example.problemdesk.data.notifications.getFcmToken
 import com.example.problemdesk.data.repository.DeskRepositoryImplementation
+import com.example.problemdesk.presentation.SingleLiveEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,6 +20,9 @@ class LoginViewModel : ViewModel() {
 
     private val _userRole = MutableLiveData<Int>()
     val userRole: LiveData<Int> get() = _userRole
+
+    private val _errorStatus = MutableLiveData<SingleLiveEvent<String>>()
+    val errorStatus: LiveData<SingleLiveEvent<String>> get() = _errorStatus
 
     suspend fun validate(
         login: String,
@@ -41,6 +45,7 @@ class LoginViewModel : ViewModel() {
                 } catch (e: Exception) {
                     Log.i("!--{{{LOGIN}}}--!", e.toString())
                     _userRole.postValue(0)
+                    _errorStatus.postValue(SingleLiveEvent(e.toString()))
 
                     //postValue used because of anync work - live data update allowed only in main thread
                     //this thing somehow helps with this ussue

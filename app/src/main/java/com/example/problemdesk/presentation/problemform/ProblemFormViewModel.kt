@@ -7,14 +7,14 @@ import androidx.lifecycle.ViewModel
 import com.example.problemdesk.data.models.CreateRequestRequest
 import com.example.problemdesk.data.models.CreateRequestResponse
 import com.example.problemdesk.data.repository.DeskRepositoryImplementation
-import com.example.problemdesk.presentation.Event
+import com.example.problemdesk.presentation.SingleLiveEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProblemFormViewModel : ViewModel() {
-    private val _successStatus = MutableLiveData<Event<Boolean>>()
-    val successStatus: LiveData<Event<Boolean>> get() = _successStatus
+    private val _successStatus = MutableLiveData<SingleLiveEvent<Boolean>>()
+    val successStatus: LiveData<SingleLiveEvent<Boolean>> get() = _successStatus
 
     //TODO user's inputs should be remembered through app destroy??
 
@@ -29,10 +29,10 @@ class ProblemFormViewModel : ViewModel() {
             try {
                 createRequestResponse = repository.createRequest(request)
                 Log.i("!--{{{CREATE REQUEST}}}--!", createRequestResponse.toString())
-                _successStatus.postValue(Event(createRequestResponse.message == "Request created successfully"))
+                _successStatus.postValue(SingleLiveEvent(createRequestResponse.message == "Request created successfully"))
             } catch (e: Exception) {
                 Log.i("!--{{{CREATE REQUEST}}}--!", e.toString())
-                _successStatus.postValue(Event(false))
+                _successStatus.postValue(SingleLiveEvent(false))
             }
         }
     }

@@ -147,23 +147,10 @@ class ProblemFormFragment : Fragment() {
 
     private fun showSuccessDialog() {
         AlertDialog.Builder(requireContext()).apply {
-            //TODO bug - надо как то поменять
             setTitle("Заявка успешно создана")
             setMessage("Ваша заявка отправлена на рассмотрение. Благодарим!")
             setNegativeButton("Ок", null)
             show()
         }
     }
-
-//    private fun showErrorDialog() {
-//        AlertDialog.Builder(this).apply {
-//            setTitle("Выход")
-//            setMessage("Вы хотите выйти из приложения?")
-//            setPositiveButton("Да") { _, _ ->
-//                finish()
-//            }
-//            setNegativeButton("Нет", null)
-//            show()
-//        }
-//    }
 }

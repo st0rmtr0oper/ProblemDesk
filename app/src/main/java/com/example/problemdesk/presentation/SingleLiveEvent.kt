@@ -1,6 +1,6 @@
 package com.example.problemdesk.presentation
 
-open class Event<out T>(private val content: T) {
+open class SingleLiveEvent<out T>(private val content: T) {
 
     private var hasBeenHandled = false
 

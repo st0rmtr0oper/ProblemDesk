@@ -6,15 +6,15 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.problemdesk.MainActivity
+import com.example.problemdesk.data.models.CreateRequestRequest
 import com.example.problemdesk.databinding.FragmentLoginBinding
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
 import com.example.problemdesk.data.sharedprefs.OLD_FCM
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.USER_ID
@@ -72,13 +72,23 @@ class LoginFragment : Fragment() {
             binding.loginTextLayout.error = null
             binding.loginPasswordLayout.error = null
 
-            var fcm: String?
-            lifecycleScope.launch {
-                loginViewModel.validate(login, password)
-                fcm = loginViewModel.getFcm()
-                fcm?.let { sharedPreferences?.edit()?.putString(OLD_FCM, it)?.apply() }
+            if (validate(login, password)) {
+                var fcm: String?
+                lifecycleScope.launch {
+                    loginViewModel.validate(login, password)
+                    fcm = loginViewModel.getFcm()
+                    fcm?.let { sharedPreferences?.edit()?.putString(OLD_FCM, it)?.apply() }
+                }
+            } else {
+                showNotValidatedDialog()
             }
         }
+
+        loginViewModel.errorStatus.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let { errorStatus ->
+                    showErrorDialog(errorStatus.toString())
+            }
+        })
 
         loginViewModel.userId.observe(viewLifecycleOwner, Observer { userId ->
             //Storing user ID
@@ -123,5 +133,27 @@ class LoginFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showErrorDialog(text: String) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Ошибка")
+            setMessage("Произошла ошибка: \n$text")
+            setNegativeButton("Ок", null)
+            show()
+        }
+    }
+
+    private fun showNotValidatedDialog() {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Неполные данные")
+            setMessage("Пожалуйста, заполните все поля")
+            setNegativeButton("Ок", null)
+            show()
+        }
+    }
+
+    private fun validate(login: String, password: String): Boolean {
+        return login != "" && password != ""
     }
 }
