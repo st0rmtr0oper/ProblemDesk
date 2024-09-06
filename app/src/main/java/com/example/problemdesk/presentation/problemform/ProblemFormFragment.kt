@@ -42,14 +42,14 @@ class ProblemFormFragment : Fragment() {
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
         val userId = sharedPreferences?.getInt(USER_ID, 0)
 
-        problemFormViewModel.successStatus.observe(viewLifecycleOwner, Observer { successStatus ->
-            //Storing user ID
-            //null hell - looks like shit
-            if (successStatus) {
-                showSuccessDialog()
-                binding.problemDescription.text.clear()
-                binding.problemTypeSpinner.setSelection(0)
-                binding.userWorkplaceSpinner.setSelection(0)
+        problemFormViewModel.successStatus.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let { successStatus ->
+                if (successStatus) {
+                    showSuccessDialog()
+                    binding.problemDescription.text.clear()
+                    binding.problemTypeSpinner.setSelection(0)
+                    binding.userWorkplaceSpinner.setSelection(0)
+                }
             }
         })
 
@@ -147,6 +147,7 @@ class ProblemFormFragment : Fragment() {
 
     private fun showSuccessDialog() {
         AlertDialog.Builder(requireContext()).apply {
+            //TODO bug - надо как то поменять
             setTitle("Заявка успешно создана")
             setMessage("Ваша заявка отправлена на рассмотрение. Благодарим!")
             setNegativeButton("Ок", null)
