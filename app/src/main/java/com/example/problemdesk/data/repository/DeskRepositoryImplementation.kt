@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit
 
 class DeskRepositoryImplementation : DeskRepository {
     companion object {
-        const val BASE_URL = "http://34.141.180.59:443"
+        const val BASE_URL = "http://timofmax1.fvds.ru:8000"
     }
 
     private val gson = GsonBuilder().create()

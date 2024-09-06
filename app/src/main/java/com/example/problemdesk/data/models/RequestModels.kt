@@ -18,8 +18,6 @@ data class RefreshRequest(
     val new_fcm: String
 )
 
-
-
 data class CreateRequestRequest(
     val request_type: Int,
     val user_id: Int,

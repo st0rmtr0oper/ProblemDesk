@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.R
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.databinding.FragmentSubPickedTasksBinding
 import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.presentation.CardRecyclerViewAdapter
@@ -38,7 +39,7 @@ class PickedTasksFragment: Fragment() {
         })
 
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-        val userId = sharedPreferences?.getInt("user_id", 0)
+        val userId = sharedPreferences?.getInt(USER_ID, 0)
 
         lifecycleScope.launch {
             if (userId != null) {

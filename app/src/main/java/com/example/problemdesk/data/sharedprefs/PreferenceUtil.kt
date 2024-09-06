@@ -5,6 +5,11 @@ import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 
+const val USER_ID = "user_id"
+
+//TODO old_fcm
+const val OLD_FCM = "old_fcm"
+
 object PreferenceUtil {
 
     //idk how to use it properly, its GPT's suggestion

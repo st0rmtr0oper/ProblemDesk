@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.data.models.MyDataResponse
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+import com.example.problemdesk.data.sharedprefs.USER_ID
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,10 +40,6 @@ class ProfileInfoFragment : Fragment() {
             viewLifecycleOwner,
             Observer { profileData: MyDataResponse ->
 
-
-
-
-
                     //TODO need to remake this screen for new data structure
                 with(binding) {
 
@@ -64,7 +61,7 @@ class ProfileInfoFragment : Fragment() {
 
 
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-        val userId = sharedPreferences?.getInt("user_id", 0)
+        val userId = sharedPreferences?.getInt(USER_ID, 0)
 
         lifecycleScope.launch {
             if (userId != null) {

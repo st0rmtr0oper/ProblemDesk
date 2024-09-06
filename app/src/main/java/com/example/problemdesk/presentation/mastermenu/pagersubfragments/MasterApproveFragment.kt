@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.databinding.FragmentSubApproveBinding
 import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.presentation.CardRecyclerViewAdapter
@@ -56,7 +57,7 @@ class MasterApproveFragment : Fragment() {
             })
 
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-        val userId = sharedPreferences?.getInt("user_id", 0)
+        val userId = sharedPreferences?.getInt(USER_ID, 0)
 
         lifecycleScope.launch {
             if (userId != null) {
@@ -92,7 +93,7 @@ class MasterApproveFragment : Fragment() {
 
     private fun showBottomSheetDialog(requestId: Int) {
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-        val userId = sharedPreferences?.getInt("user_id", 0)
+        val userId = sharedPreferences?.getInt(USER_ID, 0)
 
         if (userId != null) {
             val bottomSheet =

@@ -15,7 +15,9 @@ import com.example.problemdesk.MainActivity
 import com.example.problemdesk.databinding.FragmentLoginBinding
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.example.problemdesk.data.sharedprefs.OLD_FCM
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+import com.example.problemdesk.data.sharedprefs.USER_ID
 import kotlinx.coroutines.launch
 
 //TODO remember me. шобы не заходить постоянно в акк раз за разом
@@ -74,7 +76,7 @@ class LoginFragment : Fragment() {
             lifecycleScope.launch {
                 loginViewModel.validate(login, password)
                 fcm = loginViewModel.getFcm()
-                fcm?.let { sharedPreferences?.edit()?.putString("old_fcm", it)?.apply() }
+                fcm?.let { sharedPreferences?.edit()?.putString(OLD_FCM, it)?.apply() }
             }
         }
 
@@ -82,7 +84,7 @@ class LoginFragment : Fragment() {
             //Storing user ID
             //null hell - looks like shit
             userId?.let {
-                sharedPreferences?.edit()?.putInt("user_id", it)?.apply()
+                sharedPreferences?.edit()?.putInt(USER_ID, it)?.apply()
             }
         })
 

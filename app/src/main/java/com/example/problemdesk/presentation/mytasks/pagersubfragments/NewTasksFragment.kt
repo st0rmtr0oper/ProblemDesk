@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.R
 import com.example.problemdesk.data.models.TaskManipulationRequest
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.databinding.FragmentSubNewTasksBinding
 import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.presentation.CardRecyclerViewAdapter
@@ -46,7 +47,7 @@ class NewTasksFragment : Fragment() {
         })
 
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-        val userId = sharedPreferences?.getInt("user_id", 0)
+        val userId = sharedPreferences?.getInt(USER_ID, 0)
 
         lifecycleScope.launch {
             if (userId != null) {
@@ -90,7 +91,7 @@ class NewTasksFragment : Fragment() {
             // Handle Take button click
 
             val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-            val userId = sharedPreferences?.getInt("user_id", 0)
+            val userId = sharedPreferences?.getInt(USER_ID, 0)
 
             //TODO implement Take on work
             lifecycleScope.launch {

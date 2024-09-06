@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.problemdesk.data.models.CreateRequestRequest
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.databinding.FragmentProblemFormBinding
 import com.example.problemdesk.domain.models.Specialization
 import com.example.problemdesk.domain.models.Workplace
@@ -39,7 +40,7 @@ class ProblemFormFragment : Fragment() {
         val root: View = binding.root
 
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-        val userId = sharedPreferences?.getInt("user_id", 0)
+        val userId = sharedPreferences?.getInt(USER_ID, 0)
 
         problemFormViewModel.successStatus.observe(viewLifecycleOwner, Observer { successStatus ->
             //Storing user ID

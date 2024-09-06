@@ -13,7 +13,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.problemdesk.MainActivity
 import com.example.problemdesk.R
 import com.example.problemdesk.data.models.LogOutRequest
+import com.example.problemdesk.data.sharedprefs.OLD_FCM
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.databinding.FragmentProfileBinding
 import com.example.problemdesk.presentation.PagerAdapter
 import com.example.problemdesk.presentation.profile.pagersubfragments.AwardFragment
@@ -48,8 +50,8 @@ class ProfileFragment : Fragment() {
 
             //i dont know is this a good way to use SP, cause it have troubles with context inside ViewModel
             val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-            val userId = sharedPreferences?.getInt("user_id", 0)
-            val oldFcm = sharedPreferences?.getString("old_fcm", "")
+            val userId = sharedPreferences?.getInt(USER_ID, 0)
+            val oldFcm = sharedPreferences?.getString(OLD_FCM, "")
             if (userId != null && oldFcm != null && userId != 0 && oldFcm != "") {
                 val request = LogOutRequest(userId, oldFcm)
                 showLogOutConfirmationDialog(request)
