@@ -15,63 +15,63 @@
         <!-- Personal Data Items -->
         <!-- Full Name -->
         <TextView
-            android:id="@+id/profile_full_name"
+            android:id="@+id/date_of_creation_data"
             style="@style/infoDataTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Михаил Проблемович Создателев" />
+            tools:text="00.00.0000" />
 
         <TextView
-            android:id="@+id/profile_full_name_label"
+            android:id="@+id/date_of_creation_label"
             style="@style/infoLabelTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ФИО" />
+            android:text="@string/bottom_sheet_dialog_fragment_date_label" />
 
         <!-- Contact Phone -->
         <TextView
-            android:id="@+id/profile_contact_phone"
+            android:id="@+id/specialization_data"
             style="@style/infoDataTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="string" />
+            tools:text="СанПиН условия" />
 
         <TextView
-            android:id="@+id/profile_contact_phone_label"
+            android:id="@+id/specialization_label"
             style="@style/infoLabelTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Контактный телефон" />
+            android:text="@string/bottom_sheet_dialog_fragment_specialization_label" />
 
         <!-- Date of Birth -->
         <TextView
-            android:id="@+id/profile_date_of_birth"
+            android:id="@+id/area_data"
             style="@style/infoDataTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="09/04/1945" />
+            tools:text="2" />
 
         <TextView
-            android:id="@+id/profile_date_of_birth_label"
+            android:id="@+id/area_label"
             style="@style/infoLabelTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Дата рождения" />
+            android:text="@string/bottom_sheet_dialog_fragment_area_label" />
 
         <!-- Email -->
         <TextView
-            android:id="@+id/profile_email"
+            android:id="@+id/description_data"
             style="@style/infoDataTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="sozdat-miha@tmk.ru" />
+            tools:text="текст" />
 
         <TextView
-            android:id="@+id/profile_email_label"
+            android:id="@+id/description_label"
             style="@style/infoLabelTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Почта" />
+            android:text="@string/bottom_sheet_dialog_fragment_description_label" />
 
         <!-- Divider -->
         <View style="@style/dividerStyle" />
@@ -81,7 +81,7 @@
             style="@style/customEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:hint="Комментарий"
+            android:hint="@string/bottom_sheet_dialog_fragment_reason_hint"
             android:inputType="textShortMessage" />
     </LinearLayout>
 
@@ -108,7 +108,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="↩️ Переделать"/>
+            android:text="@string/bottom_sheet_dialog_fragment_requestor_send_back"/>
 
         <Button
             android:id="@+id/solved_button"
@@ -118,7 +118,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="Решено ✅"/>
+            android:text="@string/bottom_sheet_dialog_fragment_requestor_solved"/>
     </LinearLayout>
 
     <LinearLayout
@@ -129,11 +129,11 @@
 
         <Button
             style="@style/buttonStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="Удалить заявку 🗑"/>
+            android:text="@string/bottom_sheet_dialog_fragment_requestor_delete"/>
     </LinearLayout>
 </LinearLayout>

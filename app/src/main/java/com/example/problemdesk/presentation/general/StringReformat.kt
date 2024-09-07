@@ -6,7 +6,7 @@ fun getSpecialization(id: Int): String {
     return when(id){
         1 -> "Электрика"
         2 -> "Инструменты"
-        3 -> "Санитарно-бытовые условия"
+        3 -> "СанПиН условия"
         4 -> "Безопасность труда"
         5 -> "Документооборот"
         else -> "specialization error"

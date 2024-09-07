@@ -36,11 +36,6 @@
     <string name="login_problemdesk_title">MobileDesk</string>
     <string name="problem_form_edit_text_hint">Опишите проблему...</string>
     <string name="problem_form_button_send_title">Отправить</string>
-    <string name="dialog_unassigned_take">Взять в работу</string>
-    <string name="dialog_details">Детали</string>
-    <string name="dialog_logs">Просмотр логов</string>
-    <string name="dialog_cancel">Отмена</string>
-    <string name="dialog_assigned_send">Отправить на проверку</string>
     <string name="master_approve_bottom_sheet_dialog_creation_date_label">Дата создания</string>
     <string name="master_approve_bottom_sheet_dialog_specialization_label">Специализация</string>
     <string name="master_approve_bottom_sheet_dialog_area_label">Участок</string>
@@ -52,4 +47,16 @@
     <string name="log_bottom_sheet_dialog_date_label">Время:</string>
     <string name="log_bottom_sheet_dialog_status_label">Статус:</string>
     <string name="log_bottom_sheet_dialog_reason_label">Пометка:</string>
+    <string name="bottom_sheet_dialog_fragment_date_label">Дата создания</string>
+    <string name="bottom_sheet_dialog_fragment_specialization_label">Специализация</string>
+    <string name="bottom_sheet_dialog_fragment_area_label">Участок</string>
+    <string name="bottom_sheet_dialog_fragment_description_label">Текст заявки</string>
+    <string name="bottom_sheet_dialog_fragment_reason_hint">Комментарий</string>
+    <string name="bottom_sheet_dialog_fragment_requestor_delete">Удалить заявку 🗑</string>
+    <string name="bottom_sheet_dialog_fragment_requestor_solved">Решено ✅</string>
+    <string name="bottom_sheet_dialog_fragment_requestor_send_back">↩️ Переделать</string>
+    <string name="bottom_sheet_dialog_fragment_master_cancel">❌ Отменить</string>
+    <string name="bottom_sheet_dialog_fragment_approve">Принять ✅</string>
+    <string name="bottom_sheet_dialog_fragment_executor_take">Взять в работу 🛠</string>
+    <string name="bottom_sheet_dialog_fragment_executor_send">Отправить на проверку 📨</string>
 </resources>
