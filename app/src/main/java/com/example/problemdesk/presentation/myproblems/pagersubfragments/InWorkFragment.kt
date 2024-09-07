@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.USER_ID
+import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentSubInworkBinding
 import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.presentation.general.CardRecyclerViewAdapter
@@ -31,36 +32,36 @@ class InWorkFragment : Fragment() {
     ): View? {
         _binding = FragmentSubInworkBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        inWorkViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
-            (binding.inWorkRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-        })
-
-        val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-        val userId = sharedPreferences?.getInt(USER_ID, 0)
-
-        lifecycleScope.launch {
-            if (userId != null) {
-                inWorkViewModel.loadCards(userId)
-            }
-        }
-
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpObservers()
         //::handleCardClick binding RV click logic with fragment
         binding.inWorkRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
-    }
-
-    private fun handleCardClick(card: Card) {
-        //TODO delete mocking
-        Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show()
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        lifecycleScope.launch {
+            if (userId != null) {
+                inWorkViewModel.loadCards(userId)
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun handleCardClick(card: Card) {
+        //TODO HANDLE CLICK
+        Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setUpObservers() {
+        inWorkViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
+            (binding.inWorkRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+        })
+
     }
 }

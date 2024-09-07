@@ -36,7 +36,15 @@ class MyProblemsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpSubFragments()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setUpSubFragments() {
         //initiating viewPager
         viewPager = binding.myProblemsPager
         val fragmentList = arrayListOf(
@@ -66,11 +74,5 @@ class MyProblemsFragment : Fragment() {
                 2 -> tab.text = "Отклонены"
             }
         }.attach()
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

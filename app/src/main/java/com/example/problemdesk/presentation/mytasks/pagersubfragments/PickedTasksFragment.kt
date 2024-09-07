@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.R
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.USER_ID
+import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentSubPickedTasksBinding
 import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.presentation.general.CardRecyclerViewAdapter
@@ -33,72 +34,71 @@ class PickedTasksFragment: Fragment() {
     ): View? {
         _binding = FragmentSubPickedTasksBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        pickedTasksViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
-            (binding.pickedTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-        })
-
-        val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-        val userId = sharedPreferences?.getInt(USER_ID, 0)
-
-        lifecycleScope.launch {
-            if (userId != null) {
-                pickedTasksViewModel.loadCards(userId)
-            }
-        }
-
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpObservers()
         //::handleCardClick binding RV click logic with fragment
         binding.pickedTasksRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        lifecycleScope.launch {
+            if (userId != null) {
+                pickedTasksViewModel.loadCards(userId)
+            }
+        }
     }
-
-    private fun handleCardClick(card: Card) {
-        showButtonsDialog()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    private fun showButtonsDialog() {
-        // Inflate the custom layout
-        val dialogView = layoutInflater.inflate(R.layout.dialog_assigned, null)
-
-        // Create an AlertDialog Builder
-        val builder = AlertDialog.Builder(requireContext())
-            .setView(dialogView)
-
-        // Create and show the AlertDialog
-        val dialog = builder.create()
-        dialog.show()
-
-        // Set up the button click listeners
-        dialogView.findViewById<Button>(R.id.button_send).setOnClickListener {
-            // Handle Take button click
-            dialog.dismiss()
-
-        }
-
-        dialogView.findViewById<Button>(R.id.button_details).setOnClickListener {
-            // Handle Details button click
-            dialog.dismiss()
-
-        }
-
-        dialogView.findViewById<Button>(R.id.button_logs).setOnClickListener {
-            // Handle Logs button click
-            dialog.dismiss()
-
-        }
-
-        dialogView.findViewById<Button>(R.id.button_cancel).setOnClickListener {
-            // Handle Cancel button click
-            dialog.dismiss()
-        }
+    private fun handleCardClick(card: Card) {
+        //TODO HANDLE CLICK
+//        showButtonsDialog()
     }
+
+    private fun setUpObservers() {
+        pickedTasksViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
+            (binding.pickedTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+        })
+    }
+
+//    private fun showButtonsDialog() {
+//        // Inflate the custom layout
+//        val dialogView = layoutInflater.inflate(R.layout.dialog_assigned, null)
+//
+//        // Create an AlertDialog Builder
+//        val builder = AlertDialog.Builder(requireContext())
+//            .setView(dialogView)
+//
+//        // Create and show the AlertDialog
+//        val dialog = builder.create()
+//        dialog.show()
+//
+//        // Set up the button click listeners
+//        dialogView.findViewById<Button>(R.id.button_send).setOnClickListener {
+//            // Handle Take button click
+//            dialog.dismiss()
+//
+//        }
+//
+//        dialogView.findViewById<Button>(R.id.button_details).setOnClickListener {
+//            // Handle Details button click
+//            dialog.dismiss()
+//
+//        }
+//
+//        dialogView.findViewById<Button>(R.id.button_logs).setOnClickListener {
+//            // Handle Logs button click
+//            dialog.dismiss()
+//
+//        }
+//
+//        dialogView.findViewById<Button>(R.id.button_cancel).setOnClickListener {
+//            // Handle Cancel button click
+//            dialog.dismiss()
+//        }
+//    }
 }

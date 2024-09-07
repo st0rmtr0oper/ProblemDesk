@@ -41,10 +41,9 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setUpLogOutButton()
-        setUpObservers()
         setUpSubFragments()
+        setUpObservers()
+        setUpLogOutButton()
     }
 
     override fun onDestroyView() {

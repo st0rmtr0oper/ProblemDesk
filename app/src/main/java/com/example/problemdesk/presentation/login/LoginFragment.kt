@@ -42,22 +42,22 @@ class LoginFragment : Fragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        return root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
         //i dont know is this a good way to use SP, cause it have troubles with context inside ViewModel
+        setUpObservers(sharedPreferences)
         setUpTextChangedListeners()
         setUpClickListeners(sharedPreferences)
-        setUpObservers(sharedPreferences)
-
-        return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 
     private fun setUpObservers(sharedPreferences: SharedPreferences?) {
         loginViewModel.errorStatus.observe(viewLifecycleOwner, Observer { event ->

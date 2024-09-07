@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.USER_ID
+import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentSubNewTasksBinding
 import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.presentation.general.CardRecyclerViewAdapter
@@ -31,7 +32,28 @@ class NewTasksFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentSubNewTasksBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        return root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpObservers()
+        //::handleCardClick binding RV click logic with fragment
+        binding.newTasksRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        lifecycleScope.launch {
+            if (userId != null) {
+                newTasksViewModel.loadCards(userId)
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setUpObservers() {
         newTasksViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
             (binding.newTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
         })
@@ -41,38 +63,15 @@ class NewTasksFragment : Fragment() {
                 showSuccessTakeDialog()
             }
         })
-
-        val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-        val userId = sharedPreferences?.getInt(USER_ID, 0)
-
-        lifecycleScope.launch {
-            if (userId != null) {
-                newTasksViewModel.loadCards(userId)
-            }
-        }
-
-        return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //::handleCardClick binding RV click logic with fragment
-        binding.newTasksRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun handleCardClick(card: Card) {
         val requestId = card.requestId
         //TODO    reason!
+        //TODO HANDLE CLICK
         val reason = ""
 //        showButtonsDialog(requestId, reason)
     }
-
-
 
 //    private fun showButtonsDialog(requestId: Int, reason: String) {
 //        // Inflate the custom layout

@@ -14,6 +14,7 @@ class ManagerFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val managerViewModel: ManagerViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -21,14 +22,16 @@ class ManagerFragment : Fragment() {
     ): View {
         _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        //TODO графики
-
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //TODO графики
     }
 }

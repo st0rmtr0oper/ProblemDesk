@@ -34,18 +34,19 @@ class ProfileInfoFragment : Fragment() {
     ): View? {
         _binding = FragmentSubProfileInfoBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        return root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setUpObservers()
 
         val userId = context?.let { getSharedPrefsUserId(it) }
-
         lifecycleScope.launch {
             if (userId != null) {
                 profileInfoViewModel.loadInfo(userId)
             }
         }
-
-        return root
     }
 
     override fun onDestroyView() {

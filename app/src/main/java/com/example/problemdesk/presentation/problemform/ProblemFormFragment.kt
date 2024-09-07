@@ -34,21 +34,17 @@ class ProblemFormFragment : Fragment() {
     ): View {
         _binding = FragmentProblemFormBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        val userId = context?.let { getSharedPrefsUserId(it) }
-
-        if (userId != null) {
-            setUpClickListeners(userId)
-        }
-
-        setUpObservers()
-
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpSpinners()
+        setUpObservers()
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        if (userId != null) {
+            setUpClickListeners(userId)
+        }
     }
 
     override fun onDestroyView() {

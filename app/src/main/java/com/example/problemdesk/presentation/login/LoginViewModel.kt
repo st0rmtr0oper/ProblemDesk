@@ -56,6 +56,7 @@ class LoginViewModel : ViewModel() {
             }
         }
     }
+
     suspend fun getFcm(): String? {
         val fcm = getFcmToken()
         return fcm
