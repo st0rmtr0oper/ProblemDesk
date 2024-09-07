@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.data.models.MyRewardsResponse
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.USER_ID
+import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentSubAwardBinding
 import kotlinx.coroutines.launch
 
@@ -34,17 +35,9 @@ class AwardFragment : Fragment() {
         _binding = FragmentSubAwardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        awardViewModel.awardData.observe(viewLifecycleOwner, Observer { awardData: MyRewardsResponse ->
-            with(binding) {
-                awardTokens.text = awardData.tokens.toString()
-                awardCreatedRequests.text = awardData.numCreated.toString()
-                awardCompletedRequests.text = awardData.numCompleted.toString()
-                awardLastCompletedDate.text = awardData.lastCompleted
-            }
-        })
+        setUpObservers()
 
-        val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-        val userId = sharedPreferences?.getInt(USER_ID, 0)
+        val userId = context?.let { getSharedPrefsUserId(it) }
 
         lifecycleScope.launch {
             if (userId != null) {
@@ -58,5 +51,16 @@ class AwardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setUpObservers() {
+        awardViewModel.awardData.observe(viewLifecycleOwner, Observer { awardData: MyRewardsResponse ->
+            with(binding) {
+                awardTokens.text = awardData.tokens.toString()
+                awardCreatedRequests.text = awardData.numCreated.toString()
+                awardCompletedRequests.text = awardData.numCompleted.toString()
+                awardLastCompletedDate.text = awardData.lastCompleted
+            }
+        })
     }
 }

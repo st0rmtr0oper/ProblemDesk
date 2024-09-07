@@ -23,9 +23,6 @@ import com.example.problemdesk.presentation.profile.pagersubfragments.ProfileInf
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-//TODO data cashing? + refresh
-//https://developer.android.com/develop/ui/views/touch-and-input/swipe/add-swipe-interface
-
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
@@ -45,6 +42,18 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpLogOutButton()
+        setUpObservers()
+        setUpSubFragments()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
+    private fun setUpLogOutButton() {
         val exitMenuItem = (activity as MainActivity).binding.toolbar.menu.findItem(R.id.action_exit)
         exitMenuItem?.setOnMenuItemClickListener {
 
@@ -58,7 +67,9 @@ class ProfileFragment : Fragment() {
             }
             true
         }
+    }
 
+    private fun setUpObservers() {
         profileViewModel.logoutStatus.observe(viewLifecycleOwner, Observer { status ->
             if (status) {
                 findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationLogin())
@@ -66,7 +77,9 @@ class ProfileFragment : Fragment() {
                 showErrorDialog()
             }
         })
+    }
 
+    private fun setUpSubFragments() {
         //initiating viewPager
         viewPager = binding.profilePager
         val fragmentList = arrayListOf(
@@ -95,12 +108,6 @@ class ProfileFragment : Fragment() {
             }
         }.attach()
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-
 
     private fun showLogOutConfirmationDialog(request: LogOutRequest) {
         AlertDialog.Builder(requireContext()).apply {

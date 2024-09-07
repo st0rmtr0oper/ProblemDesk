@@ -39,6 +39,8 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //TODO loading animation
 //TODO drag refresh gesture
 
+//TODO update bottom nav icons and design
+
 //TODO need to check all for following MVVM, Clean Arch and SOLID   ---!!!
 
 class MainActivity : AppCompatActivity() {

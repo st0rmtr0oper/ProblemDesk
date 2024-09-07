@@ -1,3 +1,5 @@
+package com.example.problemdesk.presentation.details
+
 //import android.os.Bundle
 //import android.view.LayoutInflater
 //import android.view.View

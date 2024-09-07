@@ -36,9 +36,11 @@ class ProblemFormFragment : Fragment() {
         val root: View = binding.root
 
         val userId = context?.let { getSharedPrefsUserId(it) }
+
         if (userId != null) {
             setUpClickListeners(userId)
         }
+
         setUpObservers()
 
         return root
