@@ -7,8 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.problemdesk.databinding.FragmentSubProfileInfoBinding
-import com.example.problemdesk.domain.OLDMODELSrefactor.ProfileData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import com.example.problemdesk.data.models.MyDataResponse
+import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+import com.example.problemdesk.data.sharedprefs.USER_ID
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ProfileInfoFragment : Fragment() {
     private var _binding: FragmentSubProfileInfoBinding? = null
@@ -20,6 +26,8 @@ class ProfileInfoFragment : Fragment() {
         fun newInstance() = ProfileInfoFragment()
     }
 
+    //TODO need to add a loading shit?
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,19 +38,36 @@ class ProfileInfoFragment : Fragment() {
 
         profileInfoViewModel.profileData.observe(
             viewLifecycleOwner,
-            Observer { profileData: ProfileData ->
+            Observer { profileData: MyDataResponse ->
+
+                    //TODO need to remake this screen for new data structure
                 with(binding) {
-                    profileEmployeeLogin.text = profileData.login
-                    profileEmploymentDate.text = profileData.employmentDate
-                    profileFullName.text = profileData.fullName
-                    profileContactPhone.text = profileData.contactPhone
-                    profileDateOfBirth.text = profileData.dateOfBirth
+
+                    profileEmployeeLogin.text = profileData.username
+                    profileEmploymentDate.text = profileData.hireDate
+                    profileFullName.text = buildString {
+                        append(profileData.name)
+                        append(" ")
+                        append(profileData.surname)
+                        append(" ")
+                        append(profileData.middleName)
+                    }
+                    profileContactPhone.text = profileData.phoneNumber
+                    profileDateOfBirth.text = profileData.birthDate
                     profileEmail.text = profileData.email
-                    tprofilePosition.text = profileData.position
+//                    profilePosition.text = profileData.specId.toString()
                 }
             })
-        profileInfoViewModel.loadInfo()
 
+
+        val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+        val userId = sharedPreferences?.getInt(USER_ID, 0)
+
+        lifecycleScope.launch {
+            if (userId != null) {
+                profileInfoViewModel.loadInfo(userId)
+            }
+        }
         return root
     }
 

@@ -1,52 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--TODO shitty colors-->
+    <!--TODO final colors-->
 
+    <!-- Interactive -->
+
+    <!-- Button Style -->
+    <style name="buttonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <!-- ?attr -->
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="strokeColor">@color/primary_color</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <!-- TextInputLayout Style -->
+    <style name="textInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/text_input_outline_color</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <!-- NestedEditText Style -->
+    <style name="nestedEditTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">@color/primary_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:padding">8dp</item>
+        <!-- ?attr -->
+        <item name="hintTextColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <!-- Error message Style -->
+    <style name="textInputLayoutErrorStyle" parent="TextAppearance.Design.Error">
+        <item name="android:textColor">@color/design_default_color_error</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+
+    <!-- Multi-line EditText Style -->
+    <style name="multiLineEditTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:background">@drawable/edittext_background</item>
+        <item name="hintTextColor">?attr/colorOnPrimary</item>
+        <item name="android:minLines">3</item>
+        <item name="android:gravity">top|start</item>
+    </style>
+
+
+    <!-- EditText Style -->
+    <style name="editTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">@color/primary_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:padding">8dp</item>
+        <item name="boxStrokeColor">@color/text_input_outline_color</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <!-- ?attr -->
+        <item name="hintTextColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <!-- Spinner Style -->
+    <style name="spinnerStyle" parent="Widget.AppCompat.Spinner">
+        <item name="android:backgroundTint">@color/primary_color</item>
+        <item name="android:background">@drawable/spinner_background</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:popupBackground">@drawable/rounded_popup_background</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:dropDownVerticalOffset">8dp</item>
+        <item name="android:dropDownHorizontalOffset">8dp</item>
+    </style>
+
+
+    <!--TODO shitty colors-->
+    <!--TODO styles-->
+
+    <!-- Texts -->
     <style name="headerTextViewStyle" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/on_secondary_color</item>
+        <item name="android:textColor">@color/primary_color</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">10dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="labelTextViewStyle" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/on_secondary_color</item>
+        <item name="android:textColor">@color/primary_variant_color</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">8dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="infoLabelTextViewStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
     </style>
 
     <style name="dataTextViewStyle" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/on_secondary_color</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:padding">8dp</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <!--TODO styles-->
-
-    <style name="buttonStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/text_color</item>
-        <item name="android:textSize">16sp</item>
+    <style name="infoDataTextViewStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/primary_variant_color</item>
         <item name="android:padding">8dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="warningStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">8dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="spinnerStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/text_color</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:padding">8dp</item>
+    <style name="dividerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:background">?attr/colorOnPrimary</item>
     </style>
 
-    <style name="editTextStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/text_color</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:padding">8dp</item>
+    <!--Card Style-->
+
+    <!-- CardView Style -->
+    <style name="cardViewStyle">
+        <item name="cardCornerRadius">10dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">?attr/colorOnSecondary</item>
+        <item name="strokeColor">@color/primary_color</item>
+        <item name="strokeWidth">2dp</item>
     </style>
+
+    <!-- TextView Style -->
+    <style name="textViewStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <!--navigation-->
 
     <style name="bottomNavBarStyle" parent="android:Widget.TextView">
         <item name="android:textColor">@color/text_color</item>
@@ -59,5 +178,23 @@
         <item name="android:textSize">16sp</item>
         <item name="android:padding">8dp</item>
     </style>
+
+    <!-- Dialog Style -->
+    <!--    <style name="CustomDialog" parent="Theme.MaterialComponents.Dialog">-->
+    <!--        <item name="android:padding">16dp</item>-->
+    <!--        <item name="android:background">?attr/colorOnPrimary</item>-->
+    <!--        <item name="android:windowMinWidthMajor">80%</item> &lt;!&ndash; Optional: Set minimum width &ndash;&gt;-->
+    <!--        <item name="android:windowMinWidthMinor">80%</item> &lt;!&ndash; Optional: Set minimum width &ndash;&gt;-->
+    <!--    </style>-->
+
+    <!-- Button Style for Dialog -->
+    <!--    <style name="DialogButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">-->
+    <!--        <item name="android:layout_width">match_parent</item>-->
+    <!--        <item name="android:layout_height">wrap_content</item>-->
+    <!--        <item name="android:textColor">?attr/colorOnPrimary</item>-->
+    <!--        <item name="android:padding">12dp</item>-->
+    <!--        <item name="android:textSize">16sp</item>-->
+    <!--        <item name="android:backgroundTint">?attr/colorPrimary</item>-->
+    <!--    </style>-->
 
 </resources>

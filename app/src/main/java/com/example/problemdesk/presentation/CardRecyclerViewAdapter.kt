@@ -4,7 +4,9 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import com.example.problemdesk.databinding.FragmentSubCardItemBinding
-import com.example.problemdesk.domain.OLDMODELSrefactor.Card
+import com.example.problemdesk.domain.models.Card
+
+//TODO remake UI
 
 class CardRecyclerViewAdapter(private val cardListener: (Card) -> Unit) : RecyclerView.Adapter<CardsViewHolder>() {
 
@@ -31,12 +33,14 @@ class CardRecyclerViewAdapter(private val cardListener: (Card) -> Unit) : Recycl
 class CardsViewHolder(private val binding: FragmentSubCardItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(card: Card, cancelledCardListener: (Card) -> Unit) {
         with(binding) {
+            cardSpecialization.text = getSpecialization(card.requestType)
+            cardArea.text = getArea(card.areaId)
 
-            cardStatus.text = card.status.toString()
-            cardSpecialization.text = card.specialization.toString()
-            cardWorkplace.text = card.workplace.toString()
-            cardDate.text = card.date
-            cardText.text = card.taskText
+            statusBar.setBackgroundColor(getStatusBarColor(card.statusId)) //TODO getStatusColor
+            cardStatus.text = getStatus(card.statusId) //TODO fun returnStatus
+
+            cardText.text = card.description
+            cardDate.text = getDate(card.createdAt)
         }
 
         itemView.setOnClickListener {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProblemDesk</string>
+    <string name="app_name">MobileDesk</string>
     <string name="title_problem_form">Заявить</string>
     <string name="title_my_problems">Мои проблемы</string>
     <string name="title_my_tasks">Мои задачи</string>
@@ -27,4 +27,29 @@
     <string name="profile_sub_created_requests_label">Кол-во заведенных заявок</string>
     <string name="profile_sub_completed_requests_label">Кол-во исполненных заявок</string>
     <string name="profile_sub_last_completed_date_label">Дата последней исполненной заявки</string>
+    <string name="title_statistics">Статистика</string>
+    <string name="profile_exit_button_title">Выйти</string>
+    <string name="login_password_forgot_button_title">Забыли пароль?</string>
+    <string name="login_button_title">Вход</string>
+    <string name="edit_text_hint_password">Пароль</string>
+    <string name="edit_text_hint_login">Логин</string>
+    <string name="login_problemdesk_title">MobileDesk</string>
+    <string name="problem_form_edit_text_hint">Опишите проблему...</string>
+    <string name="problem_form_button_send_title">Отправить</string>
+    <string name="dialog_unassigned_take">Взять в работу</string>
+    <string name="dialog_details">Детали</string>
+    <string name="dialog_logs">Просмотр логов</string>
+    <string name="dialog_cancel">Отмена</string>
+    <string name="dialog_assigned_send">Отправить на проверку</string>
+    <string name="master_approve_bottom_sheet_dialog_creation_date_label">Дата создания</string>
+    <string name="master_approve_bottom_sheet_dialog_specialization_label">Специализация</string>
+    <string name="master_approve_bottom_sheet_dialog_area_label">Участок</string>
+    <string name="master_approve_bottom_sheet_dialog_description_label">Текст заявки</string>
+    <string name="master_approve_bottom_sheet_dialog_edit_text_hint">Пояснение к заявке</string>
+    <string name="master_approve_bottom_sheet_dialog_cancel_button">Отклонить</string>
+    <string name="master_approve_bottom_sheet_dialog_approve_button">Подтвердить</string>
+    <string name="log_bottom_sheet_dialog_name_label">Имя:</string>
+    <string name="log_bottom_sheet_dialog_date_label">Время:</string>
+    <string name="log_bottom_sheet_dialog_status_label">Статус:</string>
+    <string name="log_bottom_sheet_dialog_reason_label">Пометка:</string>
 </resources>
