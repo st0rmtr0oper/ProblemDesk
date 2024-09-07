@@ -21,7 +21,6 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //TODO shared prefs
 //TODO setups
 
-
 //TODO data storage?
 
 // usecases?
@@ -42,6 +41,50 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //TODO update bottom nav icons and design
 
 //TODO need to check all for following MVVM, Clean Arch and SOLID   ---!!!
+
+//errors (from okhttp?)
+//errors (шаблоны на определенные ошибки? (нет интернета, мертвый сервер)
+//чек на связь с интернетом
+
+//shared prefs для удобства ---?
+//setupobservers+click listeners
+//
+//диалоги
+//
+//принятие заявки на выполнение (повторение сообщения, отсутствие обновления)
+//
+//цвета в статусах
+//логи в фрагменты
+//
+//обновление жестом
+//datastorage
+//секурити
+//string resourses
+//
+//тест флоу
+//тест ролей
+//тест пушей
+//
+//анимация обновления
+//токен рефреш
+
+//----------------------
+
+//TODO visibility
+//TODO ДИАЛОГИ
+
+//З
+//>детали, логи, закрыть, отменить (если еще не принято), комментарий (если отправлено обратно), принять (если отправлено обратно), не принять (если отправлено обратно)
+//>детали, логи, закрыть
+//>детали, логи, закрыть
+//И
+//>детали, логи, закрыть, принять
+//>детали, комментарий, логи, закрыть, отправить на проверку
+//М
+//>детали, комментарий, логи, закрыть, отменить, принять
+//>детали, логи, закрыть
+
+//----------------------
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null

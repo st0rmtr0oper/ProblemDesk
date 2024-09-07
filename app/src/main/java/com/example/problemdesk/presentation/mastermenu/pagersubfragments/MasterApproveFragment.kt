@@ -91,7 +91,6 @@ class MasterApproveFragment : Fragment() {
     }
 
 
-
     private fun showBottomSheetDialog(requestId: Int) {
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
         val userId = sharedPreferences?.getInt(USER_ID, 0)
@@ -100,9 +99,9 @@ class MasterApproveFragment : Fragment() {
 //            val bottomSheet =
 //                MasterApproveBottomSheetDialog(requestId, userId, masterApproveViewModel)
 //            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
-            //parentFragmentManager - Fragment, supportFragmentManager - Activity
-        }
+        //parentFragmentManager - Fragment, supportFragmentManager - Activity
     }
+
 
 //    private fun showButtonsDialog(requestId: Int, reason: String) {
 //        // Inflate the custom layout
