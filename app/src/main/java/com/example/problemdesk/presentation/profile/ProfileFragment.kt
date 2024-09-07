@@ -17,7 +17,7 @@ import com.example.problemdesk.data.sharedprefs.OLD_FCM
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.databinding.FragmentProfileBinding
-import com.example.problemdesk.presentation.PagerAdapter
+import com.example.problemdesk.presentation.general.PagerAdapter
 import com.example.problemdesk.presentation.profile.pagersubfragments.AwardFragment
 import com.example.problemdesk.presentation.profile.pagersubfragments.ProfileInfoFragment
 import com.google.android.material.tabs.TabLayout

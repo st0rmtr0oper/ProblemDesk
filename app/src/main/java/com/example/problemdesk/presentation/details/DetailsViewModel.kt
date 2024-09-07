@@ -1,4 +1,4 @@
-package com.example.problemdesk.presentation.logs
+package com.example.problemdesk.presentation.details
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -10,7 +10,7 @@ import com.example.problemdesk.domain.models.RequestLog
 import kotlinx.coroutines.launch
 
 
-class LogsViewModel : ViewModel() {
+class DetailsViewModel : ViewModel() {
 
     private val _cards = MutableLiveData<List<RequestLog>>()
     val cards: LiveData<List<RequestLog>> get() = _cards

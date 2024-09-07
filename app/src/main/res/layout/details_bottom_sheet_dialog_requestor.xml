@@ -8,7 +8,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="330dp"
+        android:layout_margin="20dp"
         android:orientation="vertical">
 
         <!-- Personal Data Items -->
@@ -75,20 +76,55 @@
         <!-- Divider -->
         <View style="@style/dividerStyle" />
 
-
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/reason_text"
+            style="@style/customEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Комментарий"
+            android:inputType="textShortMessage" />
     </LinearLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/logs_rv"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="280dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/fragment_sub_log_item"/>
+        tools:listitem="@layout/fragment_sub_log_item" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            style="@style/buttonStyle"
+            android:layout_width="140dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:text="↩️ Переделать"/>
+
+        <Button
+            android:id="@+id/solved_button"
+            style="@style/buttonStyle"
+            android:layout_width="140dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:text="Решено ✅"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <Button
@@ -97,15 +133,7 @@
             android:layout_height="48dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_weight="1">
-        </Button>
-
-        <Button
-            style="@style/buttonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="Удалить заявку 🗑"/>
     </LinearLayout>
 </LinearLayout>

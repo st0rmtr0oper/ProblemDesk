@@ -1,4 +1,4 @@
-package com.example.problemdesk.presentation
+package com.example.problemdesk.presentation.general
 
 //TODO in ideal world, this should be done automatically with backend cus list of <...> can change
 

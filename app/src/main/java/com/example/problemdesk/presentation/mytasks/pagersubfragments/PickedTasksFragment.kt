@@ -15,7 +15,7 @@ import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.databinding.FragmentSubPickedTasksBinding
 import com.example.problemdesk.domain.models.Card
-import com.example.problemdesk.presentation.CardRecyclerViewAdapter
+import com.example.problemdesk.presentation.general.CardRecyclerViewAdapter
 import kotlinx.coroutines.launch
 
 class PickedTasksFragment: Fragment() {

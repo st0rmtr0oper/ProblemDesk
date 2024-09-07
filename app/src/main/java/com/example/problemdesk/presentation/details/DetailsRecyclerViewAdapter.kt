@@ -1,4 +1,4 @@
-package com.example.problemdesk.presentation.logs
+package com.example.problemdesk.presentation.details
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.problemdesk.databinding.FragmentSubLogItemBinding
 import com.example.problemdesk.domain.models.RequestLog
-import com.example.problemdesk.presentation.getStatus
+import com.example.problemdesk.presentation.general.getStatus
 
-class LogRecyclerViewAdapter(private val logListener: (RequestLog) -> Unit) :
+class DETAILSRecyclerViewAdapter(private val logListener: (RequestLog) -> Unit) :
     RecyclerView.Adapter<CardsViewHolder>() {
 
     var logs: List<RequestLog> = emptyList()

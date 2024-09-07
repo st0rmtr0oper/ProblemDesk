@@ -8,7 +8,7 @@ import com.example.problemdesk.data.models.LoginRequest
 import com.example.problemdesk.data.models.LoginResponse
 import com.example.problemdesk.data.notifications.getFcmToken
 import com.example.problemdesk.data.repository.DeskRepositoryImplementation
-import com.example.problemdesk.presentation.SingleLiveEvent
+import com.example.problemdesk.presentation.general.SingleLiveEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

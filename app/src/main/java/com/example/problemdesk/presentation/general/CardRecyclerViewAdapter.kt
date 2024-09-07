@@ -1,4 +1,4 @@
-package com.example.problemdesk.presentation
+package com.example.problemdesk.presentation.general
 
 import android.view.ViewGroup
 import android.view.LayoutInflater

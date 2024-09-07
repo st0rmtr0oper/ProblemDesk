@@ -1,4 +1,4 @@
-package com.example.problemdesk.presentation
+package com.example.problemdesk.presentation.general
 
 open class SingleLiveEvent<out T>(private val content: T) {
 

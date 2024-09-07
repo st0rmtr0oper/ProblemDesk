@@ -1,22 +1,18 @@
 package com.example.problemdesk.presentation.mytasks.pagersubfragments
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import com.example.problemdesk.R
-import com.example.problemdesk.data.models.TaskManipulationRequest
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.databinding.FragmentSubNewTasksBinding
 import com.example.problemdesk.domain.models.Card
-import com.example.problemdesk.presentation.CardRecyclerViewAdapter
+import com.example.problemdesk.presentation.general.CardRecyclerViewAdapter
 import kotlinx.coroutines.launch
 
 //TODO modal windows: logs, details
@@ -64,62 +60,64 @@ class NewTasksFragment : Fragment() {
         binding.newTasksRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
     }
 
-    private fun handleCardClick(card: Card) {
-        val requestId = card.requestId
-        //TODO    reason!
-        val reason = ""
-        showButtonsDialog(requestId, reason)
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    private fun showButtonsDialog(requestId: Int, reason: String) {
-        // Inflate the custom layout
-        val dialogView = layoutInflater.inflate(R.layout.dialog_unassigned, null)
-        // Create an AlertDialog Builder
-        val builder = AlertDialog.Builder(requireContext())
-            .setView(dialogView)
-        // Create and show the AlertDialog
-        val dialog = builder.create()
-        dialog.show()
-
-        // Set up the button click listeners
-        dialogView.findViewById<Button>(R.id.button_take).setOnClickListener {
-            // Handle Take button click
-
-            val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-            val userId = sharedPreferences?.getInt(USER_ID, 0)
-
-            //TODO implement Take on work
-            lifecycleScope.launch {
-                if (userId != null) {
-                    val request = TaskManipulationRequest(userId, requestId, reason)
-                    newTasksViewModel.takeTask(request)
-
-                    newTasksViewModel.loadCards(userId)
-                }
-            }
-            dialog.dismiss()
-        }
-
-        dialogView.findViewById<Button>(R.id.button_details).setOnClickListener {
-            // Handle Details button click
-            dialog.dismiss()
-        }
-
-        dialogView.findViewById<Button>(R.id.button_logs).setOnClickListener {
-            // Handle Logs button click
-            dialog.dismiss()
-        }
-
-        dialogView.findViewById<Button>(R.id.button_cancel).setOnClickListener {
-            // Handle Cancel button click
-            dialog.dismiss()
-        }
+    private fun handleCardClick(card: Card) {
+        val requestId = card.requestId
+        //TODO    reason!
+        val reason = ""
+//        showButtonsDialog(requestId, reason)
     }
+
+
+
+//    private fun showButtonsDialog(requestId: Int, reason: String) {
+//        // Inflate the custom layout
+//        val dialogView = layoutInflater.inflate(R.layout.dialog_unassigned, null)
+//        // Create an AlertDialog Builder
+//        val builder = AlertDialog.Builder(requireContext())
+//            .setView(dialogView)
+//        // Create and show the AlertDialog
+//        val dialog = builder.create()
+//        dialog.show()
+//
+//        // Set up the button click listeners
+//        dialogView.findViewById<Button>(R.id.button_take).setOnClickListener {
+//            // Handle Take button click
+//
+//            val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+//            val userId = sharedPreferences?.getInt(USER_ID, 0)
+//
+//            //TODO implement Take on work
+//            lifecycleScope.launch {
+//                if (userId != null) {
+//                    val request = TaskManipulationRequest(userId, requestId, reason)
+//                    newTasksViewModel.takeTask(request)
+//
+//                    newTasksViewModel.loadCards(userId)
+//                }
+//            }
+//            dialog.dismiss()
+//        }
+//
+//        dialogView.findViewById<Button>(R.id.button_details).setOnClickListener {
+//            // Handle Details button click
+//            dialog.dismiss()
+//        }
+//
+//        dialogView.findViewById<Button>(R.id.button_logs).setOnClickListener {
+//            // Handle Logs button click
+//            dialog.dismiss()
+//        }
+//
+//        dialogView.findViewById<Button>(R.id.button_cancel).setOnClickListener {
+//            // Handle Cancel button click
+//            dialog.dismiss()
+//        }
+//    }
 
     private fun showSuccessTakeDialog() {
         androidx.appcompat.app.AlertDialog.Builder(requireContext()).apply {

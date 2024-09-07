@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <!-- Personal Data Items -->
+        <!-- Full Name -->
+        <TextView
+            android:id="@+id/profile_full_name"
+            style="@style/infoDataTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Михаил Проблемович Создателев" />
+
+        <TextView
+            android:id="@+id/profile_full_name_label"
+            style="@style/infoLabelTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ФИО" />
+
+        <!-- Contact Phone -->
+        <TextView
+            android:id="@+id/profile_contact_phone"
+            style="@style/infoDataTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="string" />
+
+        <TextView
+            android:id="@+id/profile_contact_phone_label"
+            style="@style/infoLabelTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Контактный телефон" />
+
+        <!-- Date of Birth -->
+        <TextView
+            android:id="@+id/profile_date_of_birth"
+            style="@style/infoDataTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="09/04/1945" />
+
+        <TextView
+            android:id="@+id/profile_date_of_birth_label"
+            style="@style/infoLabelTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Дата рождения" />
+
+        <!-- Email -->
+        <TextView
+            android:id="@+id/profile_email"
+            style="@style/infoDataTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="sozdat-miha@tmk.ru" />
+
+        <TextView
+            android:id="@+id/profile_email_label"
+            style="@style/infoLabelTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Почта" />
+
+        <!-- Divider -->
+        <View style="@style/dividerStyle" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/reason_text"
+            style="@style/customEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Комментарий"
+            android:inputType="textShortMessage" />
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/logs_rv"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/fragment_sub_log_item" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/take_button"
+            style="@style/buttonStyle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:text="Взять в работу 🛠"/>
+    </LinearLayout>
+</LinearLayout>
