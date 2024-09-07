@@ -11,28 +11,32 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.problemdesk.databinding.ActivityMainBinding
 
-//TODO 1 - UI
-//TODO 1.8.1 - popup messages (modal? idk), card handling
-
 //TODO 1.8 - themes, custom styles, colors string resources
 //TODO 1.9 - final design
-
-//TODO logs into fragments
-//TODO shared prefs
-//TODO setups
 
 //TODO data storage?
 
 // usecases?
-//TODO 3 - final flow logic
-//TODO cards transfer
-//TODO caching? app should remember user login
+//TODO    REMEMBER ME
 //TODO need to add an exit button in profile?
 
 //TODO final redesign
 
-//TODO 4 - firebase, pushs...   +  manager UI, graphs
-//manager ui
+//TODO 4 - firebase, pushs...   +  manager UI, graphs       --- they works, but maybe i should check that:
+
+//getInProgressIssue() - 1
+//getCompletedIssue() - 2
+//getDeniedIssue() - 3
+//// Master
+//getRequestsForMaster() - 4
+//getRequestsForMasterMonitor() - 5
+//// Executor
+//executorUnassignRequest() - 6
+//executorMyTasksRequest() - 7
+//это по желанию, если приходит пуш и
+//ты на него кликаешь, то внутри есть инфа какой запрос дернуть чтоб обновить ui с новыми данными
+
+//TODO manager ui
 
 //TODO add a empty lists placeholders
 //TODO loading animation
@@ -67,6 +71,8 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //
 //анимация обновления
 //токен рефреш
+
+//TODO микролаги при переходе с фрагмента в фрагмент. с чем связанно? тяжелый интерфейс? сеть? потоки?
 
 //----------------------
 
