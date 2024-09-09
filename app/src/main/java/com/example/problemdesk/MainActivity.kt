@@ -96,8 +96,8 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 
 
 //TODO отзывчивость интерфейса - диалоги, загрытие bottomsheet, обновление списка
-//TODO логи не грузятся
 //TODO генеринг акков для ребят, пусть тестят (работяга+мастер)
+//TODO пометок нет
 
 //че с пушами?
 
