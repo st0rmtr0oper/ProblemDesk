@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:orientation="vertical">
 
@@ -73,33 +73,139 @@
             android:layout_height="wrap_content"
             android:text="@string/bottom_sheet_dialog_fragment_description_label" />
 
-        <!-- Divider -->
-        <View style="@style/dividerStyle" />
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/reason_text"
             style="@style/customEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:hint="@string/bottom_sheet_dialog_fragment_reason_hint"
-            android:inputType="textShortMessage" />
+            android:inputType="textShortMessage"
+            android:visibility="gone"/>
     </LinearLayout>
 
 
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/logs_rv"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginRight="20dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="280dp"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        tools:listitem="@layout/fragment_sub_log_item" />-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/logs_rv"
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/fragment_sub_log_item" />
 
     <LinearLayout
+        android:id="@+id/requestor_check_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/resendButton"
+            style="@style/buttonStyle"
+            android:layout_width="140dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:text="@string/bottom_sheet_dialog_fragment_requestor_send_back"/>
+
+        <Button
+            android:id="@+id/solvedButton"
+            style="@style/buttonStyle"
+            android:layout_width="140dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:text="@string/bottom_sheet_dialog_fragment_requestor_solved"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/requestor_delete_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/deleteButton"
+            style="@style/buttonStyle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:text="@string/bottom_sheet_dialog_fragment_requestor_delete"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/executor_inwork_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/drop_button"
+            style="@style/buttonStyle"
+            android:layout_width="140dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:text="@string/bottom_sheet_dialog_fragment_executor_drop" />
+
+        <Button
+            android:id="@+id/send_button"
+            style="@style/buttonStyle"
+            android:layout_width="140dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:text="@string/bottom_sheet_dialog_fragment_executor_send"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/executor_take_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/take_button"
+            style="@style/buttonStyle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:text="@string/bottom_sheet_dialog_fragment_executor_take"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/master_buttons"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/cancel_button"

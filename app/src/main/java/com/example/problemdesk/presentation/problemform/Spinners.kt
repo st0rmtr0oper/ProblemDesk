@@ -38,8 +38,8 @@ fun getSpecializationArray(): Array<Specialization> {
         Specialization("Выберите тип проблемы...", 0),
         Specialization("Электрика", 1),
         Specialization("Инструменты", 2),
-        Specialization("Санитарно-бытовые условия", 3),
-        Specialization("Безопасность", 4),
+        Specialization("СанПиН условия", 3),
+        Specialization("Безопасность труда", 4),
         Specialization("Документооборот", 5)
     )
 }

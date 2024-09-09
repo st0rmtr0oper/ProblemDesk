@@ -43,7 +43,7 @@ class RequestorBottomSheetDialogViewModel : ViewModel() {
             try {
                 response = repository.masterApprove(request)
                 Log.i("!--{{{MASTER APPROVE}}}-!", response.toString())
-                _approveSuccess.postValue(response.message == "Request accepted into work successfully")
+                _approveSuccess.postValue(response.message == "Request approved successfully")
             } catch (e: Exception) {
                 Log.i("!--{{{MASTER APPROVE}}}-!", e.toString())
             }
@@ -62,9 +62,27 @@ class RequestorBottomSheetDialogViewModel : ViewModel() {
                 response = repository.masterDeny(request)
                 Log.i("!--{{{MASTER DENY}}}-!", response.toString())
                 //TODO check response
-                _denySuccess.postValue(response.message == "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                _denySuccess.postValue(response.message == "Request denied successfully")
             } catch (e: Exception) {
                 Log.i("!--{{{MASTER DENY}}}-!", e.toString())
+            }
+        }
+    }
+
+    private val _takeSuccess = MutableLiveData<Boolean>()
+    val takeSuccess: LiveData<Boolean> get() = _takeSuccess
+
+    fun takeTask(request: TaskManipulationRequest) {
+        val repository = DeskRepositoryImplementation()
+        var response: TaskManipulationResponse
+
+        viewModelScope.launch {
+            try {
+                response = repository.takeOnWork(request)
+                Log.i("!--{{{TAKE ON WORK}}}--!", response.toString())
+                _takeSuccess.postValue(response.message == "Request accepted into work successfully")
+            } catch (e: Exception) {
+                Log.i("!--{{{TAKE ON WORK}}}--!", e.toString())
             }
         }
     }
@@ -81,7 +99,7 @@ class RequestorBottomSheetDialogViewModel : ViewModel() {
                     response = repository.executorCancel(request)
                     Log.i("!--{{{EXECUTOR CANCEL}}}-!", response.toString())
                     //TODO check response
-                    _cancelSuccess.postValue(response.message == "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                    _cancelSuccess.postValue(response.message == "Request canceled successfully")
                 } catch (e: Exception) {
                     Log.i("!--{{{EXECUTOR CANCEL}}}-!", e.toString())
             }
@@ -100,7 +118,7 @@ class RequestorBottomSheetDialogViewModel : ViewModel() {
                     response = repository.executorComplete(request)
                     Log.i("!--{{{EXECUTOR COMPLETE}}}-!", response.toString())
                     //TODO check response
-                    _denySuccess.postValue(response.message == "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                    _denySuccess.postValue(response.message == "Request completed successfully")
 
                 } catch (e: Exception) {
                     Log.i("!--{{{EXECUTOR COMPLETE}}}-!", e.toString())
@@ -120,7 +138,7 @@ class RequestorBottomSheetDialogViewModel : ViewModel() {
                     response = repository.requestorConfirm(request)
                     Log.i("!--{{{REQUESTOR CONFIRM}}}-!", response.toString())
                     //TODO check response
-                    _denySuccess.postValue(response.message == "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                    _denySuccess.postValue(response.message == "Request confirmed successfully")
 
                 } catch (e: Exception) {
                     Log.i("!--{{{REQUESTOR CONFIRM}}}-!", e.toString())
@@ -140,8 +158,7 @@ class RequestorBottomSheetDialogViewModel : ViewModel() {
                     response = repository.requestorDeny(request)
                     Log.i("!--{{{REQUESTOR DENY}}}-!", response.toString())
                     //TODO check response
-                    _denySuccess.postValue(response.message == "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-
+                    _denySuccess.postValue(response.message == "Request denied successfully")
                 } catch (e: Exception) {
                     Log.i("!--{{{REQUESTOR DENY}}}-!", e.toString())
             }
@@ -159,9 +176,7 @@ class RequestorBottomSheetDialogViewModel : ViewModel() {
                 try {
                     response = repository.requestorDelete(request)
                     Log.i("!--{{{REQUESTOR DELETE}}}-!", response.toString())
-                    //TODO check response
-                    _denySuccess.postValue(response.message == "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-
+                    _denySuccess.postValue(response.message == "Request marked as deleted successfully")
                 } catch (e: Exception) {
                     Log.i("!--{{{REQUESTOR DELETE}}}-!", e.toString())
 

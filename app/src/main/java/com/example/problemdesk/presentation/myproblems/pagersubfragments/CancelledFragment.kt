@@ -14,7 +14,11 @@ import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentSubCancelledBinding
 import com.example.problemdesk.domain.models.Card
+import com.example.problemdesk.presentation.details.RequestorBottomSheetDialogFragment
 import com.example.problemdesk.presentation.general.CardRecyclerViewAdapter
+import com.example.problemdesk.presentation.general.getArea
+import com.example.problemdesk.presentation.general.getDate
+import com.example.problemdesk.presentation.general.getSpecialization
 import kotlinx.coroutines.launch
 
 class CancelledFragment : Fragment() {
@@ -53,14 +57,25 @@ class CancelledFragment : Fragment() {
         _binding = null
     }
 
-    private fun handleCardClick(card: Card) {
-        //TODO HANDLE CLICK
-        Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show()
-    }
-
     private fun setUpObservers() {
         cancelledViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
             (binding.cancelledRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
         })
+    }
+
+    private fun handleCardClick(card: Card) {
+        val id = card.requestId
+        val date = getDate(card.createdAt)
+        val spec = getSpecialization(card.requestType)
+        val area = getArea(card.areaId)
+        val desc = card.description
+        val stat = card.statusId
+        showBottomSheetDialogFragmentRequestor(id, stat, date, spec, area, desc)
+    }
+
+    private fun showBottomSheetDialogFragmentRequestor(requestId: Int, stat: Int, date:String, spec: String, area: String, desc: String) {
+        val role = "requestor"
+        val requestorBottomSheetDialogFragment = RequestorBottomSheetDialogFragment(requestId, stat, role, date, spec, area, desc)
+        requestorBottomSheetDialogFragment.show(parentFragmentManager, RequestorBottomSheetDialogFragment::class.java.simpleName)
     }
 }

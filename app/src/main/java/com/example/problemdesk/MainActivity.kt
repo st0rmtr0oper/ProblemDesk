@@ -74,11 +74,12 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //анимация обновления
 //токен рефреш
 
+//прикол с выдвиганием bottomsheet?
+
 //TODO микролаги при переходе с фрагмента в фрагмент. с чем связанно? тяжелый интерфейс? сеть? потоки?
 
 //----------------------
 
-//TODO visibility
 //TODO ДИАЛОГИ
 
 //З
@@ -92,17 +93,25 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //>детали, комментарий, логи, закрыть, отменить, принять
 //>детали, логи, закрыть
 
-//TODO прикол с выдвиганием
+
+
+//TODO отзывчивость интерфейса - диалоги, загрытие bottomsheet, обновление списка
+//TODO логи не грузятся
+//TODO генеринг акков для ребят, пусть тестят (работяга+мастер)
+
+//че с пушами?
+
+//TODO че то с потоками не то!
+//2024-09-09 21:01:10.846 11782-11782 Choreographer           com.example.problemdesk              I
+//Skipped 1 frames!  The application may be doing too much work on its main thread.
 
 //TODO bottom nav style + icons + log out icon
 
-//TODO смена темы баг (на ведре 13 полет нормальный)
+//TODO смена темы баг (на ведре 13 полет нормальный, на моем ведре все крашится)
 
 //TODO remember me
 
 //TODO fcm refresh
-
-//TODO fcm from android 13 (logout???)
 
 //check shared prefs clearing when log out (log.i)
 
@@ -110,6 +119,10 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 
 //check working from 2 smartphones
 //loading
+
+//специализация юзера в профайле
+
+//надо отлавливать ошибки из OkHttp, а не из логов. логи вообще удалить можно
 
 //----------------------
 

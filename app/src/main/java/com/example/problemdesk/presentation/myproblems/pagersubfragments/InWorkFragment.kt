@@ -54,9 +54,13 @@ class InWorkFragment : Fragment() {
         _binding = null
     }
 
-    private fun handleCardClick(card: Card) {
-        //TODO HANDLE CLICK
+    private fun setUpObservers() {
+        inWorkViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
+            (binding.inWorkRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+        })
+    }
 
+    private fun handleCardClick(card: Card) {
         val id = card.requestId
         val date = getDate(card.createdAt)
         val spec = getSpecialization(card.requestType)
@@ -64,12 +68,6 @@ class InWorkFragment : Fragment() {
         val desc = card.description
         val stat = card.statusId
         showBottomSheetDialogFragmentRequestor(id, stat, date, spec, area, desc)
-    }
-
-    private fun setUpObservers() {
-        inWorkViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
-            (binding.inWorkRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-        })
     }
 
     private fun showBottomSheetDialogFragmentRequestor(requestId: Int, stat: Int, date:String, spec: String, area: String, desc: String) {

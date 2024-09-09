@@ -63,31 +63,6 @@ class ProblemFormFragment : Fragment() {
         val workplaceAdapter = WorkplaceAdapter(requireContext(), getWorkplaceArray())
         userWorkplaceSpinner.adapter = workplaceAdapter
         //spinners should receive areas and specialisations list from backend. In ideal world
-
-
-//        val problemTypeSpinner: Spinner = binding.problemTypeSpinner
-//        val problemTypeAdapter: ArrayAdapter<String> =
-//            ArrayAdapter<String>(
-//                requireContext(),
-//                android.R.layout.simple_spinner_item,
-//                getSpecializationArray()
-//            )
-//        problemTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        problemTypeSpinner.adapter = problemTypeAdapter
-//
-//        val userWorkplaceSpinner: Spinner = binding.userWorkplaceSpinner
-//        val userWorkplaceAdapter: ArrayAdapter<String> =
-//            ArrayAdapter<String>(
-//                requireContext(),
-//                android.R.layout.simple_spinner_item,
-//                getWorkplaceArray()
-//            )
-//        userWorkplaceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        userWorkplaceSpinner.adapter = userWorkplaceAdapter
-//
-//
-//        //TODO spinner choose handling   --- i forgot what i wanted here. Still actual???
-//        //https://metanit.com/java/android/5.4.php
     }
 
     private fun setUpObservers() {

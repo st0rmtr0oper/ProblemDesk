@@ -56,7 +56,8 @@
     <string name="bottom_sheet_dialog_fragment_requestor_solved">Решено ✅</string>
     <string name="bottom_sheet_dialog_fragment_requestor_send_back">↩️ Переделать</string>
     <string name="bottom_sheet_dialog_fragment_master_cancel">❌ Отменить</string>
-    <string name="bottom_sheet_dialog_fragment_approve">Принять ✅</string>
+    <string name="bottom_sheet_dialog_fragment_approve">Принять ✔️</string>
     <string name="bottom_sheet_dialog_fragment_executor_take">Взять в работу 🛠</string>
-    <string name="bottom_sheet_dialog_fragment_executor_send">Отправить на проверку 📨</string>
+    <string name="bottom_sheet_dialog_fragment_executor_send">Отправить ✉️</string>
+    <string name="bottom_sheet_dialog_fragment_executor_drop">✖️ Отказаться</string>
 </resources>
