@@ -9,6 +9,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.example.problemdesk.data.sharedprefs.OLD_FCM
+import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.databinding.ActivityMainBinding
 
 //TODO 1.8 - themes, custom styles, colors string resources
@@ -90,13 +92,24 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //>детали, комментарий, логи, закрыть, отменить, принять
 //>детали, логи, закрыть
 
-//TODO починить меню мастера (полный фунционал)
+//TODO прикол с выдвиганием
 
 //TODO bottom nav style + icons + log out icon
 
 //TODO смена темы баг (на ведре 13 полет нормальный)
 
 //TODO remember me
+
+//TODO fcm refresh
+
+//TODO fcm from android 13 (logout???)
+
+//check shared prefs clearing when log out (log.i)
+
+//logout button after logout
+
+//check working from 2 smartphones
+//loading
 
 //----------------------
 
@@ -108,6 +121,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+        //TODO refactor activity code. it looks like shit for now
+
+        //TODO splash inst working
         installSplashScreen()
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
@@ -196,10 +213,6 @@ class MainActivity : AppCompatActivity() {
         when (userRole) {
             "master" -> {
                 navView.inflateMenu(R.menu.bottom_nav_master)
-            }
-
-            "complainer" -> {
-                navView.inflateMenu(R.menu.bottom_nav_menu_common)
             }
 
             "executor" -> {

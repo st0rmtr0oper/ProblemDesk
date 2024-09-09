@@ -8,7 +8,7 @@ import com.example.problemdesk.databinding.FragmentSubLogItemBinding
 import com.example.problemdesk.domain.models.RequestLog
 import com.example.problemdesk.presentation.general.getStatus
 
-class DETAILSRecyclerViewAdapter(private val logListener: (RequestLog) -> Unit) :
+class DetailsRecyclerViewAdapter(private val logListener: (RequestLog) -> Unit) :
     RecyclerView.Adapter<CardsViewHolder>() {
 
     var logs: List<RequestLog> = emptyList()

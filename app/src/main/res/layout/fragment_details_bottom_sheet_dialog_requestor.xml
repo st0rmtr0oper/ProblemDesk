@@ -99,9 +99,11 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <Button
+            android:id="@+id/sendButton"
             style="@style/buttonStyle"
             android:layout_width="140dp"
             android:layout_height="48dp"
@@ -111,7 +113,7 @@
             android:text="@string/bottom_sheet_dialog_fragment_requestor_send_back"/>
 
         <Button
-            android:id="@+id/solved_button"
+            android:id="@+id/solvedButton"
             style="@style/buttonStyle"
             android:layout_width="140dp"
             android:layout_height="48dp"
@@ -125,9 +127,11 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <Button
+            android:id="@+id/deleteButton"
             style="@style/buttonStyle"
             android:layout_width="0dp"
             android:layout_height="48dp"

@@ -60,6 +60,7 @@ class ProfileFragment : Fragment() {
             val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
             val userId = sharedPreferences?.getInt(USER_ID, 0)
             val oldFcm = sharedPreferences?.getString(OLD_FCM, "")
+
             if (userId != null && oldFcm != null && userId != 0 && oldFcm != "") {
                 val request = LogOutRequest(userId, oldFcm)
                 showLogOutConfirmationDialog(request)
@@ -72,6 +73,9 @@ class ProfileFragment : Fragment() {
         profileViewModel.logoutStatus.observe(viewLifecycleOwner, Observer { status ->
             if (status) {
                 findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationLogin())
+                val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+                //TODO need to test how its working
+                sharedPreferences?.edit()?.clear()?.apply()
             } else {
                 showErrorDialog()
             }

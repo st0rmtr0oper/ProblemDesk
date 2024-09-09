@@ -18,6 +18,7 @@ import com.example.problemdesk.data.models.CreateRequestRequest
 import com.example.problemdesk.databinding.FragmentLoginBinding
 import com.example.problemdesk.data.sharedprefs.OLD_FCM
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+import com.example.problemdesk.data.sharedprefs.ROLE
 import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import kotlinx.coroutines.launch
@@ -78,16 +79,19 @@ class LoginFragment : Fragment() {
             when (role) {
                 1 -> {
                     (activity as MainActivity).setupBottomNavMenu("executor")
+                    role.let { sharedPreferences?.edit()?.putInt(ROLE, it)?.apply() }
                     findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationProblemForm())
                 }
 
                 2 -> {
                     (activity as MainActivity).setupBottomNavMenu("master")
+                    role.let { sharedPreferences?.edit()?.putInt(ROLE, it)?.apply() }
                     findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationMaster())
                 }
 
                 3 -> {
                     (activity as MainActivity).setupBottomNavMenu("manager")
+                    role.let { sharedPreferences?.edit()?.putInt(ROLE, it)?.apply() }
                     findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationStatistics())
                 }
 

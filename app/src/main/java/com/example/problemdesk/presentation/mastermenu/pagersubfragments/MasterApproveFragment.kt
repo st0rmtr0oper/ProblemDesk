@@ -72,21 +72,23 @@ class MasterApproveFragment : Fragment() {
             (binding.approveRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
         })
 
-        masterApproveViewModel.approveSuccess.observe(
-            viewLifecycleOwner,
-            Observer { success: Boolean ->
-                if (success) {
-//                    showApproveDialog()
-                }
-            })
+        //TODO delete
 
-        masterApproveViewModel.denySuccess.observe(
-            viewLifecycleOwner,
-            Observer { success: Boolean ->
-                if (success) {
+//        masterApproveViewModel.approveSuccess.observe(
+//            viewLifecycleOwner,
+//            Observer { success: Boolean ->
+//                if (success) {
+//                    showApproveDialog()
+//                }
+//            })
+//
+//        masterApproveViewModel.denySuccess.observe(
+//            viewLifecycleOwner,
+//            Observer { success: Boolean ->
+//                if (success) {
 //                    showDenyDialog()
-                }
-            })
+//                }
+//            })
 
     }
 
