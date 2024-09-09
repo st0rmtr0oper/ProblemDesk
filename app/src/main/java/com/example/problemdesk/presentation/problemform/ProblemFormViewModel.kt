@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.problemdesk.data.models.CreateRequestRequest
 import com.example.problemdesk.data.models.CreateRequestResponse
 import com.example.problemdesk.data.repository.DeskRepositoryImplementation
-import com.example.problemdesk.presentation.SingleLiveEvent
+import com.example.problemdesk.presentation.general.SingleLiveEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

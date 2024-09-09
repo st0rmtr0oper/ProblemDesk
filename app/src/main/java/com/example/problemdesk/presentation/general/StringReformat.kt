@@ -1,4 +1,4 @@
-package com.example.problemdesk.presentation
+package com.example.problemdesk.presentation.general
 
 //TODO in ideal world, this should be done automatically with backend cus list of <...> can change
 
@@ -6,7 +6,7 @@ fun getSpecialization(id: Int): String {
     return when(id){
         1 -> "Электрика"
         2 -> "Инструменты"
-        3 -> "Санитарно-бытовые условия"
+        3 -> "СанПиН условия"
         4 -> "Безопасность труда"
         5 -> "Документооборот"
         else -> "specialization error"

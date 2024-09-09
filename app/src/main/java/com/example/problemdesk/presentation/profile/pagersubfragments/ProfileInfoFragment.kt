@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.data.models.MyDataResponse
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.USER_ID
+import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,8 +27,6 @@ class ProfileInfoFragment : Fragment() {
         fun newInstance() = ProfileInfoFragment()
     }
 
-    //TODO need to add a loading shit?
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,14 +34,29 @@ class ProfileInfoFragment : Fragment() {
     ): View? {
         _binding = FragmentSubProfileInfoBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        return root
+    }
 
-        profileInfoViewModel.profileData.observe(
-            viewLifecycleOwner,
-            Observer { profileData: MyDataResponse ->
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpObservers()
 
-                    //TODO need to remake this screen for new data structure
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        lifecycleScope.launch {
+            if (userId != null) {
+                profileInfoViewModel.loadInfo(userId)
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setUpObservers() {
+        profileInfoViewModel.profileData.observe(viewLifecycleOwner, Observer { profileData: MyDataResponse ->
                 with(binding) {
-
                     profileEmployeeLogin.text = profileData.username
                     profileEmploymentDate.text = profileData.hireDate
                     profileFullName.text = buildString {
@@ -55,24 +69,7 @@ class ProfileInfoFragment : Fragment() {
                     profileContactPhone.text = profileData.phoneNumber
                     profileDateOfBirth.text = profileData.birthDate
                     profileEmail.text = profileData.email
-//                    profilePosition.text = profileData.specId.toString()
                 }
             })
-
-
-        val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-        val userId = sharedPreferences?.getInt(USER_ID, 0)
-
-        lifecycleScope.launch {
-            if (userId != null) {
-                profileInfoViewModel.loadInfo(userId)
-            }
-        }
-        return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.problemdesk.databinding.FragmentMyProblemsBinding
-import com.example.problemdesk.presentation.PagerAdapter
+import com.example.problemdesk.presentation.general.PagerAdapter
 import com.example.problemdesk.presentation.myproblems.pagersubfragments.*
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -36,7 +36,15 @@ class MyProblemsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpSubFragments()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setUpSubFragments() {
         //initiating viewPager
         viewPager = binding.myProblemsPager
         val fragmentList = arrayListOf(
@@ -66,11 +74,5 @@ class MyProblemsFragment : Fragment() {
                 2 -> tab.text = "Отклонены"
             }
         }.attach()
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

@@ -9,37 +9,122 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.example.problemdesk.data.sharedprefs.OLD_FCM
+import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.databinding.ActivityMainBinding
-
-//TODO 1 - UI
-//TODO 1.8.1 - popup messages (modal? idk), card handling
 
 //TODO 1.8 - themes, custom styles, colors string resources
 //TODO 1.9 - final design
 
-//TODO logs into fragments
-//TODO shared prefs
-//TODO setups
-
-
 //TODO data storage?
 
 // usecases?
-//TODO 3 - final flow logic
-//TODO cards transfer
-//TODO caching? app should remember user login
+//TODO    REMEMBER ME
 //TODO need to add an exit button in profile?
 
 //TODO final redesign
 
-//TODO 4 - firebase, pushs...   +  manager UI, graphs
-//manager ui
+//TODO 4 - firebase, pushs...   +  manager UI, graphs       --- they works, but maybe i should check that:
+
+//getInProgressIssue() - 1
+//getCompletedIssue() - 2
+//getDeniedIssue() - 3
+//// Master
+//getRequestsForMaster() - 4
+//getRequestsForMasterMonitor() - 5
+//// Executor
+//executorUnassignRequest() - 6
+//executorMyTasksRequest() - 7
+//это по желанию, если приходит пуш и
+//ты на него кликаешь, то внутри есть инфа какой запрос дернуть чтоб обновить ui с новыми данными
+
+//TODO manager ui
 
 //TODO add a empty lists placeholders
 //TODO loading animation
 //TODO drag refresh gesture
 
+//TODO update bottom nav icons and design
+
 //TODO need to check all for following MVVM, Clean Arch and SOLID   ---!!!
+
+//errors (from okhttp?)
+//errors (шаблоны на определенные ошибки? (нет интернета, мертвый сервер)
+//чек на связь с интернетом
+
+//shared prefs для удобства ---?
+//setupobservers+click listeners
+//
+//диалоги
+//
+//принятие заявки на выполнение (повторение сообщения, отсутствие обновления)
+//
+//цвета в статусах
+//логи в фрагменты
+//
+//обновление жестом
+//datastorage
+//секурити
+//string resourses
+//
+//тест флоу
+//тест ролей
+//тест пушей
+//
+//анимация обновления
+//токен рефреш
+
+//прикол с выдвиганием bottomsheet?
+
+//TODO микролаги при переходе с фрагмента в фрагмент. с чем связанно? тяжелый интерфейс? сеть? потоки?
+
+//----------------------
+
+//TODO ДИАЛОГИ
+
+//З
+//>детали, логи, закрыть, отменить (если еще не принято), комментарий (если отправлено обратно), принять (если отправлено обратно), не принять (если отправлено обратно)
+//>детали, логи, закрыть
+//>детали, логи, закрыть
+//И
+//>детали, логи, закрыть, принять
+//>детали, комментарий, логи, закрыть, отправить на проверку
+//М
+//>детали, комментарий, логи, закрыть, отменить, принять
+//>детали, логи, закрыть
+
+
+
+//TODO отзывчивость интерфейса - диалоги, загрытие bottomsheet, обновление списка
+//TODO логи не грузятся
+//TODO генеринг акков для ребят, пусть тестят (работяга+мастер)
+
+//че с пушами?
+
+//TODO че то с потоками не то!
+//2024-09-09 21:01:10.846 11782-11782 Choreographer           com.example.problemdesk              I
+//Skipped 1 frames!  The application may be doing too much work on its main thread.
+
+//TODO bottom nav style + icons + log out icon
+
+//TODO смена темы баг (на ведре 13 полет нормальный, на моем ведре все крашится)
+
+//TODO remember me
+
+//TODO fcm refresh
+
+//check shared prefs clearing when log out (log.i)
+
+//logout button after logout
+
+//check working from 2 smartphones
+//loading
+
+//специализация юзера в профайле
+
+//надо отлавливать ошибки из OkHttp, а не из логов. логи вообще удалить можно
+
+//----------------------
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
@@ -49,6 +134,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+        //TODO refactor activity code. it looks like shit for now
+
+        //TODO splash inst working
         installSplashScreen()
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
@@ -137,10 +226,6 @@ class MainActivity : AppCompatActivity() {
         when (userRole) {
             "master" -> {
                 navView.inflateMenu(R.menu.bottom_nav_master)
-            }
-
-            "complainer" -> {
-                navView.inflateMenu(R.menu.bottom_nav_menu_common)
             }
 
             "executor" -> {

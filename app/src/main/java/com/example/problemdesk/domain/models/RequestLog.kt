@@ -10,6 +10,6 @@ data class RequestLog(
     @SerializedName("changed_at") val changedAt: String, //TODO date
     @SerializedName("changed_by") val changedBy: Int,
     val reason: String,
-    @SerializedName("changed_name") val changedName: String,
+    @SerializedName("changer_name") val changerName: String,
     @SerializedName("action_name") val actionName: String
 )

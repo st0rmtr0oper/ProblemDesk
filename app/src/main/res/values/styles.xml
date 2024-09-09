@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--TODO final colors-->
-
     <!-- Interactive -->
 
     <!-- Button Style -->
@@ -45,8 +43,8 @@
     </style>
 
 
-    <!-- Multi-line EditText Style -->
-    <style name="multiLineEditTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+    <!-- Custom EditText Style -->
+    <style name="customEditTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
@@ -87,10 +85,6 @@
         <item name="android:dropDownHorizontalOffset">8dp</item>
     </style>
 
-
-    <!--TODO shitty colors-->
-    <!--TODO styles-->
-
     <!-- Texts -->
     <style name="headerTextViewStyle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/primary_color</item>
@@ -100,34 +94,20 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="labelTextViewStyle" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/primary_variant_color</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:padding">8dp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-    </style>
-
     <style name="infoLabelTextViewStyle" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
         <item name="android:paddingBottom">8dp</item>
-    </style>
-
-    <style name="dataTextViewStyle" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">?attr/colorOnPrimary</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="infoDataTextViewStyle" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textColor">@color/primary_variant_color</item>
-        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/primary_color</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textSize">16sp</item>
     </style>
@@ -179,22 +159,14 @@
         <item name="android:padding">8dp</item>
     </style>
 
-    <!-- Dialog Style -->
-    <!--    <style name="CustomDialog" parent="Theme.MaterialComponents.Dialog">-->
-    <!--        <item name="android:padding">16dp</item>-->
-    <!--        <item name="android:background">?attr/colorOnPrimary</item>-->
-    <!--        <item name="android:windowMinWidthMajor">80%</item> &lt;!&ndash; Optional: Set minimum width &ndash;&gt;-->
-    <!--        <item name="android:windowMinWidthMinor">80%</item> &lt;!&ndash; Optional: Set minimum width &ndash;&gt;-->
-    <!--    </style>-->
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
 
-    <!-- Button Style for Dialog -->
-    <!--    <style name="DialogButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">-->
-    <!--        <item name="android:layout_width">match_parent</item>-->
-    <!--        <item name="android:layout_height">wrap_content</item>-->
-    <!--        <item name="android:textColor">?attr/colorOnPrimary</item>-->
-    <!--        <item name="android:padding">12dp</item>-->
-    <!--        <item name="android:textSize">16sp</item>-->
-    <!--        <item name="android:backgroundTint">?attr/colorPrimary</item>-->
-    <!--    </style>-->
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_background</item>
+    </style>
 
 </resources>

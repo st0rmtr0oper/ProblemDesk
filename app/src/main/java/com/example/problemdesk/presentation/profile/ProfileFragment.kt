@@ -17,14 +17,11 @@ import com.example.problemdesk.data.sharedprefs.OLD_FCM
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.databinding.FragmentProfileBinding
-import com.example.problemdesk.presentation.PagerAdapter
+import com.example.problemdesk.presentation.general.PagerAdapter
 import com.example.problemdesk.presentation.profile.pagersubfragments.AwardFragment
 import com.example.problemdesk.presentation.profile.pagersubfragments.ProfileInfoFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-
-//TODO data cashing? + refresh
-//https://developer.android.com/develop/ui/views/touch-and-input/swipe/add-swipe-interface
 
 class ProfileFragment : Fragment() {
 
@@ -44,7 +41,18 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpSubFragments()
+        setUpObservers()
+        setUpLogOutButton()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
+    private fun setUpLogOutButton() {
         val exitMenuItem = (activity as MainActivity).binding.toolbar.menu.findItem(R.id.action_exit)
         exitMenuItem?.setOnMenuItemClickListener {
 
@@ -52,21 +60,29 @@ class ProfileFragment : Fragment() {
             val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
             val userId = sharedPreferences?.getInt(USER_ID, 0)
             val oldFcm = sharedPreferences?.getString(OLD_FCM, "")
+
             if (userId != null && oldFcm != null && userId != 0 && oldFcm != "") {
                 val request = LogOutRequest(userId, oldFcm)
                 showLogOutConfirmationDialog(request)
             }
             true
         }
+    }
 
+    private fun setUpObservers() {
         profileViewModel.logoutStatus.observe(viewLifecycleOwner, Observer { status ->
             if (status) {
                 findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationLogin())
+                val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+                //TODO need to test how its working
+                sharedPreferences?.edit()?.clear()?.apply()
             } else {
                 showErrorDialog()
             }
         })
+    }
 
+    private fun setUpSubFragments() {
         //initiating viewPager
         viewPager = binding.profilePager
         val fragmentList = arrayListOf(
@@ -95,12 +111,6 @@ class ProfileFragment : Fragment() {
             }
         }.attach()
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-
 
     private fun showLogOutConfirmationDialog(request: LogOutRequest) {
         AlertDialog.Builder(requireContext()).apply {

@@ -1,4 +1,4 @@
-package com.example.problemdesk.presentation
+package com.example.problemdesk.presentation.general
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

@@ -11,6 +11,7 @@ object PreferenceUtil {
     //any access to shared prefs need to be made inside ViewModels, not Fragments. It just have troubles with context
     //and i'm to lazy to find solution for it
     //TODO move shared prefs access inside ViewModels
+    //TODO additionally its deprecated. cool
     fun getEncryptedSharedPreferences(context: Context): SharedPreferences {
         return EncryptedSharedPreferences.create(
             "secure_prefs",

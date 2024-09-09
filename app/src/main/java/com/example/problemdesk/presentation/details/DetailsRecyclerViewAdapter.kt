@@ -1,4 +1,4 @@
-package com.example.problemdesk.presentation.logs
+package com.example.problemdesk.presentation.details
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.problemdesk.databinding.FragmentSubLogItemBinding
 import com.example.problemdesk.domain.models.RequestLog
-import com.example.problemdesk.presentation.getStatus
+import com.example.problemdesk.presentation.general.getDate
+import com.example.problemdesk.presentation.general.getStatus
 
-class LogRecyclerViewAdapter(private val logListener: (RequestLog) -> Unit) :
+class DetailsRecyclerViewAdapter(private val logListener: (RequestLog) -> Unit) :
     RecyclerView.Adapter<CardsViewHolder>() {
 
     var logs: List<RequestLog> = emptyList()
@@ -35,17 +36,16 @@ class CardsViewHolder(private val binding: FragmentSubLogItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(log: RequestLog, cancelledCardListener: (RequestLog) -> Unit) {
         with(binding) {
-            name.text = getStatus(log.logId)     //TODO
-            time.text = getStatus(log.logId)    //TODO reformatting data for logs
-            status.text = getStatus(log.logId) //TODO
-            if (log.logId.toString() == "") { //TODO too
+            status.text = getStatus(log.newStatusId)
+            time.text = getDate(log.changedAt)
+            name.text = log.changerName
+            if (log.reason == null) { //TODO too
                 reasonLabel.visibility = View.GONE
                 reason.visibility = View.GONE
             } else {
-            reason.text = getStatus(log.logId)
+                reason.text = log.reason
+            }
         }
-        }
-
         itemView.setOnClickListener {
             cancelledCardListener(log)
         }

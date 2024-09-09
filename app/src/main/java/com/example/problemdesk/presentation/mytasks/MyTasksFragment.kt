@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.problemdesk.databinding.FragmentMyTasksBinding
-import com.example.problemdesk.presentation.PagerAdapter
+import com.example.problemdesk.presentation.general.PagerAdapter
 import com.example.problemdesk.presentation.mytasks.pagersubfragments.NewTasksFragment
 import com.example.problemdesk.presentation.mytasks.pagersubfragments.PickedTasksFragment
 import com.google.android.material.tabs.TabLayout
@@ -29,7 +29,15 @@ class MyTasksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpSubFragments()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setUpSubFragments() {
         //initiating viewPager
         viewPager = binding.myTasksPager
         val fragmentList = arrayListOf(
@@ -57,10 +65,5 @@ class MyTasksFragment : Fragment() {
                 1 -> tab.text = "Мои задания"
             }
         }.attach()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

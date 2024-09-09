@@ -38,8 +38,8 @@ fun getSpecializationArray(): Array<Specialization> {
         Specialization("Выберите тип проблемы...", 0),
         Specialization("Электрика", 1),
         Specialization("Инструменты", 2),
-        Specialization("Санитарно-бытовые условия", 3),
-        Specialization("Безопасность", 4),
+        Specialization("СанПиН условия", 3),
+        Specialization("Безопасность труда", 4),
         Specialization("Документооборот", 5)
     )
 }
@@ -50,11 +50,11 @@ fun getWorkplaceArray(): Array<Workplace> {
         Workplace("№1", 1),
         Workplace("№2", 2),
         Workplace("№3", 3),
-        Workplace("№4", 4),
-        Workplace("№5", 5),
-        Workplace("№6", 6),
-        Workplace("№7", 7),
-        Workplace("№8", 8)
+        Workplace("№4", 4)
+//        Workplace("№5", 5),
+//        Workplace("№6", 6),
+//        Workplace("№7", 7),
+//        Workplace("№8", 8)
     )
 }
 
