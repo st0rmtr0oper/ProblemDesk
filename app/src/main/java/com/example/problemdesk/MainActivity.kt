@@ -90,6 +90,14 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //>детали, комментарий, логи, закрыть, отменить, принять
 //>детали, логи, закрыть
 
+//TODO починить меню мастера (полный фунционал)
+
+//TODO bottom nav style + icons + log out icon
+
+//TODO смена темы баг (на ведре 13 полет нормальный)
+
+//TODO remember me
+
 //----------------------
 
 class MainActivity : AppCompatActivity() {

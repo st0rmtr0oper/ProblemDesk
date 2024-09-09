@@ -50,11 +50,11 @@ fun getWorkplaceArray(): Array<Workplace> {
         Workplace("№1", 1),
         Workplace("№2", 2),
         Workplace("№3", 3),
-        Workplace("№4", 4),
-        Workplace("№5", 5),
-        Workplace("№6", 6),
-        Workplace("№7", 7),
-        Workplace("№8", 8)
+        Workplace("№4", 4)
+//        Workplace("№5", 5),
+//        Workplace("№6", 6),
+//        Workplace("№7", 7),
+//        Workplace("№8", 8)
     )
 }
 
