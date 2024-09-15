@@ -21,10 +21,8 @@ class ProfileInfoViewModel(private val application: Application) : AndroidViewMo
         viewModelScope.launch {
             try {
                 myDataResponse = repository.getMyData(userId)
-//                Log.i("!--{{{PROFILE DATA}}}--!", myDataResponse.toString())
                 _profileData.postValue(myDataResponse)
             } catch (e: Exception) {
-//                Log.i("!--{{{PROFILE DATA}}}--!", e.toString())
             }
         }
     }

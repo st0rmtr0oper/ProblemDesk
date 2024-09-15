@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 //import com.example.problemdesk.data.models.AuthTokenRequest
 //import com.example.problemdesk.data.models.AuthTokenResponse
 import com.example.problemdesk.data.models.LoginRequest
@@ -40,7 +41,7 @@ class LoginViewModel(private val application: Application) : AndroidViewModel(ap
         var loginResponse: LoginResponse
 //        var authTokenResponse: AuthTokenResponse
         var fcmToken: String?
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             fcmToken = getFcm()
             if (fcmToken != null) {
                 Log.d("!!!---[FCM token]---!!!", fcmToken!!)

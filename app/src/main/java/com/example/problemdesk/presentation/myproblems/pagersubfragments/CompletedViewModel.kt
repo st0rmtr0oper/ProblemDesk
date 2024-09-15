@@ -20,10 +20,8 @@ class CompletedViewModel(private val application: Application) : AndroidViewMode
         viewModelScope.launch {
             try {
                 response = repository.getCompleted(userId)
-//                Log.i("!--{{{COMPLETED}}}--!", response.toString())
                 _cards.postValue(response)
             } catch (e: Exception) {
-//                Log.i("!--{{{COMPLETED}}}--!", e.toString())
             }
         }
     }

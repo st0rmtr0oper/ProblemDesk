@@ -100,6 +100,7 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //TODO remember me
 //TODO logout button
 //TODO fcm refresh
+//TODO user's inputs should be remembered through app destroy??
 
 //last task date bug (no data)
 

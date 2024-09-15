@@ -1,11 +1,9 @@
 package com.example.problemdesk.presentation.mastermenu.pagersubfragments
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.problemdesk.data.repository.DeskRepositoryImpl
 import com.example.problemdesk.domain.models.Card
@@ -23,10 +21,8 @@ class MasterApproveViewModel(private val application: Application) : AndroidView
         viewModelScope.launch {
             try {
                 response = repository.getUnderMasterApproval(userId)
-//                Log.i("!--{{{UNAPPROVED}}}--!", response.toString())
                 _cards.postValue(response)
             } catch (e: Exception) {
-//                Log.i("!--{{{UNAPPROVED}}}--!", e.toString())
             }
         }
     }

@@ -20,10 +20,8 @@ class InWorkViewModel(private val application: Application) : AndroidViewModel(a
         viewModelScope.launch {
             try {
                 response = repository.getInProgress(userId)
-//                Log.i("!--{{{IN WORK}}}--!", response.toString())
                 _cards.postValue(response)
             } catch (e: Exception) {
-//                Log.i("!--{{{IN WORK}}}--!", e.toString())
             }
         }
     }

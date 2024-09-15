@@ -1,7 +1,6 @@
 package com.example.problemdesk.presentation.mytasks.pagersubfragments
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,10 +21,8 @@ class NewTasksViewModel(private val application: Application) : AndroidViewModel
         viewModelScope.launch {
             try {
                 response = repository.getExecutorUnassigned(userId)
-//                Log.i("!--{{{UNASSIGNED}}}--!", response.toString())
                 _cards.postValue(response)
             } catch (e: Exception) {
-//                Log.i("!--{{{UNASSIGNED}}}--!", e.toString())
             }
         }
     }
