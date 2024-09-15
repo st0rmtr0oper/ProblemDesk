@@ -23,10 +23,10 @@ class MasterMonitorViewModel(private val application: Application) : AndroidView
         viewModelScope.launch {
             try {
                 response = repository.getUnderMasterMonitor(userId)
-                Log.i("!--{{{MONITOR}}}--!", response.toString())
+//                Log.i("!--{{{MONITOR}}}--!", response.toString())
                 _cards.postValue(response)
             } catch (e: Exception) {
-                Log.i("!--{{{MONITOR}}}--!", e.toString())
+//                Log.i("!--{{{MONITOR}}}--!", e.toString())
             }
         }
     }

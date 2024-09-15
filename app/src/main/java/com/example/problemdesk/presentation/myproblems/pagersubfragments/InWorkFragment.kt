@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -30,9 +32,10 @@ class InWorkFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSubInworkBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        showLoading()
         return root
     }
 
@@ -54,7 +57,22 @@ class InWorkFragment : Fragment() {
         _binding = null
     }
 
+    private fun showLoading() {
+        with(binding) {
+            progressBar.isVisible = true
+            inWorkRv.isGone = true
+        }
+    }
+
+    private fun showContent() {
+        with(binding) {
+            progressBar.isGone = true
+            inWorkRv.isVisible = true
+        }
+    }
+
     private fun setUpObservers() {
+        showContent()
         inWorkViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
             (binding.inWorkRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
         })

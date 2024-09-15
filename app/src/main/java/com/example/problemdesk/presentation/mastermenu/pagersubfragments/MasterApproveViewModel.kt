@@ -23,10 +23,10 @@ class MasterApproveViewModel(private val application: Application) : AndroidView
         viewModelScope.launch {
             try {
                 response = repository.getUnderMasterApproval(userId)
-                Log.i("!--{{{UNAPPROVED}}}--!", response.toString())
+//                Log.i("!--{{{UNAPPROVED}}}--!", response.toString())
                 _cards.postValue(response)
             } catch (e: Exception) {
-                Log.i("!--{{{UNAPPROVED}}}--!", e.toString())
+//                Log.i("!--{{{UNAPPROVED}}}--!", e.toString())
             }
         }
     }

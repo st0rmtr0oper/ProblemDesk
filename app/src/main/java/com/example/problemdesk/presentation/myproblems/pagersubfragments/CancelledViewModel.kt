@@ -22,10 +22,10 @@ class CancelledViewModel(private val application: Application) : AndroidViewMode
         viewModelScope.launch {
             try {
                 response = repository.getDenied(userId)
-                Log.i("!--{{{DENIED}}}--!", response.toString())
+//                Log.i("!--{{{DENIED}}}--!", response.toString())
                 _cards.postValue(response)
             } catch (e: Exception) {
-                Log.i("!--{{{DENIED}}}--!", e.toString())
+//                Log.i("!--{{{DENIED}}}--!", e.toString())
             }
         }
     }

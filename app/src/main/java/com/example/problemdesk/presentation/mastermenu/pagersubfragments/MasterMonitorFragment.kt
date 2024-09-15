@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -31,6 +33,7 @@ class MasterMonitorFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentSubMonitorBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        showLoading()
         return root
     }
 
@@ -50,6 +53,20 @@ class MasterMonitorFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showLoading() {
+        with(binding) {
+            progressBar.isVisible = true
+            monitorRv.isGone = true
+        }
+    }
+
+    private fun showContent() {
+        with(binding) {
+            progressBar.isGone = true
+            monitorRv.isVisible = true
+        }
     }
 
     private fun setUpObservers() {

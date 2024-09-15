@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.problemdesk.data.repository.DeskRepositoryImpl
 import com.example.problemdesk.domain.models.Card
@@ -23,10 +22,10 @@ class PickedTasksViewModel(private val application: Application) : AndroidViewMo
         viewModelScope.launch {
             try {
                 response = repository.getExecutorAssigned(userId)
-                Log.i("!--{{{ASSIGNED}}}--!", response.toString())
+//                Log.i("!--{{{ASSIGNED}}}--!", response.toString())
                 _cards.postValue(response)
             } catch (e: Exception) {
-                Log.i("!--{{{ASSIGNED}}}--!", e.toString())
+//                Log.i("!--{{{ASSIGNED}}}--!", e.toString())
             }
         }
     }

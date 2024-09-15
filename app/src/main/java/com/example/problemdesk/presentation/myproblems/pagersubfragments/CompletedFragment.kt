@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -33,9 +35,10 @@ class CompletedFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSubCompletedBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        showLoading()
         return root
     }
 
@@ -55,6 +58,20 @@ class CompletedFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showLoading() {
+        with(binding) {
+            progressBar.isVisible = true
+            completedRv.isGone = true
+        }
+    }
+
+    private fun showContent() {
+        with(binding) {
+            progressBar.isGone = true
+            completedRv.isVisible = true
+        }
     }
 
     private fun setUpObservers() {

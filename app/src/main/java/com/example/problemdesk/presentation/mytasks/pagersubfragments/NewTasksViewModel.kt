@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.problemdesk.data.repository.DeskRepositoryImpl
 import com.example.problemdesk.domain.models.Card
@@ -23,10 +22,10 @@ class NewTasksViewModel(private val application: Application) : AndroidViewModel
         viewModelScope.launch {
             try {
                 response = repository.getExecutorUnassigned(userId)
-                Log.i("!--{{{UNASSIGNED}}}--!", response.toString())
+//                Log.i("!--{{{UNASSIGNED}}}--!", response.toString())
                 _cards.postValue(response)
             } catch (e: Exception) {
-                Log.i("!--{{{UNASSIGNED}}}--!", e.toString())
+//                Log.i("!--{{{UNASSIGNED}}}--!", e.toString())
             }
         }
     }

@@ -8,7 +8,6 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.data.models.MyRewardsResponse
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
@@ -32,12 +31,12 @@ class AwardFragment : Fragment() {
     ): View {
         _binding = FragmentSubAwardBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        showLoading()
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showLoading()
         setUpObservers()
         val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {

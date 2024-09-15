@@ -1,16 +1,12 @@
 package com.example.problemdesk.presentation.profile
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.problemdesk.data.models.LogOutRequest
 import com.example.problemdesk.data.models.LogOutResponse
 import com.example.problemdesk.data.repository.DeskRepositoryImpl
-import com.example.problemdesk.data.sharedprefs.PreferenceUtil
-import com.example.problemdesk.data.sharedprefs.TOKEN
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

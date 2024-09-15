@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import com.example.problemdesk.data.sharedprefs.PreferenceUtil
-import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentSubCancelledBinding
 import com.example.problemdesk.domain.models.Card
@@ -33,9 +31,10 @@ class CancelledFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSubCancelledBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        showLoading()
         return root
     }
 
@@ -57,10 +56,25 @@ class CancelledFragment : Fragment() {
         _binding = null
     }
 
+    private fun showLoading() {
+        with(binding) {
+            progressBar.isVisible = true
+            cancelledRv.isGone = true
+        }
+    }
+
+    private fun showContent() {
+        with(binding) {
+            progressBar.isGone = true
+            cancelledRv.isVisible = true
+        }
+    }
+
     private fun setUpObservers() {
-        cancelledViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
+        showContent()
+        cancelledViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.cancelledRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-        })
+        }
     }
 
     private fun handleCardClick(card: Card) {
