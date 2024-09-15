@@ -1,0 +1,416 @@
+Subject: [PATCH] Refactor code by Kirill Rozov
+---
+Index: app/src/androidTest/java/com/example/problemdesk/ExampleInstrumentedTest.kt
+===================================================================
+diff --git a/app/src/androidTest/java/com/example/problemdesk/ExampleInstrumentedTest.kt b/app/src/androidTest/java/com/example/problemdesk/ExampleInstrumentedTest.kt
+deleted file mode 100644
+--- a/app/src/androidTest/java/com/example/problemdesk/ExampleInstrumentedTest.kt	(revision 529c11a896698acec4eb530098b384f736a93955)
++++ /dev/null	(revision 529c11a896698acec4eb530098b384f736a93955)
+@@ -1,24 +0,0 @@
+-package com.example.problemdesk
+-
+-import androidx.test.platform.app.InstrumentationRegistry
+-import androidx.test.ext.junit.runners.AndroidJUnit4
+-
+-import org.junit.Test
+-import org.junit.runner.RunWith
+-
+-import org.junit.Assert.*
+-
+-/**
+- * Instrumented test, which will execute on an Android device.
+- *
+- * See [testing documentation](http://d.android.com/tools/testing).
+- */
+-@RunWith(AndroidJUnit4::class)
+-class ExampleInstrumentedTest {
+-    @Test
+-    fun useAppContext() {
+-        // Context of the app under test.
+-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+-        assertEquals("com.example.problemdesk", appContext.packageName)
+-    }
+-}
+\ No newline at end of file
+Index: app/src/test/java/com/example/problemdesk/ExampleUnitTest.kt
+===================================================================
+diff --git a/app/src/test/java/com/example/problemdesk/ExampleUnitTest.kt b/app/src/test/java/com/example/problemdesk/ExampleUnitTest.kt
+deleted file mode 100644
+--- a/app/src/test/java/com/example/problemdesk/ExampleUnitTest.kt	(revision 529c11a896698acec4eb530098b384f736a93955)
++++ /dev/null	(revision 529c11a896698acec4eb530098b384f736a93955)
+@@ -1,17 +0,0 @@
+-package com.example.problemdesk
+-
+-import org.junit.Test
+-
+-import org.junit.Assert.*
+-
+-/**
+- * Example local unit test, which will execute on the development machine (host).
+- *
+- * See [testing documentation](http://d.android.com/tools/testing).
+- */
+-class ExampleUnitTest {
+-    @Test
+-    fun addition_isCorrect() {
+-        assertEquals(4, 2 + 2)
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/problemdesk/presentation/login/LoginFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/problemdesk/presentation/login/LoginFragment.kt b/app/src/main/java/com/example/problemdesk/presentation/login/LoginFragment.kt
+--- a/app/src/main/java/com/example/problemdesk/presentation/login/LoginFragment.kt	(revision 529c11a896698acec4eb530098b384f736a93955)
++++ b/app/src/main/java/com/example/problemdesk/presentation/login/LoginFragment.kt	(date 1726378759138)
+@@ -14,6 +14,7 @@
+ import androidx.lifecycle.lifecycleScope
+ import androidx.navigation.fragment.findNavController
+ import com.example.problemdesk.MainActivity
++import com.example.problemdesk.data.UserRole
+ import com.example.problemdesk.data.models.CreateRequestRequest
+ import com.example.problemdesk.databinding.FragmentLoginBinding
+ import com.example.problemdesk.data.sharedprefs.OLD_FCM
+@@ -90,7 +91,7 @@
+                 }
+ 
+                 3 -> {
+-                    (activity as MainActivity).setupBottomNavMenu("manager")
++                    (activity as MainActivity).setupBottomNavMenu(UserRole.MANAGER)
+                     role.let { sharedPreferences?.edit()?.putInt(ROLE, it)?.apply() }
+                     findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationStatistics())
+                 }
+Index: app/src/main/java/com/example/problemdesk/presentation/login/LoginViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/problemdesk/presentation/login/LoginViewModel.kt b/app/src/main/java/com/example/problemdesk/presentation/login/LoginViewModel.kt
+--- a/app/src/main/java/com/example/problemdesk/presentation/login/LoginViewModel.kt	(revision 529c11a896698acec4eb530098b384f736a93955)
++++ b/app/src/main/java/com/example/problemdesk/presentation/login/LoginViewModel.kt	(date 1726380368483)
+@@ -4,6 +4,7 @@
+ import androidx.lifecycle.LiveData
+ import androidx.lifecycle.MutableLiveData
+ import androidx.lifecycle.ViewModel
++import androidx.lifecycle.viewModelScope
+ import com.example.problemdesk.data.models.LoginRequest
+ import com.example.problemdesk.data.models.LoginResponse
+ import com.example.problemdesk.data.notifications.getFcmToken
+@@ -12,6 +13,7 @@
+ import kotlinx.coroutines.CoroutineScope
+ import kotlinx.coroutines.Dispatchers
+ import kotlinx.coroutines.launch
++import java.io.IOException
+ 
+ class LoginViewModel : ViewModel() {
+ 
+@@ -30,19 +32,18 @@
+     ) {
+         val repository = DeskRepositoryImplementation()
+         var loginResponse: LoginResponse
+-        var fcmToken: String?
+-        CoroutineScope(Dispatchers.IO).launch {
+-            fcmToken = getFcm()
+-            if (fcmToken != null) {
+-                Log.d("!!!---[FCM token]---!!!", fcmToken!!)
++        val fcmToken = getFcm()
++        if (fcmToken != null) {
++            viewModelScope.launch {
++                Log.d("!!!---[FCM token]---!!!", fcmToken)
+                 try {
+-                    val loginRequest = LoginRequest(login, password, fcmToken!!)
++                    val loginRequest = LoginRequest(login, password, fcmToken)
+                     loginResponse = repository.login(loginRequest)
+                     Log.i("!--{{{LOGIN}}}--!", loginResponse.toString())
+                     _userRole.postValue(loginResponse.roleId)
+                     _userId.postValue(loginResponse.userId)
+ 
+-                } catch (e: Exception) {
++                } catch (e: IOException) {
+                     Log.i("!--{{{LOGIN}}}--!", e.toString())
+                     _userRole.postValue(0)
+                     _errorStatus.postValue(SingleLiveEvent(e.toString()))
+@@ -51,9 +52,9 @@
+                     //this thing somehow helps with this ussue
+                     //how - idk
+                 }
+-            } else {
+-                Log.d("!!!---[FCM token]---!!!", "FCM token is NULL")
+-            }
++            }
++        } else {
++            Log.d("!!!---[FCM token]---!!!", "FCM token is NULL")
+         }
+     }
+ 
+Index: app/src/main/java/com/example/problemdesk/presentation/details/RequestorBottomSheetDialogFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/problemdesk/presentation/details/RequestorBottomSheetDialogFragment.kt b/app/src/main/java/com/example/problemdesk/presentation/details/RequestorBottomSheetDialogFragment.kt
+--- a/app/src/main/java/com/example/problemdesk/presentation/details/RequestorBottomSheetDialogFragment.kt	(revision 529c11a896698acec4eb530098b384f736a93955)
++++ b/app/src/main/java/com/example/problemdesk/presentation/details/RequestorBottomSheetDialogFragment.kt	(date 1726380795762)
+@@ -4,6 +4,7 @@
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
++import androidx.annotation.StringRes
+ import androidx.fragment.app.viewModels
+ import androidx.lifecycle.Observer
+ import androidx.lifecycle.lifecycleScope
+@@ -26,7 +27,37 @@
+     private val spec: String,
+     private val area: String,
+     private val desc: String
++) : RoleBottomSheetDialogFragment(requestId, stat, role, date, spec, area, desc) {
++
++    override val config: Config get() = Config.Requseter()
++}
++
++abstract class RoleBottomSheetDialogFragment internal constructor(
++    private val requestId: Int,
++    private val stat: Int,
++    private val role: String,
++    private val date: String,
++    private val spec: String,
++    private val area: String,
++    private val desc: String
+ ) : BottomSheetDialogFragment() {
++
++    abstract val config: Config
++
++    /**
++     *
++     *                     masterButtons.visibility = View.VISIBLE
++     *                     approveButton.setOnClickListener { }
++     *                     cancelButton.setOnClickListener { }
++     */
++
++    sealed class Config(
++        val masterButtonVisible: Boolean,
++    ) {
++        class Requseter(): Config(masterButtonVisible = true)
++        class Master(): Config(masterButtonVisible = false)
++    }
++
+     private var _binding: FragmentDetailsBottomSheetDialogBinding? = null
+     private val binding get() = _binding!!
+ 
+Index: app/src/main/java/com/example/problemdesk/data/UserRole.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/problemdesk/data/UserRole.kt b/app/src/main/java/com/example/problemdesk/data/UserRole.kt
+new file mode 100644
+--- /dev/null	(date 1726378968047)
++++ b/app/src/main/java/com/example/problemdesk/data/UserRole.kt	(date 1726378968047)
+@@ -0,0 +1,16 @@
++package com.example.problemdesk.data
++
++import androidx.annotation.MenuRes
++import com.example.problemdesk.R
++
++val menuResForUserRole: Map<UserRole, Int> = mapOf(
++    UserRole.MASTER to R.menu.bottom_nav_master,
++    UserRole.EXECUTOR to R.menu.bottom_nav_menu_common,
++    UserRole.MANAGER to R.menu.bottom_nav_menu_manager,
++)
++
++enum class UserRole(@MenuRes val menuResId: Int) {
++    MASTER(R.menu.bottom_nav_master),
++    EXECUTOR(R.menu.bottom_nav_menu_common),
++    MANAGER(R.menu.bottom_nav_menu_manager),
++}
+Index: app/src/main/java/com/example/problemdesk/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/problemdesk/MainActivity.kt b/app/src/main/java/com/example/problemdesk/MainActivity.kt
+--- a/app/src/main/java/com/example/problemdesk/MainActivity.kt	(revision 529c11a896698acec4eb530098b384f736a93955)
++++ b/app/src/main/java/com/example/problemdesk/MainActivity.kt	(date 1726380368486)
+@@ -1,17 +1,25 @@
+ package com.example.problemdesk
+ 
++import android.content.Context
+ import android.os.Bundle
+ import android.view.View
+ import androidx.activity.OnBackPressedCallback
++import androidx.annotation.MainThread
+ import androidx.appcompat.app.AlertDialog
+ import androidx.appcompat.app.AppCompatActivity
+ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
++import androidx.core.view.isGone
++import androidx.core.view.isVisible
++import androidx.navigation.NavDestination
+ import androidx.navigation.findNavController
+ import androidx.navigation.ui.AppBarConfiguration
+ import androidx.navigation.ui.NavigationUI
++import com.example.problemdesk.data.UserRole
++import com.example.problemdesk.data.menuResForUserRole
+ import com.example.problemdesk.data.sharedprefs.OLD_FCM
+ import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+ import com.example.problemdesk.databinding.ActivityMainBinding
++import org.jetbrains.annotations.Contract
+ 
+ //TODO 1.8 - themes, custom styles, colors string resources
+ //TODO 1.9 - final design
+@@ -94,7 +102,6 @@
+ //>детали, логи, закрыть
+ 
+ 
+-
+ //TODO отзывчивость интерфейса - диалоги, загрытие bottomsheet, обновление списка
+ //TODO логи не грузятся
+ //TODO генеринг акков для ребят, пусть тестят (работяга+мастер)
+@@ -127,8 +134,11 @@
+ //----------------------
+ 
+ class MainActivity : AppCompatActivity() {
+-    private var _binding: ActivityMainBinding? = null
+-    val binding get() = _binding!!
++
++    @get:MainThread
++    internal val binding: ActivityMainBinding by lazy(LazyThreadSafetyMode.NONE) {
++        ActivityMainBinding.inflate(layoutInflater)
++    }
+ //    private lateinit var navView: BottomNavigationView
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+@@ -140,13 +150,11 @@
+         //TODO splash inst working
+         installSplashScreen()
+ 
+-        _binding = ActivityMainBinding.inflate(layoutInflater)
+         setContentView(binding.root)
+ 
+         //navView and navController
+-        val navView = binding.navView
+         val navController = findNavController(R.id.nav_host_fragment_activity_main)
+-        navView.visibility = View.GONE
++        binding.navView.isGone = true
+ 
+ //        navController.addOnDestinationChangedListener { _, destination, _ ->
+ //            when (destination.id) {
+@@ -168,11 +176,10 @@
+ //        setupActionBarWithNavController(navController, appBarConfiguration)
+ //
+ 
+-        NavigationUI.setupWithNavController(navView, navController)
++        NavigationUI.setupWithNavController(binding.navView, navController)
+ 
+ //        NavigationUI.setupActionBarWithNavController(this, navController)
+-        val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
+-        setSupportActionBar(toolbar)
++        setSupportActionBar(binding.toolbar)
+         supportActionBar?.setDisplayHomeAsUpEnabled(false)
+ 
+ 
+@@ -193,61 +200,57 @@
+         // Add a listener to control the Up button visibility, custom buttons, and title
+         navController.addOnDestinationChangedListener { _, destination, _ ->
+             when (destination.id) {
+-                R.id.navigation_profile -> {
+-                    toolbar.menu.clear()
+-                    toolbar.inflateMenu(R.menu.profile_exit_menu)
+-                    supportActionBar?.title = getString(R.string.title_profile)
+-                    binding.navView.visibility = View.VISIBLE // Show Bottom Navigation Bar
+-                }
+-                R.id.navigation_login -> {
+-                    binding.navView.visibility = View.GONE // Hide Bottom Navigation Bar
+-                    supportActionBar?.title = getString(R.string.title_login) // Set title for Login
+-                }
+-                else -> {
+-                    toolbar.menu.clear()
+-                    supportActionBar?.title = destination.label
+-                    binding.navView.visibility = View.VISIBLE // Show Bottom Navigation Bar for other destinations
+-                }
++                R.id.navigation_profile -> onNavigationProfileSelected()
++                R.id.navigation_login -> onNavigationLoginSelected()
++                else -> onNavDestinationSelected(destination)
+             }
+         }
+-
+ 
+         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+             override fun handleOnBackPressed() {
+-                showExitConfirmationDialog()
++                showExitConfirmationDialog(this@MainActivity, onPositiveClick = ::finish)
+             }
+         })
+     }
++
++    private fun onNavDestinationSelected(destination: NavDestination) {
++        binding.toolbar.menu.clear()
++        supportActionBar?.title = destination.label
++        binding.navView.isVisible =
++            true // Show Bottom Navigation Bar for other destinations
++    }
++
++    private fun onNavigationLoginSelected() {
++        binding.navView.isGone = true // Hide Bottom Navigation Bar
++        supportActionBar?.setTitle(R.string.title_login) // Set title for Login
++    }
++
++    private fun onNavigationProfileSelected() {
++        binding.toolbar.apply {
++            menu.clear()
++            inflateMenu(R.menu.profile_exit_menu)
++        }
++        supportActionBar?.title = getString(R.string.title_profile)
++        binding.navView.isVisible = true // Show Bottom Navigation Bar
++    }
+ 
+     // set up dynamic bottomNavBar
+-    fun setupBottomNavMenu(userRole: String) {
+-        val navView = binding.navView
+-        navView.menu.clear()
+-        when (userRole) {
+-            "master" -> {
+-                navView.inflateMenu(R.menu.bottom_nav_master)
+-            }
+-
+-            "executor" -> {
+-                navView.inflateMenu(R.menu.bottom_nav_menu_common)
+-            }
+-
+-            "manager" -> {
+-                navView.inflateMenu(R.menu.bottom_nav_menu_manager)
+-            }
+-        }
+-        navView.visibility = View.VISIBLE
+-    }
++    fun setupBottomNavMenu(userRole: UserRole) {
++        binding.navView.apply {
++            menu.clear()
++            inflateMenu(userRole.menuResId) // Property in enum
++            inflateMenu(menuResForUserRole.getValue(userRole)) // Map with key-values
++            isVisible = true
++        }
++    }
++}
+ 
+-    private fun showExitConfirmationDialog() {
+-        AlertDialog.Builder(this).apply {
+-            setTitle("Выход")
+-            setMessage("Вы хотите выйти из приложения?")
+-            setPositiveButton("Да") { _, _ ->
+-                finish()
+-            }
+-            setNegativeButton("Нет", null)
+-            show()
+-        }
+-    }
++private fun showExitConfirmationDialog(context: Context, onPositiveClick: () -> Unit) {
++    AlertDialog.Builder(context).apply {
++        // Move strings to res/values/strings.xml
++        setTitle("Выход")
++        setMessage("Вы хотите выйти из приложения?")
++        setPositiveButton("Да") { _, _ -> onPositiveClick() }
++        setNegativeButton("Нет", null)
++    }.show()
+ }
