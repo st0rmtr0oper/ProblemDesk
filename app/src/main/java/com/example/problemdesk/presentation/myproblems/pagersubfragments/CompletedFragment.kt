@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import com.example.problemdesk.data.sharedprefs.PreferenceUtil
-import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentSubCompletedBinding
 import com.example.problemdesk.domain.models.Card
@@ -45,7 +42,6 @@ class CompletedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
-        //::handleCardClick binding RV click logic with fragment
         binding.completedRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
         val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {
@@ -75,6 +71,7 @@ class CompletedFragment : Fragment() {
     }
 
     private fun setUpObservers() {
+        showContent()
         completedViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
             (binding.completedRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
         })

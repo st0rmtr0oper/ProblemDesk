@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.OptIn
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -35,7 +37,6 @@ import kotlinx.coroutines.launch
 // private val role: String) and use the newInstance pattern with a Bundle to pass data instead.
 
 
-
 class RequestorBottomSheetDialogFragment(
     private val requestId: Int,
     private val stat: Int,
@@ -62,6 +63,8 @@ class RequestorBottomSheetDialogFragment(
         binding.specializationData.text = spec
         binding.areaData.text = area
         binding.descriptionData.text = desc
+
+        showLogLoading()
 
         inflateOnScenario()
 
@@ -246,12 +249,25 @@ class RequestorBottomSheetDialogFragment(
         }
     }
 
+    private fun showLogLoading() {
+        with(binding) {
+            progressBar.isVisible = true
+            logsRv.isGone = true
+        }
+    }
+
+    private fun showLogContent() {
+        with(binding) {
+            progressBar.isGone = true
+            logsRv.isVisible = true
+        }
+    }
+
     private fun setUpObservers() {
-        requestorBottomSheetDialogViewModel.logs.observe(
-            viewLifecycleOwner,
-            Observer { logs: List<RequestLog> ->
-                (binding.logsRv.adapter as? DetailsRecyclerViewAdapter)?.logs = logs
-            })
+        showLogContent()
+        requestorBottomSheetDialogViewModel.logs.observe(viewLifecycleOwner) { logs: List<RequestLog> ->
+            (binding.logsRv.adapter as? DetailsRecyclerViewAdapter)?.logs = logs
+        }
 
         with(requestorBottomSheetDialogViewModel) {
             // List of LiveData properties to observe
@@ -265,11 +281,9 @@ class RequestorBottomSheetDialogFragment(
                 approveSuccess,
                 denySuccess
             )
-
             // Observe each LiveData property
             liveDataList.forEach { observeEvent(it) }
         }
-
         //TODO need to check this
     }
 
@@ -297,6 +311,7 @@ class RequestorBottomSheetDialogFragment(
             show()
         }
     }
+
     private fun showErrorDialog(text: String) {
         AlertDialog.Builder(requireContext()).apply {
             setTitle("Ошибка")

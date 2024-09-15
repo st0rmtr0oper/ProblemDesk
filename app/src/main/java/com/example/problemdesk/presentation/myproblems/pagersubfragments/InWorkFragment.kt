@@ -13,11 +13,11 @@ import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentSubInworkBinding
 import com.example.problemdesk.domain.models.Card
+import com.example.problemdesk.presentation.details.RequestorBottomSheetDialogFragment
 import com.example.problemdesk.presentation.general.CardRecyclerViewAdapter
 import com.example.problemdesk.presentation.general.getArea
 import com.example.problemdesk.presentation.general.getDate
 import com.example.problemdesk.presentation.general.getSpecialization
-import com.example.problemdesk.presentation.details.RequestorBottomSheetDialogFragment
 import kotlinx.coroutines.launch
 
 class InWorkFragment : Fragment() {
@@ -42,7 +42,6 @@ class InWorkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
-        //::handleCardClick binding RV click logic with fragment
         binding.inWorkRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
         val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {

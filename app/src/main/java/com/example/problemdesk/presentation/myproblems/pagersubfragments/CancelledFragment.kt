@@ -41,7 +41,6 @@ class CancelledFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
-        //::handleCardClick binding RV click logic with fragment
         binding.cancelledRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
         val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {

@@ -113,6 +113,7 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 
 
 //TODO смена темы баг (на ведре 13 полет нормальный, на моем ведре все крашится)
+//TODO общие алерт диалоги??
 
 
 //check shared prefs clearing when log out (log.i)
@@ -128,8 +129,14 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 
 //надо отлавливать ошибки из OkHttp, а не из логов. логи вообще удалить можно
 
+
+//TODO progressDialog
+//TODO заглушки
+//TODO авторефреш после операции в ботом шите
+//TODO иконочки + боттом нав бар стайл
+
 //----------------------
-//по разбору
+//TODO чек разбора
 
 //по гиту
 // .idea
