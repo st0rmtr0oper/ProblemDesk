@@ -1,11 +1,9 @@
 package com.example.problemdesk.presentation.profile.pagersubfragments
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.problemdesk.data.models.MyDataResponse
 import com.example.problemdesk.data.repository.DeskRepositoryImpl
@@ -23,10 +21,10 @@ class ProfileInfoViewModel(private val application: Application) : AndroidViewMo
         viewModelScope.launch {
             try {
                 myDataResponse = repository.getMyData(userId)
-                Log.i("!--{{{PROFILE DATA}}}--!", myDataResponse.toString())
+//                Log.i("!--{{{PROFILE DATA}}}--!", myDataResponse.toString())
                 _profileData.postValue(myDataResponse)
             } catch (e: Exception) {
-                Log.i("!--{{{PROFILE DATA}}}--!", e.toString())
+//                Log.i("!--{{{PROFILE DATA}}}--!", e.toString())
             }
         }
     }

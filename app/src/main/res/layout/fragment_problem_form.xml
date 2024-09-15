@@ -36,16 +36,15 @@
         android:inputType="textMultiLine"
         android:scrollbars="vertical" />
 
-
     <Button
         android:id="@+id/login_button"
         style="@style/buttonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
         android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="40dp"
         android:fontFamily="sans-serif-medium"
-        android:layout_gravity="center"
-        android:text="@string/problem_form_button_send_title"/>
+        android:text="@string/problem_form_button_send_title" />
 </LinearLayout>

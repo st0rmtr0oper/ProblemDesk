@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModel
 import com.example.problemdesk.data.models.LogOutRequest
 import com.example.problemdesk.data.models.LogOutResponse
 import com.example.problemdesk.data.repository.DeskRepositoryImpl
+import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+import com.example.problemdesk.data.sharedprefs.TOKEN
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,14 +24,16 @@ class ProfileViewModel(private val application: Application) : AndroidViewModel(
     private lateinit var logoutResponse: LogOutResponse
 
     fun logOut(request: LogOutRequest){
-        //coroutineScope is more suitable in this case
+        //coroutineScope is more suitable in this case??????????????
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 logoutResponse = repository.logout(request)
-                Log.i("!--{{{LOGOUT}}}--!", logoutResponse.toString())
+//                Log.i("!--{{{LOGOUT}}}--!", logoutResponse.toString())
                 _logoutStatus.postValue((logoutResponse.message.toString() == "FCM token removed successfully"))
+//                val sharedPreferences = PreferenceUtil.getEncryptedSharedPreferences(application)
+//                sharedPreferences?.edit()?.clear()?.apply()
             } catch (e: Exception) {
-                Log.i("!--{{{LOGOUT}}}--!", e.toString())
+//                Log.i("!--{{{LOGOUT}}}--!", e.toString())
                 _logoutStatus.postValue(false)
             }
         }

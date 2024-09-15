@@ -1,11 +1,9 @@
 package com.example.problemdesk.presentation.profile.pagersubfragments
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.problemdesk.data.models.MyRewardsResponse
 import com.example.problemdesk.data.repository.DeskRepositoryImpl
@@ -22,14 +20,13 @@ class AwardViewModel (private val application: Application) : AndroidViewModel(a
         val repository = DeskRepositoryImpl(application)
         var myRewardsResponse: MyRewardsResponse
 
-        //i don't get the difference perfectly, but viewModelScope.launch should work only when ViewModel is Alive
         viewModelScope.launch {
             try {
                 myRewardsResponse = repository.getMyRewards(userId)
-                Log.i("!--{{{AWARD DATA}}}--!", myRewardsResponse.toString())
+//                Log.i("!--{{{AWARD DATA}}}--!", myRewardsResponse.toString())
                 _awardData.postValue(myRewardsResponse)
             } catch (e: Exception) {
-                Log.i("!--{{{AWARD DATA}}}--!", e.toString())
+//                Log.i("!--{{{AWARD DATA}}}--!", e.toString())
             }
         }
     }
