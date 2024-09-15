@@ -40,12 +40,8 @@ class NewTasksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
         binding.newTasksRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
-        val userId = context?.let { getSharedPrefsUserId(it) }
-        lifecycleScope.launch {
-            if (userId != null) {
-                newTasksViewModel.loadCards(userId)
-            }
-        }
+        loadCards()
+        setUpResultListener()
     }
 
     override fun onDestroyView() {
@@ -71,6 +67,22 @@ class NewTasksFragment : Fragment() {
         showContent()
         newTasksViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.newTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+        }
+    }
+
+    private fun setUpResultListener() {
+        // Listen for the result from the BottomSheetDialogFragment
+        parentFragmentManager.setFragmentResultListener("requestUpdate", this) { _, _ ->
+            loadCards() // Reload cards when dialog dismisses with result
+        }
+    }
+
+    private fun loadCards() {
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        lifecycleScope.launch {
+            if (userId != null) {
+                newTasksViewModel.loadCards(userId)
+            }
         }
     }
 

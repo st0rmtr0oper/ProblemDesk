@@ -43,12 +43,8 @@ class CompletedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
         binding.completedRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
-        val userId = context?.let { getSharedPrefsUserId(it) }
-        lifecycleScope.launch {
-            if (userId != null) {
-                completedViewModel.loadCards(userId)
-            }
-        }
+        loadCards()
+        setUpResultListener()
     }
 
     override fun onDestroyView() {
@@ -75,6 +71,22 @@ class CompletedFragment : Fragment() {
         completedViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
             (binding.completedRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
         })
+    }
+
+    private fun setUpResultListener() {
+        // Listen for the result from the BottomSheetDialogFragment
+        parentFragmentManager.setFragmentResultListener("requestUpdate", this) { _, _ ->
+            loadCards() // Reload cards when dialog dismisses with result
+        }
+    }
+
+    private fun loadCards() {
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        lifecycleScope.launch {
+            if (userId != null) {
+                completedViewModel.loadCards(userId)
+            }
+        }
     }
 
     private fun handleCardClick(card: Card) {

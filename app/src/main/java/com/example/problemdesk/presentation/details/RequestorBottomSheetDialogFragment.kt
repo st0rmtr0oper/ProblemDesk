@@ -4,16 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.OptIn
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.media3.common.util.Log
-import androidx.media3.common.util.UnstableApi
 import com.example.problemdesk.data.models.TaskManipulationRequest
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentDetailsBottomSheetDialogBinding
@@ -55,7 +52,7 @@ class RequestorBottomSheetDialogFragment(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding =
             FragmentDetailsBottomSheetDialogBinding.inflate(inflater, container, false)
 
@@ -307,17 +304,22 @@ class RequestorBottomSheetDialogFragment(
         AlertDialog.Builder(requireContext()).apply {
             setTitle("Успешно")
             setMessage("Действие произведено успешно")
-            setNegativeButton("Ок", null)
-            show()
-        }
+            setPositiveButton("Ок") { _, _ ->
+                setFragmentResult("requestUpdate", Bundle())
+                dismiss()
+            }
+        }.show()
     }
 
     private fun showErrorDialog(text: String) {
         AlertDialog.Builder(requireContext()).apply {
             setTitle("Ошибка")
             setMessage("Произошла ошибка: \n$text")
-            setNegativeButton("Ок", null)
-            show()
-        }
+            setPositiveButton("Ок") { _, _ ->
+                setFragmentResult("requestUpdate", Bundle())
+                dismiss()
+                //TODO idk is it needed, but i will add it for now
+            }
+        }.show()
     }
 }

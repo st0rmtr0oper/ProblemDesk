@@ -84,20 +84,11 @@
             android:visibility="gone" />
     </LinearLayout>
 
-
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/logs_rv"-->
-    <!--        android:layout_marginLeft="20dp"-->
-    <!--        android:layout_marginRight="20dp"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="280dp"-->
-    <!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-    <!--        tools:listitem="@layout/fragment_sub_log_item" />-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -122,7 +113,6 @@
         android:id="@+id/requestor_check_buttons"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:visibility="gone">
 
@@ -151,7 +141,6 @@
         android:id="@+id/requestor_delete_buttons"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:visibility="gone">
 
@@ -170,7 +159,6 @@
         android:id="@+id/executor_inwork_buttons"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:visibility="gone">
 
@@ -199,7 +187,6 @@
         android:id="@+id/executor_take_buttons"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:visibility="gone">
 
@@ -218,7 +205,6 @@
         android:id="@+id/master_buttons"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:visibility="gone">
 

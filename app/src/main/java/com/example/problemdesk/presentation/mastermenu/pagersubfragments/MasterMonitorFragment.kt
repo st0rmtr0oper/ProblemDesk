@@ -30,7 +30,7 @@ class MasterMonitorFragment : Fragment() {
         fun newInstance() = MasterMonitorFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSubMonitorBinding.inflate(inflater, container, false)
         val root: View = binding.root
         showLoading()
@@ -40,14 +40,10 @@ class MasterMonitorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
-        //::handleCardClick binding RV click logic with fragment
         binding.monitorRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
         val userId = context?.let { getSharedPrefsUserId(it) }
-        lifecycleScope.launch {
-            if (userId != null) {
-                masterMonitorViewModel.loadCards(userId)
-            }
-        }
+        loadCards()
+        setUpResultListener()
     }
 
     override fun onDestroyView() {
@@ -74,6 +70,22 @@ class MasterMonitorFragment : Fragment() {
         masterMonitorViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
             (binding.monitorRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
         })
+    }
+
+    private fun setUpResultListener() {
+        // Listen for the result from the BottomSheetDialogFragment
+        parentFragmentManager.setFragmentResultListener("requestUpdate", this) { _, _ ->
+            loadCards() // Reload cards when dialog dismisses with result
+        }
+    }
+
+    private fun loadCards() {
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        lifecycleScope.launch {
+            if (userId != null) {
+                masterMonitorViewModel.loadCards(userId)
+            }
+        }
     }
 
     private fun handleCardClick(card: Card) {

@@ -8,7 +8,6 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentSubInworkBinding
@@ -43,12 +42,8 @@ class InWorkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
         binding.inWorkRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
-        val userId = context?.let { getSharedPrefsUserId(it) }
-        lifecycleScope.launch {
-            if (userId != null) {
-                inWorkViewModel.loadCards(userId)
-            }
-        }
+        loadCards()
+        setUpResultListener()
     }
 
     override fun onDestroyView() {
@@ -72,9 +67,25 @@ class InWorkFragment : Fragment() {
 
     private fun setUpObservers() {
         showContent()
-        inWorkViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
+        inWorkViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.inWorkRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-        })
+        }
+    }
+
+    private fun setUpResultListener() {
+        // Listen for the result from the BottomSheetDialogFragment
+        parentFragmentManager.setFragmentResultListener("requestUpdate", this) { _, _ ->
+            loadCards() // Reload cards when dialog dismisses with result
+        }
+    }
+
+    private fun loadCards() {
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        lifecycleScope.launch {
+            if (userId != null) {
+                inWorkViewModel.loadCards(userId)
+            }
+        }
     }
 
     private fun handleCardClick(card: Card) {
@@ -91,5 +102,10 @@ class InWorkFragment : Fragment() {
         val role = "requestor"
         val requestorBottomSheetDialogFragment = RequestorBottomSheetDialogFragment(requestId, stat, role, date, spec, area, desc)
         requestorBottomSheetDialogFragment.show(parentFragmentManager, RequestorBottomSheetDialogFragment::class.java.simpleName)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadCards()
     }
 }
