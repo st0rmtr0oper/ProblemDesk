@@ -5,22 +5,24 @@ import com.google.gson.annotations.SerializedName
 //nulls?
 //TODO something with dates (ISO 8601)
 
-
-
 data class LoginResponse(
     @SerializedName("user_id") val userId: Int,
-    @SerializedName("role_id") val roleId: Int
+    @SerializedName("role_id") val roleId: Int,
+    @SerializedName("access_token") val accessToken: String
 )
 
 data class LogOutResponse(
     val message: String
 )
 
+data class AuthTokenResponse(
+    @SerializedName("access_token") val accessToken: String,
+    @SerializedName("token_type") val tokenType: String
+)
+
 data class RefreshResponse(
     val message: String  //FCM token refreshed successfully
 )
-
-
 
 data class CreateRequestResponse(
     val message: String,
@@ -31,8 +33,6 @@ data class TaskManipulationResponse(
     val message: String,
     val request: Int
 )
-
-
 
 data class MyDataResponse(
     @SerializedName("user_id") val userId: Int,

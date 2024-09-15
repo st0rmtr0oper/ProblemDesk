@@ -13,6 +13,15 @@ data class LogOutRequest(
     val old_fcm: String
 )
 
+//data class AuthTokenRequest(
+//    val grant_type: String?,
+//    val username: String,
+//    val password: String,
+//    val scope: String?,
+//    val client_id: String?,
+//    val client_secter: String?
+//)
+
 data class RefreshRequest(
     val user_id: Int,
     val new_fcm: String

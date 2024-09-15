@@ -4,19 +4,37 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.OptIn
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.media3.common.util.Log
+import androidx.media3.common.util.UnstableApi
 import com.example.problemdesk.data.models.TaskManipulationRequest
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentDetailsBottomSheetDialogBinding
 import com.example.problemdesk.domain.models.RequestLog
+import com.example.problemdesk.presentation.general.SingleLiveEvent
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 //not sure how good this code is. actually, looks like shit
+//govnokod
+
+//TODO NoSuchMethodException (constructor with parameters)
+//The error you're encountering, NoSuchMethodException, occurs because Android can't find a default
+// (no-argument) constructor for your RequestorBottomSheetDialogFragment. By default, fragments need
+// a public no-argument constructor so the system can recreate them during configuration changes, like rotation.
+//
+//Solution:
+//Remove the constructor that takes parameters (private val requestId: Int, private val stat: Int,
+// private val role: String) and use the newInstance pattern with a Bundle to pass data instead.
+
+
 
 class RequestorBottomSheetDialogFragment(
     private val requestId: Int,
@@ -229,15 +247,62 @@ class RequestorBottomSheetDialogFragment(
     }
 
     private fun setUpObservers() {
-        //TODO i get status errors
         requestorBottomSheetDialogViewModel.logs.observe(
             viewLifecycleOwner,
             Observer { logs: List<RequestLog> ->
                 (binding.logsRv.adapter as? DetailsRecyclerViewAdapter)?.logs = logs
             })
+
+        with(requestorBottomSheetDialogViewModel) {
+            // List of LiveData properties to observe
+            val liveDataList = listOf(
+                reqConfirmSuccess,
+                reqDenySuccess,
+                reqDeleteSuccess,
+                takeSuccess,
+                cancelSuccess,
+                completeSuccess,
+                approveSuccess,
+                denySuccess
+            )
+
+            // Observe each LiveData property
+            liveDataList.forEach { observeEvent(it) }
+        }
+
+        //TODO need to check this
+    }
+
+    private fun observeEvent(liveData: LiveData<SingleLiveEvent<String>>) {
+        liveData.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let { status ->
+                if (status == "success") {
+                    showSuccessDialog()
+                } else {
+                    showErrorDialog(status)
+                }
+            }
+        }
     }
 
     private fun handleLogClick(log: RequestLog) {
         //TODO i dont need it actually
+    }
+
+    private fun showSuccessDialog() {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Успешно")
+            setMessage("Действие произведено успешно")
+            setNegativeButton("Ок", null)
+            show()
+        }
+    }
+    private fun showErrorDialog(text: String) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Ошибка")
+            setMessage("Произошла ошибка: \n$text")
+            setNegativeButton("Ок", null)
+            show()
+        }
     }
 }

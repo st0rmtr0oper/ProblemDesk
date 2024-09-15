@@ -1,22 +1,24 @@
 package com.example.problemdesk.presentation.profile
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.problemdesk.data.models.LogOutRequest
 import com.example.problemdesk.data.models.LogOutResponse
-import com.example.problemdesk.data.repository.DeskRepositoryImplementation
+import com.example.problemdesk.data.repository.DeskRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ProfileViewModel: ViewModel() {
+class ProfileViewModel(private val application: Application) : AndroidViewModel(application) {
 
     private val _logoutStatus = MutableLiveData<Boolean>()
     val logoutStatus: LiveData<Boolean> get() = _logoutStatus
 
-    private val repository = DeskRepositoryImplementation()
+    private val repository = DeskRepositoryImpl(application)
     private lateinit var logoutResponse: LogOutResponse
 
     fun logOut(request: LogOutRequest){

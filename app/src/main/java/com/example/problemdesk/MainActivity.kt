@@ -3,9 +3,12 @@ package com.example.problemdesk
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -74,30 +77,33 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //анимация обновления
 //токен рефреш
 
+//TODO диалоги с обсерверами        -------------------------!!!!!!!!!!!!!!!!!!!!!!!
+//диалоги с обсерверами странно реализованы - зачем нужен succesStatus и errorStatus,
+// если все это можно (и нужно) объединить?
+
+//singleLiveEvent...
+
 //прикол с выдвиганием bottomsheet?
 
 //TODO микролаги при переходе с фрагмента в фрагмент. с чем связанно? тяжелый интерфейс? сеть? потоки?
+// на 13 ведре полет нормальный
 
 //----------------------
 
-//TODO ДИАЛОГИ
-
-//З
-//>детали, логи, закрыть, отменить (если еще не принято), комментарий (если отправлено обратно), принять (если отправлено обратно), не принять (если отправлено обратно)
-//>детали, логи, закрыть
-//>детали, логи, закрыть
-//И
-//>детали, логи, закрыть, принять
-//>детали, комментарий, логи, закрыть, отправить на проверку
-//М
-//>детали, комментарий, логи, закрыть, отменить, принять
-//>детали, логи, закрыть
-
-
-
+//TODO new auth
 //TODO отзывчивость интерфейса - диалоги, загрытие bottomsheet, обновление списка
-//TODO генеринг акков для ребят, пусть тестят (работяга+мастер)
 //TODO пометок нет
+//перекинуть все в main activity?
+//TODO анимация обновы
+//TODO bottom sheet design
+//TODO bottom nav style + icons + log out iconв 
+//TODO remember me
+//TODO logout button
+//TODO fcm refresh
+
+//last task date bug (no data)
+
+//обновление при закрытии bottomSheet?
 
 //че с пушами?
 
@@ -105,13 +111,9 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //2024-09-09 21:01:10.846 11782-11782 Choreographer           com.example.problemdesk              I
 //Skipped 1 frames!  The application may be doing too much work on its main thread.
 
-//TODO bottom nav style + icons + log out icon
 
 //TODO смена темы баг (на ведре 13 полет нормальный, на моем ведре все крашится)
 
-//TODO remember me
-
-//TODO fcm refresh
 
 //check shared prefs clearing when log out (log.i)
 
@@ -120,9 +122,24 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //check working from 2 smartphones
 //loading
 
+//логи (okhttp?)
+
 //специализация юзера в профайле
 
 //надо отлавливать ошибки из OkHttp, а не из логов. логи вообще удалить можно
+
+//----------------------
+//по разбору
+
+//по гиту
+// .idea
+// .editorconfig
+//скрины, иконка //android art generator
+//
+//
+//
+//
+
 
 //----------------------
 
@@ -147,6 +164,19 @@ class MainActivity : AppCompatActivity() {
         val navView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navView.visibility = View.GONE
+
+
+        //TODO wat is sat
+//        enableEdgeToEdge()
+
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+//            insets
+//        }
+
+
+
 
 //        navController.addOnDestinationChangedListener { _, destination, _ ->
 //            when (destination.id) {
@@ -250,4 +280,6 @@ class MainActivity : AppCompatActivity() {
             show()
         }
     }
+
+    //TODO onDestroy?
 }

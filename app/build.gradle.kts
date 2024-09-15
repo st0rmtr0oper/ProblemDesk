@@ -46,6 +46,8 @@ android {
     }
 }
 
+//TODO remove dataBinding
+
 dependencies {
 
     //idk why media3 is here, but nevermind

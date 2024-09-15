@@ -1,18 +1,20 @@
 package com.example.problemdesk.presentation.problemform
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.problemdesk.data.models.CreateRequestRequest
 import com.example.problemdesk.data.models.CreateRequestResponse
-import com.example.problemdesk.data.repository.DeskRepositoryImplementation
+import com.example.problemdesk.data.repository.DeskRepositoryImpl
 import com.example.problemdesk.presentation.general.SingleLiveEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ProblemFormViewModel : ViewModel() {
+class ProblemFormViewModel(private val application: Application) : AndroidViewModel(application) {
     private val _successStatus = MutableLiveData<SingleLiveEvent<Boolean>>()
     val successStatus: LiveData<SingleLiveEvent<Boolean>> get() = _successStatus
 
@@ -22,7 +24,7 @@ class ProblemFormViewModel : ViewModel() {
     //TODO user's inputs should be remembered through app destroy??
 
     suspend fun createRequest(request: CreateRequestRequest) {
-        val repository = DeskRepositoryImplementation()
+        val repository = DeskRepositoryImpl(application)
         var createRequestResponse: CreateRequestResponse
 
         //TODO test with 0 area (invalid input)
