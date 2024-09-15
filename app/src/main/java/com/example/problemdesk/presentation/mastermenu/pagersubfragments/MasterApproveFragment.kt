@@ -44,7 +44,6 @@ class MasterApproveFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
-        //::handleCardClick binding RV click logic with fragment
         binding.approveRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
         val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {
@@ -74,6 +73,7 @@ class MasterApproveFragment : Fragment() {
     }
 
     private fun setUpObservers() {
+        showContent()
         masterApproveViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
             (binding.approveRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
         })

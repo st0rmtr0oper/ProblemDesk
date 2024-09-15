@@ -70,6 +70,7 @@ class MasterMonitorFragment : Fragment() {
     }
 
     private fun setUpObservers() {
+        showContent()
         masterMonitorViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
             (binding.monitorRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
         })

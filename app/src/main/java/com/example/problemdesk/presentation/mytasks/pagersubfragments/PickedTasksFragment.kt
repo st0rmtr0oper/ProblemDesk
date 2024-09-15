@@ -41,7 +41,6 @@ class PickedTasksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
-        //::handleCardClick binding RV click logic with fragment
         binding.pickedTasksRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
         val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {
@@ -56,13 +55,6 @@ class PickedTasksFragment : Fragment() {
         _binding = null
     }
 
-    private fun setUpObservers() {
-        showContent()
-        pickedTasksViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
-            (binding.pickedTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-        }
-    }
-
     private fun showLoading() {
         with(binding) {
             progressBar.isVisible = true
@@ -74,6 +66,13 @@ class PickedTasksFragment : Fragment() {
         with(binding) {
             progressBar.isGone = true
             pickedTasksRv.isVisible = true
+        }
+    }
+
+    private fun setUpObservers() {
+        showContent()
+        pickedTasksViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
+            (binding.pickedTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
         }
     }
 

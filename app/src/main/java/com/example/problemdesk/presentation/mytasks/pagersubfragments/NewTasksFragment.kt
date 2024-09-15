@@ -39,7 +39,6 @@ class NewTasksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
-        //::handleCardClick binding RV click logic with fragment
         binding.newTasksRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
         val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {
@@ -69,26 +68,11 @@ class NewTasksFragment : Fragment() {
     }
 
     private fun setUpObservers() {
+        showContent()
         newTasksViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
-            showContent()
             (binding.newTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
         }
-            //TODO удалить или пересмотреть
-//        newTasksViewModel.takeSuccess.observe(viewLifecycleOwner, Observer { success: Boolean ->
-//            if (success) {
-//                showSuccessTakeDialog()
-//            }
-//        })
     }
-
-    //    private fun showSuccessTakeDialog() {
-//        androidx.appcompat.app.AlertDialog.Builder(requireContext()).apply {
-//            setTitle("Заявка принята")
-//            setMessage("Заявка принята вами на выполнение")
-//            setNegativeButton("Ок", null)
-//            show()
-//        }
-//    }
 
     private fun handleCardClick(card: Card) {
         val id = card.requestId
