@@ -77,7 +77,7 @@ class PushNotificationService : FirebaseMessagingService() {
             PendingIntent.FLAG_IMMUTABLE)
 
         // Build the notification
-        val notification = NotificationCompat.Builder(this, channelId).setSmallIcon(R.drawable.lo2)
+        val notification = NotificationCompat.Builder(this, channelId).setSmallIcon(R.drawable.app_icon)
             .setContentTitle(title)
             .setContentText(body)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

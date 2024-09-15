@@ -11,7 +11,7 @@
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        app:srcCompat="@drawable/lo2" />
+        app:srcCompat="@drawable/app_icon" />
 
     <TextView
         style="@style/headerTextViewStyle"
