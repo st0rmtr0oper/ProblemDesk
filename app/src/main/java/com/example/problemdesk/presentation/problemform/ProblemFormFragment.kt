@@ -52,8 +52,6 @@ class ProblemFormFragment : Fragment() {
         _binding = null
     }
 
-
-
     private fun setUpSpinners() {
         val problemTypeSpinner: Spinner = binding.problemTypeSpinner
         val specializationAdapter = SpecializationAdapter(requireContext(), getSpecializationArray())

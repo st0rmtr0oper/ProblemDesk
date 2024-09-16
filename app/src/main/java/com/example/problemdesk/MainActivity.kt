@@ -136,7 +136,6 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //TODO обязательно для бетки 1.0
 
 // TODO закрытие ботом шита не всегда запускает загрузку
-//TODO заглушки
 //TODO remember me
 
 //TODO увеличить списки в спиннерах под большие пальцы
