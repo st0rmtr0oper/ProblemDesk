@@ -116,6 +116,8 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //TODO смена темы баг (на ведре 13 полет нормальный, на моем ведре все крашится)
 //TODO общие алерт диалоги??
 //TODO progressDialog???
+//TODO забыли пароль (пока скрыть)
+
 
 //check shared prefs clearing when log out (log.i)
 
@@ -133,19 +135,18 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //-----------------------------------------------------
 //TODO обязательно для бетки 1.0
 
-// закрытие ботом шита не всегда запускает загрузку
-
+// TODO закрытие ботом шита не всегда запускает загрузку
 //TODO заглушки
 //TODO remember me
-//TODO комментарии к проблемам
-
-//TODO забыли пароль
-
-//TODO landscape mode!!!!
-// test on tablets
 
 //TODO увеличить списки в спиннерах под большие пальцы
 //TODO логи с okhttp в диалогах ошибок (подумать над реализацией диалогов)
+
+//TODO landscape mode!!!! ---- test on tablets
+
+//TODO тест UI
+//TODO тест flow
+
 //-----------------------------------------------------
 
 //----------------------
