@@ -34,7 +34,6 @@ class PickedTasksFragment : Fragment() {
     ): View {
         _binding = FragmentSubPickedTasksBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        showLoading()
         return root
     }
 
@@ -66,9 +65,9 @@ class PickedTasksFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        showContent()
         pickedTasksViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.pickedTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+            showContent()
         }
     }
 
@@ -80,6 +79,7 @@ class PickedTasksFragment : Fragment() {
     }
 
     private fun loadCards() {
+        showLoading()
         val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {
             if (userId != null) {

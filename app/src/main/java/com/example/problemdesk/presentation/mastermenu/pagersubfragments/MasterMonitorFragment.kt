@@ -33,7 +33,6 @@ class MasterMonitorFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSubMonitorBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        showLoading()
         return root
     }
 
@@ -41,7 +40,6 @@ class MasterMonitorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
         binding.monitorRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
-        val userId = context?.let { getSharedPrefsUserId(it) }
         loadCards()
         setUpResultListener()
     }
@@ -66,10 +64,10 @@ class MasterMonitorFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        showContent()
-        masterMonitorViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
+        masterMonitorViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.monitorRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-        })
+            showContent()
+        }
     }
 
     private fun setUpResultListener() {
@@ -80,6 +78,7 @@ class MasterMonitorFragment : Fragment() {
     }
 
     private fun loadCards() {
+        showLoading()
         val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {
             if (userId != null) {

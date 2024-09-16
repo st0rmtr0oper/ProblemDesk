@@ -37,7 +37,6 @@ class MasterApproveFragment : Fragment() {
     ): View {
         _binding = FragmentSubApproveBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        showLoading()
         return root
     }
 
@@ -69,10 +68,10 @@ class MasterApproveFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        showContent()
-        masterApproveViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
+        masterApproveViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.approveRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-        })
+            showContent()
+        }
     }
 
     private fun setUpResultListener() {
@@ -83,6 +82,7 @@ class MasterApproveFragment : Fragment() {
     }
 
     private fun loadCards() {
+        showLoading()
         val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {
             if (userId != null) {

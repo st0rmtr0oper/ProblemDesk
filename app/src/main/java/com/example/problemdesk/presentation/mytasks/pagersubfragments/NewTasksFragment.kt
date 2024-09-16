@@ -32,7 +32,6 @@ class NewTasksFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentSubNewTasksBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        showLoading()
         return root
     }
 
@@ -64,9 +63,9 @@ class NewTasksFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        showContent()
         newTasksViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.newTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+            showContent()
         }
     }
 
@@ -78,6 +77,7 @@ class NewTasksFragment : Fragment() {
     }
 
     private fun loadCards() {
+        showLoading()
         val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {
             if (userId != null) {

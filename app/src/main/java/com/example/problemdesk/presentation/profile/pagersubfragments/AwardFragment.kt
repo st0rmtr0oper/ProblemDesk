@@ -31,19 +31,13 @@ class AwardFragment : Fragment() {
     ): View {
         _binding = FragmentSubAwardBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        showLoading()
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
-        val userId = context?.let { getSharedPrefsUserId(it) }
-        lifecycleScope.launch {
-            if (userId != null) {
-                awardViewModel.loadInfo(userId)
-            }
-        }
+        loadInfo()
     }
 
     override fun onDestroyView() {
@@ -74,6 +68,16 @@ class AwardFragment : Fragment() {
                 awardLastCompletedDate.text = awardData.lastCompleted
             }
             showContent()
+        }
+    }
+
+    private fun loadInfo() {
+        showLoading()
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        lifecycleScope.launch {
+            if (userId != null) {
+                awardViewModel.loadInfo(userId)
+            }
         }
     }
 }

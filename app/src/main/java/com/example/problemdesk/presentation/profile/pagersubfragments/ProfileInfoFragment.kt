@@ -31,19 +31,13 @@ class ProfileInfoFragment : Fragment() {
     ): View {
         _binding = FragmentSubProfileInfoBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        showLoading()
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
-        val userId = context?.let { getSharedPrefsUserId(it) }
-        lifecycleScope.launch {
-            if (userId != null) {
-                profileInfoViewModel.loadInfo(userId)
-            }
-        }
+        loadInfo()
     }
 
     override fun onDestroyView() {
@@ -67,7 +61,6 @@ class ProfileInfoFragment : Fragment() {
 
     private fun setUpObservers() {
         profileInfoViewModel.profileData.observe(viewLifecycleOwner) { profileData: MyDataResponse ->
-            showContent()
             with(binding) {
                 profileEmployeeLogin.text = profileData.username
                 profileEmploymentDate.text = profileData.hireDate
@@ -81,6 +74,17 @@ class ProfileInfoFragment : Fragment() {
                 profileContactPhone.text = profileData.phoneNumber
                 profileDateOfBirth.text = profileData.birthDate
                 profileEmail.text = profileData.email
+            }
+            showContent()
+        }
+    }
+
+    private fun loadInfo() {
+        showLoading()
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        lifecycleScope.launch {
+            if (userId != null) {
+                profileInfoViewModel.loadInfo(userId)
             }
         }
     }

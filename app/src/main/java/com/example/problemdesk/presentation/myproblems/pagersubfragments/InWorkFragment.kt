@@ -34,7 +34,6 @@ class InWorkFragment : Fragment() {
     ): View {
         _binding = FragmentSubInworkBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        showLoading()
         return root
     }
 
@@ -66,9 +65,9 @@ class InWorkFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        showContent()
         inWorkViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.inWorkRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+            showContent()
         }
     }
 
@@ -80,6 +79,7 @@ class InWorkFragment : Fragment() {
     }
 
     private fun loadCards() {
+        showLoading()
         val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {
             if (userId != null) {
@@ -102,10 +102,5 @@ class InWorkFragment : Fragment() {
         val role = "requestor"
         val requestorBottomSheetDialogFragment = RequestorBottomSheetDialogFragment(requestId, stat, role, date, spec, area, desc)
         requestorBottomSheetDialogFragment.show(parentFragmentManager, RequestorBottomSheetDialogFragment::class.java.simpleName)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        loadCards()
     }
 }

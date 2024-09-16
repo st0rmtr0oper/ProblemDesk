@@ -61,8 +61,6 @@ class RequestorBottomSheetDialogFragment(
         binding.areaData.text = area
         binding.descriptionData.text = desc
 
-        showLogLoading()
-
         inflateOnScenario()
 
         return binding.root
@@ -74,9 +72,7 @@ class RequestorBottomSheetDialogFragment(
         setUpObservers()
         binding.logsRv.adapter = DetailsRecyclerViewAdapter(::handleLogClick)
 
-        lifecycleScope.launch {
-            requestorBottomSheetDialogViewModel.loadHistory(requestId)
-        }
+        loadLogs()
 
         setUpClickListeners()
 
@@ -95,14 +91,12 @@ class RequestorBottomSheetDialogFragment(
             if (stat == 1) {
                 with(binding) {
                     requestorDeleteButtons.visibility = View.VISIBLE
-                    deleteButton.setOnClickListener { }
                 }
                 // inflate requestor_delete
             } else if (stat == 5) {
                 with(binding) {
+                    reasonText.visibility = View.VISIBLE
                     requestorCheckButtons.visibility = View.VISIBLE
-                    solvedButton.setOnClickListener {}
-                    resendButton.setOnClickListener {}
                 }
                 // inflate requestor_check
             }
@@ -110,23 +104,20 @@ class RequestorBottomSheetDialogFragment(
             if (stat == 2) {
                 with(binding) {
                     executorTakeButtons.visibility = View.VISIBLE
-                    takeButton.setOnClickListener {}
                 }
                 //inflate executor_unassigned
             } else if (stat == 4) {
                 with(binding) {
+                    reasonText.visibility = View.VISIBLE
                     executorInworkButtons.visibility = View.VISIBLE
-                    sendButton.setOnClickListener { }
-                    dropButton.setOnClickListener { }
                 }
                 //inflate executor_assigned
             }
         } else if (role == "master") {
             if (stat == 1) {
                 with(binding) {
+                    reasonText.visibility = View.VISIBLE
                     masterButtons.visibility = View.VISIBLE
-                    approveButton.setOnClickListener { }
-                    cancelButton.setOnClickListener { }
                 }
                 //inflate master
             }
@@ -134,15 +125,14 @@ class RequestorBottomSheetDialogFragment(
     }
 
     private fun hideAll() {
-        binding.reasonText.visibility = View.GONE
         with(binding) {
+            reasonText
             requestorDeleteButtons
             requestorCheckButtons
             executorTakeButtons
             executorInworkButtons
             masterButtons
         }.visibility = View.GONE
-
     }
 
     private fun setUpClickListeners() {
@@ -175,7 +165,6 @@ class RequestorBottomSheetDialogFragment(
                     resendButton.setOnClickListener {
                         CoroutineScope(Dispatchers.IO).launch {
                             requestorBottomSheetDialogViewModel.requestorDeny(request)
-
                         }
                     }
                 }
@@ -260,10 +249,18 @@ class RequestorBottomSheetDialogFragment(
         }
     }
 
+    private fun loadLogs() {
+        showLogLoading()
+        lifecycleScope.launch {
+            requestorBottomSheetDialogViewModel.loadHistory(requestId)
+        }
+    }
+
     private fun setUpObservers() {
         showLogContent()
         requestorBottomSheetDialogViewModel.logs.observe(viewLifecycleOwner) { logs: List<RequestLog> ->
             (binding.logsRv.adapter as? DetailsRecyclerViewAdapter)?.logs = logs
+            showLogContent()
         }
 
         with(requestorBottomSheetDialogViewModel) {

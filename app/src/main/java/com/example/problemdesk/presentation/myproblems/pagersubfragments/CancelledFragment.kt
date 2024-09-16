@@ -34,7 +34,6 @@ class CancelledFragment : Fragment() {
     ): View {
         _binding = FragmentSubCancelledBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        showLoading()
         return root
     }
 
@@ -66,9 +65,9 @@ class CancelledFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        showContent()
         cancelledViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.cancelledRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+            showContent()
         }
     }
 
@@ -80,6 +79,7 @@ class CancelledFragment : Fragment() {
     }
 
     private fun loadCards() {
+        showLoading()
         val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {
             if (userId != null) {
