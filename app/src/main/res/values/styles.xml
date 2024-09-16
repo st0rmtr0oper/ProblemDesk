@@ -81,8 +81,29 @@
         <item name="android:padding">8dp</item>
         <item name="android:popupBackground">@drawable/rounded_popup_background</item>
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:dropDownVerticalOffset">8dp</item>
-        <item name="android:dropDownHorizontalOffset">8dp</item>
+<!--        <item name="android:dropDownVerticalOffset">8dp</item>-->
+<!--        <item name="android:dropDownHorizontalOffset">8dp</item>-->
+    </style>
+
+    <!-- Progress Bar Style -->
+    <style name="progressBar">
+        <item name="android:indeterminate">true</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:indeterminateTint">@color/primary_color</item>
+    </style>
+
+    <!-- Bottom Sheet Dialog Fragment -->
+    <style name="bottomSheetDialogFragment">
+        <item name="android:backgroundTint">@color/primary_color</item>
+        <item name="android:background">@drawable/bottom_sheet_dialog_fragment_background</item>
+    </style>
+
+    <!-- Empty Plug Image -->
+    <style name="emptyPlugImage">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">160dp</item>
+        <item name="android:src">@drawable/empty_box</item>
     </style>
 
     <!-- Texts -->
@@ -166,7 +187,7 @@
 
     <style name="AppModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/bottom_sheet_background</item>
+        <item name="android:background">@drawable/bottom_sheet_dialog_fragment_background</item>
     </style>
 
 </resources>

@@ -4,19 +4,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.data.models.TaskManipulationRequest
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentDetailsBottomSheetDialogBinding
 import com.example.problemdesk.domain.models.RequestLog
+import com.example.problemdesk.presentation.general.SingleLiveEvent
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 //not sure how good this code is. actually, looks like shit
+//govnokod
+
+//TODO NoSuchMethodException (constructor with parameters)
+//The error you're encountering, NoSuchMethodException, occurs because Android can't find a default
+// (no-argument) constructor for your RequestorBottomSheetDialogFragment. By default, fragments need
+// a public no-argument constructor so the system can recreate them during configuration changes, like rotation.
+//
+//Solution:
+//Remove the constructor that takes parameters (private val requestId: Int, private val stat: Int,
+// private val role: String) and use the newInstance pattern with a Bundle to pass data instead.
+
 
 class RequestorBottomSheetDialogFragment(
     private val requestId: Int,
@@ -36,7 +52,7 @@ class RequestorBottomSheetDialogFragment(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding =
             FragmentDetailsBottomSheetDialogBinding.inflate(inflater, container, false)
 
@@ -56,9 +72,7 @@ class RequestorBottomSheetDialogFragment(
         setUpObservers()
         binding.logsRv.adapter = DetailsRecyclerViewAdapter(::handleLogClick)
 
-        lifecycleScope.launch {
-            requestorBottomSheetDialogViewModel.loadHistory(requestId)
-        }
+        loadLogs()
 
         setUpClickListeners()
 
@@ -77,14 +91,12 @@ class RequestorBottomSheetDialogFragment(
             if (stat == 1) {
                 with(binding) {
                     requestorDeleteButtons.visibility = View.VISIBLE
-                    deleteButton.setOnClickListener { }
                 }
                 // inflate requestor_delete
             } else if (stat == 5) {
                 with(binding) {
+                    reasonText.visibility = View.VISIBLE
                     requestorCheckButtons.visibility = View.VISIBLE
-                    solvedButton.setOnClickListener {}
-                    resendButton.setOnClickListener {}
                 }
                 // inflate requestor_check
             }
@@ -92,23 +104,20 @@ class RequestorBottomSheetDialogFragment(
             if (stat == 2) {
                 with(binding) {
                     executorTakeButtons.visibility = View.VISIBLE
-                    takeButton.setOnClickListener {}
                 }
                 //inflate executor_unassigned
             } else if (stat == 4) {
                 with(binding) {
+                    reasonText.visibility = View.VISIBLE
                     executorInworkButtons.visibility = View.VISIBLE
-                    sendButton.setOnClickListener { }
-                    dropButton.setOnClickListener { }
                 }
                 //inflate executor_assigned
             }
         } else if (role == "master") {
             if (stat == 1) {
                 with(binding) {
+                    reasonText.visibility = View.VISIBLE
                     masterButtons.visibility = View.VISIBLE
-                    approveButton.setOnClickListener { }
-                    cancelButton.setOnClickListener { }
                 }
                 //inflate master
             }
@@ -116,15 +125,14 @@ class RequestorBottomSheetDialogFragment(
     }
 
     private fun hideAll() {
-        binding.reasonText.visibility = View.GONE
         with(binding) {
+            reasonText
             requestorDeleteButtons
             requestorCheckButtons
             executorTakeButtons
             executorInworkButtons
             masterButtons
         }.visibility = View.GONE
-
     }
 
     private fun setUpClickListeners() {
@@ -157,7 +165,6 @@ class RequestorBottomSheetDialogFragment(
                     resendButton.setOnClickListener {
                         CoroutineScope(Dispatchers.IO).launch {
                             requestorBottomSheetDialogViewModel.requestorDeny(request)
-
                         }
                     }
                 }
@@ -228,16 +235,88 @@ class RequestorBottomSheetDialogFragment(
         }
     }
 
+    private fun showLogLoading() {
+        with(binding) {
+            progressBar.isVisible = true
+            logsRv.isGone = true
+        }
+    }
+
+    private fun showLogContent() {
+        with(binding) {
+            progressBar.isGone = true
+            logsRv.isVisible = true
+        }
+    }
+
+    private fun loadLogs() {
+        showLogLoading()
+        lifecycleScope.launch {
+            requestorBottomSheetDialogViewModel.loadHistory(requestId)
+        }
+    }
+
     private fun setUpObservers() {
-        //TODO i get status errors
-        requestorBottomSheetDialogViewModel.logs.observe(
-            viewLifecycleOwner,
-            Observer { logs: List<RequestLog> ->
-                (binding.logsRv.adapter as? DetailsRecyclerViewAdapter)?.logs = logs
-            })
+        showLogContent()
+        requestorBottomSheetDialogViewModel.logs.observe(viewLifecycleOwner) { logs: List<RequestLog> ->
+            (binding.logsRv.adapter as? DetailsRecyclerViewAdapter)?.logs = logs
+            showLogContent()
+        }
+
+        with(requestorBottomSheetDialogViewModel) {
+            // List of LiveData properties to observe
+            val liveDataList = listOf(
+                reqConfirmSuccess,
+                reqDenySuccess,
+                reqDeleteSuccess,
+                takeSuccess,
+                cancelSuccess,
+                completeSuccess,
+                approveSuccess,
+                denySuccess
+            )
+            // Observe each LiveData property
+            liveDataList.forEach { observeEvent(it) }
+        }
+        //TODO need to check this
+    }
+
+    private fun observeEvent(liveData: LiveData<SingleLiveEvent<String>>) {
+        liveData.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let { status ->
+                if (status == "success") {
+                    showSuccessDialog()
+                } else {
+                    showErrorDialog(status)
+                }
+            }
+        }
     }
 
     private fun handleLogClick(log: RequestLog) {
         //TODO i dont need it actually
+    }
+
+    private fun showSuccessDialog() {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Успешно")
+            setMessage("Действие произведено успешно")
+            setPositiveButton("Ок") { _, _ ->
+                setFragmentResult("requestUpdate", Bundle())
+                dismiss()
+            }
+        }.show()
+    }
+
+    private fun showErrorDialog(text: String) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Ошибка")
+            setMessage("Произошла ошибка: \n$text")
+            setPositiveButton("Ок") { _, _ ->
+                setFragmentResult("requestUpdate", Bundle())
+                dismiss()
+                //TODO idk is it needed, but i will add it for now
+            }
+        }.show()
     }
 }

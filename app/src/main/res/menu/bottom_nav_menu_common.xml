@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/navigation_problem_form"
-        android:icon="@android:drawable/ic_menu_add"
+        android:icon="@drawable/request_new_svgrepo_com"
         android:title="@string/title_problem_form" />
 
     <item
         android:id="@+id/navigation_my_problems"
-        android:icon="@android:drawable/ic_menu_agenda"
+        android:icon="@drawable/monitoring_svgrepo_com"
         android:title="@string/title_my_problems" />
 
     <item
         android:id="@+id/navigation_my_tasks"
-        android:icon="@android:drawable/ic_menu_manage"
+        android:icon="@drawable/register_svgrepo_com"
         android:title="@string/title_my_tasks" />
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:icon="@drawable/contacts_svgrepo_com"
         android:title="@string/title_profile" />
 
 </menu>

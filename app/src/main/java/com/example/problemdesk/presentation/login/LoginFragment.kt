@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.problemdesk.MainActivity
@@ -20,7 +21,9 @@ import com.example.problemdesk.data.sharedprefs.OLD_FCM
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.ROLE
 import com.example.problemdesk.data.sharedprefs.USER_ID
+import com.example.problemdesk.data.sharedprefs.USER_ROLE
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
+import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserRole
 import kotlinx.coroutines.launch
 
 //TODO remember me. шобы не заходить постоянно в акк раз за разом
@@ -34,7 +37,8 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by lazy { ViewModelProvider(this)[LoginViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +47,7 @@ class LoginFragment : Fragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        checkLogin()
         return root
     }
 
@@ -60,22 +65,39 @@ class LoginFragment : Fragment() {
         _binding = null
     }
 
+    //this ifs and "strings" are bad code
+    private fun checkLogin() {
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        val userRole = context?.let { getSharedPrefsUserRole(it) }
+        if (userId!=0 && userRole!=0) {
+            when (userRole) {
+                1 -> findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationProblemForm())
+                2 -> findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationMaster())
+                3 -> findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationStatistics())
+            }
+        }
+    }
+
     private fun setUpObservers(sharedPreferences: SharedPreferences?) {
-        loginViewModel.errorStatus.observe(viewLifecycleOwner, Observer { event ->
+        loginViewModel.errorStatus.observe(viewLifecycleOwner) { event ->
             event.getContentIfNotHandled()?.let { errorStatus ->
                 showErrorDialog(errorStatus)
             }
-        })
+        }
 
-        loginViewModel.userId.observe(viewLifecycleOwner, Observer { userId ->
+        loginViewModel.userId.observe(viewLifecycleOwner) { userId ->
             //Storing user ID
             //null hell - looks like shit
             userId?.let {
                 sharedPreferences?.edit()?.putInt(USER_ID, it)?.apply()
             }
-        })
+        }
 
-        loginViewModel.userRole.observe(viewLifecycleOwner, Observer { role ->
+        loginViewModel.userRole.observe(viewLifecycleOwner) { role ->
+            role?.let {
+                sharedPreferences?.edit()?.putInt(USER_ROLE, it)?.apply()
+            }
+
             when (role) {
                 1 -> {
                     (activity as MainActivity).setupBottomNavMenu("executor")
@@ -106,7 +128,7 @@ class LoginFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
     }
 
     private fun setUpClickListeners(sharedPreferences: SharedPreferences?) {

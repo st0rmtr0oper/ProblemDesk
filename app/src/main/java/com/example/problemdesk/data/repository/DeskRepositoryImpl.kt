@@ -1,6 +1,10 @@
 package com.example.problemdesk.data.repository
 
+import android.content.Context
+import androidx.media3.common.util.Log
 import com.example.problemdesk.data.datasource.DeskApi
+//import com.example.problemdesk.data.models.AuthTokenRequest
+//import com.example.problemdesk.data.models.AuthTokenResponse
 import com.example.problemdesk.data.models.CreateRequestRequest
 import com.example.problemdesk.data.models.CreateRequestResponse
 import com.example.problemdesk.data.models.LogOutRequest
@@ -13,6 +17,8 @@ import com.example.problemdesk.data.models.RefreshRequest
 import com.example.problemdesk.data.models.RefreshResponse
 import com.example.problemdesk.data.models.TaskManipulationRequest
 import com.example.problemdesk.data.models.TaskManipulationResponse
+import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+import com.example.problemdesk.data.sharedprefs.getSharedAuthToken
 import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.domain.models.RequestLog
 import com.example.problemdesk.domain.repository.DeskRepository
@@ -23,7 +29,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class DeskRepositoryImplementation : DeskRepository {
+class DeskRepositoryImpl(private val context: Context) : DeskRepository {
     companion object {
         const val BASE_URL = "http://timofmax1.fvds.ru:8000"
     }
@@ -34,19 +40,71 @@ class DeskRepositoryImplementation : DeskRepository {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
+
+
+
+    //TODO is it safe?
+//    private var bearerToken: String? = null
+
+
     private val retrofit = Retrofit.Builder()
-        .client(provideOkHttpClient())
+        .client(provideOkHttpClient(/*bearerToken*/))
         .baseUrl("$BASE_URL/")
-        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addConverterFactory(GsonConverterFactory.create())
+        //TODO it works without .create(gson)
         .build()
 
+
+
+//    private fun provideOkHttpClient(): OkHttpClient {
+//        return OkHttpClient.Builder() // Use OkHttpClient.Builder directly
+//            .addInterceptor(loggingInterceptor)
+//
+//
+//
+//            .addInterceptor{chain ->
+//                val original = chain.request()
+//                val request = original.newBuilder()
+//                    .header("Authorization", "Bearer $bearerToken")
+//                    .method(original.method, original.body)
+//                    .build()
+//                chain.proceed(request)
+//            }// Add the logging interceptor
+//
+//            .connectTimeout(10L, TimeUnit.SECONDS) // Set connection timeout
+//            .writeTimeout(10L, TimeUnit.SECONDS) // Set write timeout
+//            .readTimeout(10L, TimeUnit.SECONDS) // Set read timeout
+//            .build() // Build the OkHttpClient instance
+//    }
+
+
+
+
     private fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder() // Use OkHttpClient.Builder directly
-            .addInterceptor(loggingInterceptor) // Add the logging interceptor
-            .connectTimeout(10L, TimeUnit.SECONDS) // Set connection timeout
-            .writeTimeout(10L, TimeUnit.SECONDS) // Set write timeout
-            .readTimeout(10L, TimeUnit.SECONDS) // Set read timeout
-            .build() // Build the OkHttpClient instance
+        return OkHttpClient.Builder()
+
+
+            .addInterceptor(loggingInterceptor) // Add logging interceptor
+
+//            .addInterceptor(authTokenInterceptor)
+
+            .addInterceptor { chain ->
+                val requestBuilder = chain.request().newBuilder()
+                // Get the token from the token provider and add it to the Authorization header
+                //TODO idk
+                val token = getSharedAuthToken(context)
+//                val token = bearerToken/*tokenProvider()*/
+                //TODO !!
+                if (token.isNotEmpty()) {
+                    requestBuilder.addHeader("Authorization", "Bearer $token")
+                }
+                chain.proceed(requestBuilder.build())
+            }
+
+            .connectTimeout(10L, TimeUnit.SECONDS)
+            .writeTimeout(10L, TimeUnit.SECONDS)
+            .readTimeout(10L, TimeUnit.SECONDS)
+            .build()
     }
 
     private val deskApi by lazy {
@@ -55,6 +113,9 @@ class DeskRepositoryImplementation : DeskRepository {
 
     suspend fun login(loginRequest: LoginRequest): LoginResponse = deskApi.login(loginRequest)
     suspend fun logout(logoutRequest: LogOutRequest): LogOutResponse = deskApi.logout(logoutRequest)
+
+    //TODO i dont need it
+//    suspend fun authToken(authTokenRequest: AuthTokenRequest): AuthTokenResponse = deskApi.authToken(authTokenRequest)
     //TODO
     suspend fun refreshUserToken(refreshRequest: RefreshRequest): RefreshResponse = deskApi.refreshUserToken(refreshRequest)
 
@@ -79,7 +140,7 @@ class DeskRepositoryImplementation : DeskRepository {
 
     suspend fun getDenied(userId: Int): List<Card> = deskApi.getDenied(userId)
     suspend fun getCompleted(userId: Int): List<Card> = deskApi.getCompleted(userId)
-    suspend fun getInProgress(userId: Int): List<Card> = deskApi.getInProgress(userId) + deskApi.getUnderRequestorApproval(userId)
+    suspend fun getInProgress(userId: Int): List<Card> = deskApi.getUnderRequestorApproval(userId) + deskApi.getInProgress(userId)
 
     suspend fun getUnderMasterMonitor(userId: Int): List<Card> = deskApi.getUnderMasterMonitor(userId)
     suspend fun getUnderMasterApproval(userId: Int): List<Card> = deskApi.getUnderMasterApproval(userId)

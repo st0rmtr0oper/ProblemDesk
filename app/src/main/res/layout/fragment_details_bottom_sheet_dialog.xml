@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/bottomSheetDialogFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -80,34 +81,38 @@
             android:layout_height="40dp"
             android:hint="@string/bottom_sheet_dialog_fragment_reason_hint"
             android:inputType="textShortMessage"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/logs_rv"-->
-<!--        android:layout_marginLeft="20dp"-->
-<!--        android:layout_marginRight="20dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="280dp"-->
-<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--        tools:listitem="@layout/fragment_sub_log_item" />-->
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/logs_rv"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/fragment_sub_log_item" />
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/logs_rv"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/fragment_sub_log_item" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/requestor_check_buttons"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:visibility="gone">
 
@@ -119,7 +124,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="@string/bottom_sheet_dialog_fragment_requestor_send_back"/>
+            android:text="@string/bottom_sheet_dialog_fragment_requestor_send_back" />
 
         <Button
             android:id="@+id/solvedButton"
@@ -129,14 +134,13 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="@string/bottom_sheet_dialog_fragment_requestor_solved"/>
+            android:text="@string/bottom_sheet_dialog_fragment_requestor_solved" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/requestor_delete_buttons"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:visibility="gone">
 
@@ -148,14 +152,13 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="@string/bottom_sheet_dialog_fragment_requestor_delete"/>
+            android:text="@string/bottom_sheet_dialog_fragment_requestor_delete" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/executor_inwork_buttons"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:visibility="gone">
 
@@ -177,14 +180,13 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="@string/bottom_sheet_dialog_fragment_executor_send"/>
+            android:text="@string/bottom_sheet_dialog_fragment_executor_send" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/executor_take_buttons"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:visibility="gone">
 
@@ -196,14 +198,13 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="@string/bottom_sheet_dialog_fragment_executor_take"/>
+            android:text="@string/bottom_sheet_dialog_fragment_executor_take" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/master_buttons"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:visibility="gone">
 

@@ -11,7 +11,7 @@
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        app:srcCompat="@drawable/lo2" />
+        app:srcCompat="@drawable/app_icon" />
 
     <TextView
         style="@style/headerTextViewStyle"
@@ -74,6 +74,7 @@
 
     <Button
         android:id="@+id/password_button"
+        android:visibility="gone"
         style="@style/buttonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,5 +1,7 @@
 package com.example.problemdesk.data.datasource
 
+//import com.example.problemdesk.data.models.AuthTokenRequest
+//import com.example.problemdesk.data.models.AuthTokenResponse
 import com.example.problemdesk.data.models.CreateRequestRequest
 import com.example.problemdesk.data.models.CreateRequestResponse
 import com.example.problemdesk.data.models.LogOutRequest
@@ -35,6 +37,11 @@ interface DeskApi {
     suspend fun refreshUserToken(
         @Body refreshRequest: RefreshRequest
     ): RefreshResponse
+
+//    @POST("/token")
+//    suspend fun authToken(
+//        @Body authTokenRequest: AuthTokenRequest
+//    ): AuthTokenResponse
 
 
 

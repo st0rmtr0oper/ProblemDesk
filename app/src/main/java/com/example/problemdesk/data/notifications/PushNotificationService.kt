@@ -13,8 +13,15 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.problemdesk.MainActivity
 import com.example.problemdesk.R
+import com.example.problemdesk.data.models.RefreshRequest
+import com.example.problemdesk.data.repository.DeskRepositoryImpl
+import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
+import com.example.problemdesk.domain.repository.DeskRepository
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 //TODO idk how its works
 
@@ -30,6 +37,22 @@ class PushNotificationService : FirebaseMessagingService() {
         // Check if the message contains a notification payload.
         remoteMessage.notification?.let {
             handleNotification(it)
+        }
+    }
+
+
+    //TODO i dont know is it right way to implement token refresh or not. i will check it later
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        // здесь мне нужно вызвать suspend fun refreshToken()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val deskRepository = DeskRepositoryImpl(application)
+            val userId = getSharedPrefsUserId(application)
+//            val newFcm = getFcmToken()
+//            val request = RefreshRequest(userId, newFcm)
+            val request = RefreshRequest(userId, token)
+            deskRepository.refreshUserToken(request)
         }
     }
 
@@ -77,7 +100,7 @@ class PushNotificationService : FirebaseMessagingService() {
             PendingIntent.FLAG_IMMUTABLE)
 
         // Build the notification
-        val notification = NotificationCompat.Builder(this, channelId).setSmallIcon(R.drawable.lo2)
+        val notification = NotificationCompat.Builder(this, channelId).setSmallIcon(R.drawable.app_icon)
             .setContentTitle(title)
             .setContentText(body)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

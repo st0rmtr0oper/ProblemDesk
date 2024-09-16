@@ -33,6 +33,8 @@ firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging
 androidx-media3-common = { group = "androidx.media3", name = "media3-common", version.ref = "media3Common" }
 androidx-security-crypto-ktx = { group = "androidx.security", name = "security-crypto-ktx", version.ref = "securityCryptoKtx" }
 
+#[budles]
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

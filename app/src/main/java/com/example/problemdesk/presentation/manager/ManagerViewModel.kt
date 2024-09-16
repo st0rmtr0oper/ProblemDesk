@@ -1,7 +1,8 @@
 package com.example.problemdesk.presentation.manager
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 
-class ManagerViewModel : ViewModel() {
+class ManagerViewModel(private val application: Application) : AndroidViewModel(application){
 
 }

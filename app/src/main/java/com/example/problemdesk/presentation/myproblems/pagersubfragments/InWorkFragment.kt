@@ -4,18 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentSubInworkBinding
 import com.example.problemdesk.domain.models.Card
+import com.example.problemdesk.presentation.details.RequestorBottomSheetDialogFragment
 import com.example.problemdesk.presentation.general.CardRecyclerViewAdapter
 import com.example.problemdesk.presentation.general.getArea
 import com.example.problemdesk.presentation.general.getDate
 import com.example.problemdesk.presentation.general.getSpecialization
-import com.example.problemdesk.presentation.details.RequestorBottomSheetDialogFragment
 import kotlinx.coroutines.launch
 
 class InWorkFragment : Fragment() {
@@ -30,7 +31,7 @@ class InWorkFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSubInworkBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
@@ -39,14 +40,9 @@ class InWorkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
-        //::handleCardClick binding RV click logic with fragment
         binding.inWorkRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
-        val userId = context?.let { getSharedPrefsUserId(it) }
-        lifecycleScope.launch {
-            if (userId != null) {
-                inWorkViewModel.loadCards(userId)
-            }
-        }
+        loadCards()
+        setUpResultListener()
     }
 
     override fun onDestroyView() {
@@ -54,10 +50,56 @@ class InWorkFragment : Fragment() {
         _binding = null
     }
 
+    private fun showLoading() {
+        with(binding) {
+            progressBar.isVisible = true
+            inWorkRv.isGone = true
+            plug.isGone = true
+        }
+    }
+
+    private fun showContent() {
+        with(binding) {
+            progressBar.isGone = true
+            inWorkRv.isVisible = true
+            plug.isGone = true
+        }
+    }
+
+    private fun showPlug() {
+        with(binding) {
+            progressBar.isGone = true
+            inWorkRv.isGone = true
+            plug.isVisible = true
+        }
+    }
+
     private fun setUpObservers() {
-        inWorkViewModel.cards.observe(viewLifecycleOwner, Observer { cards: List<Card> ->
+        inWorkViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.inWorkRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-        })
+            if (cards.isEmpty()) {
+                showPlug()
+            } else {
+                showContent()
+            }
+        }
+    }
+
+    private fun setUpResultListener() {
+        // Listen for the result from the BottomSheetDialogFragment
+        parentFragmentManager.setFragmentResultListener("requestUpdate", this) { _, _ ->
+            loadCards() // Reload cards when dialog dismisses with result
+        }
+    }
+
+    private fun loadCards() {
+        showLoading()
+        val userId = context?.let { getSharedPrefsUserId(it) }
+        lifecycleScope.launch {
+            if (userId != null) {
+                inWorkViewModel.loadCards(userId)
+            }
+        }
     }
 
     private fun handleCardClick(card: Card) {

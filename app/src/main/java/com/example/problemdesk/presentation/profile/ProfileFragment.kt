@@ -118,6 +118,8 @@ class ProfileFragment : Fragment() {
             setMessage("Вы хотите выйти из своей учетной записи?")
             setPositiveButton("Да") { _, _ ->
                 profileViewModel.logOut(request)
+                val exitMenuItem = (activity as MainActivity).binding.toolbar.menu.findItem(R.id.action_exit)
+                exitMenuItem.isVisible = false
             }
             setNegativeButton("Нет", null)
             show()
