@@ -55,6 +55,7 @@ class CompletedFragment : Fragment() {
         with(binding) {
             progressBar.isVisible = true
             completedRv.isGone = true
+            plug.isGone = true
         }
     }
 
@@ -62,13 +63,26 @@ class CompletedFragment : Fragment() {
         with(binding) {
             progressBar.isGone = true
             completedRv.isVisible = true
+            plug.isGone = true
+        }
+    }
+
+    private fun showPlug() {
+        with(binding) {
+            progressBar.isGone = true
+            completedRv.isGone = true
+            plug.isVisible = true
         }
     }
 
     private fun setUpObservers() {
         completedViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.completedRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-            showContent()
+            if (cards.isEmpty()) {
+                showPlug()
+            } else {
+                showContent()
+            }
         }
     }
 
@@ -99,9 +113,20 @@ class CompletedFragment : Fragment() {
         showBottomSheetDialogFragmentRequestor(id, stat, date, spec, area, desc)
     }
 
-    private fun showBottomSheetDialogFragmentRequestor(requestId: Int, stat: Int, date:String, spec: String, area: String, desc: String) {
+    private fun showBottomSheetDialogFragmentRequestor(
+        requestId: Int,
+        stat: Int,
+        date: String,
+        spec: String,
+        area: String,
+        desc: String
+    ) {
         val role = "requestor"
-        val requestorBottomSheetDialogFragment = RequestorBottomSheetDialogFragment(requestId, stat, role, date, spec, area, desc)
-        requestorBottomSheetDialogFragment.show(parentFragmentManager, RequestorBottomSheetDialogFragment::class.java.simpleName)
+        val requestorBottomSheetDialogFragment =
+            RequestorBottomSheetDialogFragment(requestId, stat, role, date, spec, area, desc)
+        requestorBottomSheetDialogFragment.show(
+            parentFragmentManager,
+            RequestorBottomSheetDialogFragment::class.java.simpleName
+        )
     }
 }

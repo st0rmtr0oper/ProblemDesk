@@ -29,7 +29,11 @@ class NewTasksFragment : Fragment() {
         fun newInstance() = NewTasksFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentSubNewTasksBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
@@ -52,6 +56,7 @@ class NewTasksFragment : Fragment() {
         with(binding) {
             progressBar.isVisible = true
             newTasksRv.isGone = true
+            plug.isGone = true
         }
     }
 
@@ -59,13 +64,26 @@ class NewTasksFragment : Fragment() {
         with(binding) {
             progressBar.isGone = true
             newTasksRv.isVisible = true
+            plug.isGone = true
+        }
+    }
+
+    private fun showPlug() {
+        with(binding) {
+            progressBar.isGone = true
+            newTasksRv.isGone = true
+            plug.isVisible = true
         }
     }
 
     private fun setUpObservers() {
         newTasksViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.newTasksRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-            showContent()
+            if (cards.isEmpty()) {
+                showPlug()
+            } else {
+                showContent()
+            }
         }
     }
 
@@ -96,9 +114,20 @@ class NewTasksFragment : Fragment() {
         showBottomSheetDialogFragmentRequestor(id, stat, date, spec, area, desc)
     }
 
-    private fun showBottomSheetDialogFragmentRequestor(requestId: Int, stat: Int, date:String, spec: String, area: String, desc: String) {
+    private fun showBottomSheetDialogFragmentRequestor(
+        requestId: Int,
+        stat: Int,
+        date: String,
+        spec: String,
+        area: String,
+        desc: String
+    ) {
         val role = "executor"
-        val requestorBottomSheetDialogFragment = RequestorBottomSheetDialogFragment(requestId, stat, role, date, spec, area, desc)
-        requestorBottomSheetDialogFragment.show(parentFragmentManager, RequestorBottomSheetDialogFragment::class.java.simpleName)
+        val requestorBottomSheetDialogFragment =
+            RequestorBottomSheetDialogFragment(requestId, stat, role, date, spec, area, desc)
+        requestorBottomSheetDialogFragment.show(
+            parentFragmentManager,
+            RequestorBottomSheetDialogFragment::class.java.simpleName
+        )
     }
 }

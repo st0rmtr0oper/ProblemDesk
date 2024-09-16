@@ -54,6 +54,7 @@ class InWorkFragment : Fragment() {
         with(binding) {
             progressBar.isVisible = true
             inWorkRv.isGone = true
+            plug.isGone = true
         }
     }
 
@@ -61,13 +62,26 @@ class InWorkFragment : Fragment() {
         with(binding) {
             progressBar.isGone = true
             inWorkRv.isVisible = true
+            plug.isGone = true
+        }
+    }
+
+    private fun showPlug() {
+        with(binding) {
+            progressBar.isGone = true
+            inWorkRv.isGone = true
+            plug.isVisible = true
         }
     }
 
     private fun setUpObservers() {
         inWorkViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.inWorkRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-            showContent()
+            if (cards.isEmpty()) {
+                showPlug()
+            } else {
+                showContent()
+            }
         }
     }
 

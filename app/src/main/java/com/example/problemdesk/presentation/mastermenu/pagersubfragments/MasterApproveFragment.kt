@@ -57,6 +57,7 @@ class MasterApproveFragment : Fragment() {
         with(binding) {
             progressBar.isVisible = true
             approveRv.isGone = true
+            plug.isGone = true
         }
     }
 
@@ -64,14 +65,26 @@ class MasterApproveFragment : Fragment() {
         with(binding) {
             progressBar.isGone = true
             approveRv.isVisible = true
+            plug.isGone = true
+        }
+    }
+
+    private fun showPlug() {
+        with(binding) {
+            progressBar.isGone = true
+            approveRv.isGone = true
+            plug.isVisible = true
         }
     }
 
     private fun setUpObservers() {
         masterApproveViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.approveRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-            showContent()
-        }
+            if (cards.isEmpty()) {
+                showPlug()
+            } else {
+                showContent()
+            }        }
     }
 
     private fun setUpResultListener() {

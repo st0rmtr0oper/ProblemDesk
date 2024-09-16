@@ -99,6 +99,13 @@
         <item name="android:background">@drawable/bottom_sheet_dialog_fragment_background</item>
     </style>
 
+    <!-- Empty Plug Image -->
+    <style name="emptyPlugImage">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">160dp</item>
+        <item name="android:src">@drawable/empty_box</item>
+    </style>
+
     <!-- Texts -->
     <style name="headerTextViewStyle" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/primary_color</item>

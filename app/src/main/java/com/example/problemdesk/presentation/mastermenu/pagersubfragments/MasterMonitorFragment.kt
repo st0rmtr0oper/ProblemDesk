@@ -53,6 +53,7 @@ class MasterMonitorFragment : Fragment() {
         with(binding) {
             progressBar.isVisible = true
             monitorRv.isGone = true
+            plug.isGone = true
         }
     }
 
@@ -60,13 +61,26 @@ class MasterMonitorFragment : Fragment() {
         with(binding) {
             progressBar.isGone = true
             monitorRv.isVisible = true
+            plug.isGone = true
+        }
+    }
+
+    private fun showPlug() {
+        with(binding) {
+            progressBar.isGone = true
+            monitorRv.isGone = true
+            plug.isVisible = true
         }
     }
 
     private fun setUpObservers() {
         masterMonitorViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
             (binding.monitorRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-            showContent()
+            if (cards.isEmpty()) {
+                showPlug()
+            } else {
+                showContent()
+            }
         }
     }
 
