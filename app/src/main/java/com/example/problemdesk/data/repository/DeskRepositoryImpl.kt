@@ -111,18 +111,9 @@ class DeskRepositoryImpl(private val context: Context) : DeskRepository {
         retrofit.create(DeskApi::class.java)
     }
 
-    suspend fun login(loginRequest: LoginRequest): LoginResponse {
-        val response = deskApi.login(loginRequest)
-//        bearerToken = response.accessToken
-//        Log.d("AuthToken", "Bearer Token: $bearerToken") // Log the token
-        return response
-    }
+    suspend fun login(loginRequest: LoginRequest): LoginResponse = deskApi.login(loginRequest)
+    suspend fun logout(logoutRequest: LogOutRequest): LogOutResponse = deskApi.logout(logoutRequest)
 
-    suspend fun logout(logoutRequest: LogOutRequest): LogOutResponse {
-        val response = deskApi.logout(logoutRequest)
-//        bearerToken = null
-        return response
-    }
     //TODO i dont need it
 //    suspend fun authToken(authTokenRequest: AuthTokenRequest): AuthTokenResponse = deskApi.authToken(authTokenRequest)
     //TODO

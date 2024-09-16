@@ -90,15 +90,8 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 
 //----------------------
 
-//TODO new auth
-//TODO отзывчивость интерфейса - диалоги, загрытие bottomsheet, обновление списка
-//TODO пометок нет
 //перекинуть все в main activity?
-//TODO анимация обновы
-//TODO bottom sheet design
-//TODO bottom nav style + icons + log out iconв 
 //TODO remember me
-//TODO logout button
 //TODO fcm refresh
 //TODO user's inputs should be remembered through app destroy??
 
@@ -134,15 +127,14 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 
 //-----------------------------------------------------
 //TODO обязательно для бетки 1.0
-
-// TODO закрытие ботом шита не всегда запускает загрузку
 //TODO remember me
+//TODO fcm refresh
+// отдать в тест
 
-//TODO увеличить списки в спиннерах под большие пальцы
+//TODO желательно
+//TODO закрытие ботом шита не всегда запускает загрузку
 //TODO логи с okhttp в диалогах ошибок (подумать над реализацией диалогов)
-
 //TODO landscape mode!!!! ---- test on tablets
-
 //TODO тест UI
 //TODO тест flow
 
