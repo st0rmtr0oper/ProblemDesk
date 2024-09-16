@@ -14,6 +14,7 @@ import com.example.problemdesk.data.notifications.getFcmToken
 import com.example.problemdesk.data.repository.DeskRepositoryImpl
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.TOKEN
+import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.presentation.general.SingleLiveEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -57,7 +58,8 @@ class LoginViewModel(private val application: Application) : AndroidViewModel(ap
 
                     val sharedPreferences = PreferenceUtil.getEncryptedSharedPreferences(application)
                     sharedPreferences.edit()?.putString(TOKEN, loginResponse.accessToken)?.apply()
-
+//                    sharedPreferences.edit()?.putInt(USER_ID, userId.value ?: 0)?.apply()
+                    //TODO need to test (userId 0)
 
 
 

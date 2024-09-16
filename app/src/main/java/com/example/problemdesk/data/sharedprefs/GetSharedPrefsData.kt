@@ -9,6 +9,12 @@ fun getSharedPrefsUserId(context: Context): Int {
     return userId
 }
 
+fun getSharedPrefsUserRole(context: Context): Int {
+    val sharedPreferences = context.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+    val userRole = sharedPreferences.getInt(USER_ROLE, 0)
+    return userRole
+}
+
 fun getSharedPrefsOldFcm(context: Context): String {
     val sharedPreferences = context.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
     val oldFcm = sharedPreferences.getString(OLD_FCM, "")
