@@ -64,10 +64,10 @@ class ProblemFormFragment : Fragment() {
         
         sharedPreferences?.edit()?.apply{
             //TODO add keys
-            putString("spec_name", spec.name)
-            putInt("spec_id", spec.id)
-            putString("area_name", area.name)
-            putInt("area_id", area.id)
+            putString(SPEC_NAME, spec.name)
+            putInt(SPEC_ID, spec.id)
+            putString(AREA_NAME, area.name)
+            putInt(AREA_ID, area.id)
             apply()
         }
     }
