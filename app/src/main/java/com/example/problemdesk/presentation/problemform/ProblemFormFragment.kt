@@ -48,9 +48,30 @@ class ProblemFormFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        saveRequestData()
         super.onDestroyView()
         _binding = null
     }
+    
+    
+    //TODO MOBILE PATCH
+    private fun saveRequestData() {
+        val spec = binding.problemTypeSpinner.selectedItem as Specialization
+        val area = binding.userWorkplaceSpinner.selectedItem as Workplace
+        val sharedPreferences = context?.let {
+             PreferenceUtil.getEncryptedSharedPreferences(it)
+        }
+        
+        sharedPreferences?.edit()?.apply{
+            //TODO add keys
+            putString("spec_name", spec.name)
+            putInt("spec_id", spec.id)
+            putString("area_name", area.name)
+            putInt("area_id", area.id)
+            apply()
+        }
+    }
+   
 
     private fun setUpSpinners() {
         val problemTypeSpinner: Spinner = binding.problemTypeSpinner
