@@ -26,11 +26,9 @@ import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserRole
 import kotlinx.coroutines.launch
 
-//TODO remember me. шобы не заходить постоянно в акк раз за разом
-//TODO loading animation
 //TODO error messages for user (no connection, dead server and etc) ---
 // --- implemented, but in primitive way. returns shit when you type wrong credentials
-//TODO password recovery
+//TODO password recovery (hidden for now)
 
 class LoginFragment : Fragment() {
 

@@ -152,6 +152,8 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //
 //
 
+//TODO сохранение данных заявки в офлайне (в будущем можно сделать отложенную доставку как в мессенджерах)
+
 
 //----------------------
 
