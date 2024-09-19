@@ -1,6 +1,5 @@
 package com.example.problemdesk.data.sharedprefs
 
-import android.app.Application
 import android.content.Context
 
 fun getSharedPrefsUserId(context: Context): Int {
@@ -26,7 +25,6 @@ fun getSharedAuthToken(context: Context): String {
     val authToken = sharedPreferences.getString(TOKEN, "")
     return authToken ?: ""
 }
-//fun deleteShared
 
 //TODO why i wrote this (get userId) only, if i want use it like that?
 //need to add add/delete olf_fcm + delete userId
