@@ -30,19 +30,13 @@ class DeskRepositoryImpl(private val context: Context) : DeskRepository {
 //        const val BASE_URL = "https://timofmax1.fvds.ru:8000"
         const val BASE_URL = "https://timofmax1.fvds.ru"
     }
+    //TODO network test needed
 
     private val gson = GsonBuilder().create()
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
-
-
-
-
-    //TODO is it safe?
-//    private var bearerToken: String? = null
-
 
     private val retrofit = Retrofit.Builder()
         .client(provideOkHttpClient(/*bearerToken*/))
