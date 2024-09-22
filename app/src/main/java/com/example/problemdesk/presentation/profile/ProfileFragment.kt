@@ -78,6 +78,10 @@ class ProfileFragment : Fragment() {
                 sharedPreferences?.edit()?.clear()?.apply()
             } else {
                 showErrorDialog()
+                findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationLogin())
+                val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+                //TODO need to test how its working
+                sharedPreferences?.edit()?.clear()?.apply()
             }
         })
     }
@@ -126,10 +130,12 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    //TODO not the best way to solve this problem
+//    прил не дает выйти вручную если что то идет не так
     private fun showErrorDialog() {
         androidx.appcompat.app.AlertDialog.Builder(requireContext()).apply {
-            setTitle("Ошибка")
-            setMessage("Упс... Что-то пошло не так")
+            setTitle("Выход")
+            setMessage("Что-то пошло не так в сети")
             setNegativeButton("Ок", null)
             show()
         }
