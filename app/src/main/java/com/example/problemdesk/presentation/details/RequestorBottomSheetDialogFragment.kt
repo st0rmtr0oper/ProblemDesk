@@ -138,16 +138,17 @@ class RequestorBottomSheetDialogFragment(
     private fun setUpClickListeners() {
         clearClickListeners()
 
+        var reason = ""
+        var request: TaskManipulationRequest
+
         //TODO sharedPrefs again. i really need to put em in other place
 
         val userdId = getSharedPrefsUserId(requireContext())
-        val reason = binding.reasonText.text.toString()
-        val request = TaskManipulationRequest(userdId, requestId, reason)
-
         if (role == "requestor") {
             if (stat == 1) {
                 with(binding) {
                     deleteButton.setOnClickListener {
+                        request = TaskManipulationRequest(userdId, requestId, reason)
                         CoroutineScope(Dispatchers.IO).launch {
                             requestorBottomSheetDialogViewModel.requestorDelete(request)
                         }
@@ -157,12 +158,16 @@ class RequestorBottomSheetDialogFragment(
             } else if (stat == 5) {
                 with(binding) {
                     solvedButton.setOnClickListener {
+                        reason = binding.reasonText.text.toString()
+                        request = TaskManipulationRequest(userdId, requestId, reason)
                         CoroutineScope(Dispatchers.IO).launch {
                             requestorBottomSheetDialogViewModel.requestorConfirm(request)
                         }
 
                     }
                     resendButton.setOnClickListener {
+                        reason = binding.reasonText.text.toString()
+                        request = TaskManipulationRequest(userdId, requestId, reason)
                         CoroutineScope(Dispatchers.IO).launch {
                             requestorBottomSheetDialogViewModel.requestorDeny(request)
                         }
@@ -174,6 +179,7 @@ class RequestorBottomSheetDialogFragment(
             if (stat == 2) {
                 with(binding) {
                     takeButton.setOnClickListener {
+                        request = TaskManipulationRequest(userdId, requestId, reason)
                         CoroutineScope(Dispatchers.IO).launch {
                             requestorBottomSheetDialogViewModel.takeTask(request)
                         }
@@ -184,15 +190,18 @@ class RequestorBottomSheetDialogFragment(
             } else if (stat == 4) {
                 with(binding) {
                     sendButton.setOnClickListener {
+                        reason = binding.reasonText.text.toString()
+                        request = TaskManipulationRequest(userdId, requestId, reason)
                         CoroutineScope(Dispatchers.IO).launch {
                             requestorBottomSheetDialogViewModel.executorComplete(request)
 
                         }
                     }
                     dropButton.setOnClickListener {
+                        reason = binding.reasonText.text.toString()
+                        request = TaskManipulationRequest(userdId, requestId, reason)
                         CoroutineScope(Dispatchers.IO).launch {
                             requestorBottomSheetDialogViewModel.executorCancel(request)
-
                         }
                     }
                 }
@@ -202,16 +211,19 @@ class RequestorBottomSheetDialogFragment(
             if (stat == 1) {
                 with(binding) {
                     approveButton.setOnClickListener {
+                        reason = binding.reasonText.text.toString()
+                        request = TaskManipulationRequest(userdId, requestId, reason)
                         CoroutineScope(Dispatchers.IO).launch {
                             requestorBottomSheetDialogViewModel.masterApprove(request)
                         }
 
                     }
                     cancelButton.setOnClickListener {
+                        reason = binding.reasonText.text.toString()
+                        request = TaskManipulationRequest(userdId, requestId, reason)
                         CoroutineScope(Dispatchers.IO).launch {
                             requestorBottomSheetDialogViewModel.masterDeny(request)
                         }
-
                     }
                 }
                 //inflate master

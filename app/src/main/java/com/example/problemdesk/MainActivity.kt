@@ -126,17 +126,19 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //надо отлавливать ошибки из OkHttp, а не из логов. логи вообще удалить можно
 
 //-----------------------------------------------------
-//TODO обязательно для бетки 1.0
-//TODO remember me
-//TODO fcm refresh
-// отдать в тест
+//TODO обязательно для бетки 1.1
 
-//TODO желательно
+//TODO remember me test (it may be not working when access token dies???)
+//TODO fcm refresh test
+//TODO https migration
+//TODO тест flow
+
+
 //TODO закрытие ботом шита не всегда запускает загрузку
 //TODO логи с okhttp в диалогах ошибок (подумать над реализацией диалогов)
 //TODO landscape mode!!!! ---- test on tablets
 //TODO тест UI
-//TODO тест flow
+
 
 //-----------------------------------------------------
 
@@ -151,6 +153,8 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //
 //
 //
+
+//TODO сохранение данных заявки в офлайне (в будущем можно сделать отложенную доставку как в мессенджерах)
 
 
 //----------------------

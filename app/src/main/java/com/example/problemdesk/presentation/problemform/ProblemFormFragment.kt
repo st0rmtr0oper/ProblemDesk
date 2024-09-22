@@ -10,6 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.problemdesk.data.models.CreateRequestRequest
+import com.example.problemdesk.data.sharedprefs.AREA_ID
+import com.example.problemdesk.data.sharedprefs.AREA_NAME
+import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+import com.example.problemdesk.data.sharedprefs.SPEC_ID
+import com.example.problemdesk.data.sharedprefs.SPEC_NAME
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentProblemFormBinding
 import com.example.problemdesk.domain.models.Specialization
@@ -48,9 +53,29 @@ class ProblemFormFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        saveRequestData()
         super.onDestroyView()
         _binding = null
     }
+    
+    
+    //TODO test MOBILE PATCH
+    private fun saveRequestData() {
+        val spec = binding.problemTypeSpinner.selectedItem as Specialization
+        val area = binding.userWorkplaceSpinner.selectedItem as Workplace
+        val sharedPreferences = context?.let {
+             PreferenceUtil.getEncryptedSharedPreferences(it)
+        }
+        
+        sharedPreferences?.edit()?.apply{
+            putString(SPEC_NAME, spec.name)
+            putInt(SPEC_ID, spec.id)
+            putString(AREA_NAME, area.name)
+            putInt(AREA_ID, area.id)
+            apply()
+        }
+    }
+   
 
     private fun setUpSpinners() {
         val problemTypeSpinner: Spinner = binding.problemTypeSpinner
