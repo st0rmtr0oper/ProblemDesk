@@ -36,7 +36,8 @@ import javax.net.ssl.X509TrustManager
 
 class DeskRepositoryImpl(private val context: Context) : DeskRepository {
     companion object {
-        const val BASE_URL = "http://timofmax1.fvds.ru:8000"
+        const val BASE_URL = "http://timofmax1.fvds.ru"
+    //    const val BASE_URL = "http://timofmax1.fvds.ru:8000"
 //        const val BASE_URL = "https://timofmax1.fvds.ru"
 //        const val BASE_URL = "https://timofmax1.fvds.ru:443"
     }
