@@ -46,6 +46,14 @@ android {
     }
 }
 
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io")}
+    }
+}
+
 //TODO remove dataBinding
 
 dependencies {
@@ -62,6 +70,9 @@ dependencies {
 //    implementation("com.google.firebase:firebase-messaging-ktx:24.0.0")
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-messaging")
+
+    //charts
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
