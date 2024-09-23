@@ -1,7 +1,6 @@
 package com.example.problemdesk.data.repository
 
 import android.content.Context
-import com.example.problemdesk.R
 import com.example.problemdesk.data.datasource.DeskApi
 import com.example.problemdesk.data.models.CreateRequestRequest
 import com.example.problemdesk.data.models.CreateRequestResponse
@@ -24,22 +23,24 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.security.KeyStore
 import java.security.SecureRandom
-import java.security.cert.Certificate
-import java.security.cert.CertificateFactory
+import java.security.cert.CertificateException
+import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.HttpsURLConnection
+import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManagerFactory
+import javax.net.ssl.SSLSession
+import javax.net.ssl.SSLSocketFactory
+import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
+
 
 class DeskRepositoryImpl(private val context: Context) : DeskRepository {
     companion object {
-        const val BASE_URL = "http://timofmax1.fvds.ru"
-    //    const val BASE_URL = "http://timofmax1.fvds.ru:8000"
-//        const val BASE_URL = "https://timofmax1.fvds.ru"
-//        const val BASE_URL = "https://timofmax1.fvds.ru:443"
+//        const val BASE_URL = "http://timofmax1.fvds.ru"
+        //    const val BASE_URL = "http://timofmax1.fvds.ru:8000"
+
+        const val BASE_URL = "https://timofmax1.fvds.ru:443"
     }
     //TODO network test needed
 
@@ -56,70 +57,58 @@ class DeskRepositoryImpl(private val context: Context) : DeskRepository {
         //TODO it works without .create(gson)
         .build()
 
-    //TODO AI modified (for ssl certificates)
+
     private fun provideOkHttpClient(): OkHttpClient {
 
+        val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
+            @Throws(CertificateException::class)
+            override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
+            }
 
-//        // Load the self-signed certificate from raw resources
-//        val certificate =
-//            context.resources.openRawResource(R.raw.selfsigned) // Replace with your actual certificate name
-//        val cf = CertificateFactory.getInstance("X.509")
-//        val ca: Certificate = cf.generateCertificate(certificate)
-//
-//        // Create a KeyStore containing our trusted CAs
-//        val keyStore = KeyStore.getInstance(KeyStore.getDefaultType()).apply {
-//            load(null, null)
-//            setCertificateEntry("ca", ca)
-//        }
-//
-//        // Create a TrustManager that trusts the CAs in our KeyStore
-//        val tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm()).apply {
-//            init(keyStore)
-//        }
-//
-//        // Create an SSLContext that uses our TrustManager
-////        val sslContext = SSLContext.getInstance("TLS").apply {
-////            init(null, tmf.trustManagers, null)
-////        }
-//
-//        val sslContext = SSLContext.getInstance("TLS").apply {
-//            init(null, tmf.trustManagers, SecureRandom())
-//        }
-//        val sslSocketFactory = sslContext.socketFactory
-//        val trustManager = tmf.trustManagers[0] as X509TrustManager
-//
-//
+            @Throws(CertificateException::class)
+            override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
+            }
 
+            override fun getAcceptedIssuers(): Array<X509Certificate> {
+                return arrayOf()
+            }
+        }
+        )
 
-        return OkHttpClient.Builder()
+        val sslContext = SSLContext.getInstance("SSL")
+        sslContext.init(null, trustAllCerts, SecureRandom())
+        val sslSocketFactory: SSLSocketFactory = sslContext.socketFactory
+
+        val builder: OkHttpClient.Builder = OkHttpClient.Builder()
+        builder
             .addInterceptor(loggingInterceptor)
             .addInterceptor { chain ->
                 val requestBuilder = chain.request().newBuilder()
+//                requestBuilder.addHeader("accept: ","application/json")
+//                requestBuilder.addHeader("Content-Type: ","application/json")
                 val token = getSharedAuthToken(context)
                 if (token.isNotEmpty()) {
                     requestBuilder.addHeader("Authorization", "Bearer $token")
                 }
                 chain.proceed(requestBuilder.build())
             }
-
-
-//            .sslSocketFactory(sslSocketFactory, trustManager) // current version
-//             //            .sslSocketFactory(sslContext.socketFactory) // old version
-
-
+            .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
+            .hostnameVerifier(object: HostnameVerifier {
+                override fun verify(hostname: String?, session: SSLSession?): Boolean {
+                    return true
+                }
+            })
             .connectTimeout(10L, TimeUnit.SECONDS)
             .writeTimeout(10L, TimeUnit.SECONDS)
             .readTimeout(10L, TimeUnit.SECONDS)
-            .build()
+
+        val okHttpClient: OkHttpClient = builder.build()
+        return okHttpClient
     }
 
     private val deskApi by lazy {
         retrofit.create(DeskApi::class.java)
     }
-
-//    init {
-//        trustEveryone()
-//    }
 
     suspend fun login(loginRequest: LoginRequest): LoginResponse = deskApi.login(loginRequest)
     suspend fun logout(logoutRequest: LogOutRequest): LogOutResponse = deskApi.logout(logoutRequest)
@@ -178,3 +167,97 @@ class DeskRepositoryImpl(private val context: Context) : DeskRepository {
     suspend fun getUnderMasterApproval(userId: Int): List<Card> =
         deskApi.getUnderMasterApproval(userId)
 }
+
+
+//
+//private fun provideOkHttpClient(): OkHttpClient {
+////        // Load the self-signed certificate from raw resources
+////        val certificate =
+////            context.resources.openRawResource(R.raw.selfsigned) // Replace with your actual certificate name
+////        val cf = CertificateFactory.getInstance("X.509")
+////        val ca: Certificate = cf.generateCertificate(certificate)
+////
+////        // Create a KeyStore containing our trusted CAs
+////        val keyStore = KeyStore.getInstance(KeyStore.getDefaultType()).apply {
+////            load(null, null)
+////            setCertificateEntry("ca", ca)
+////        }
+////
+////        // Create a TrustManager that trusts the CAs in our KeyStore
+////        val tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm()).apply {
+////            init(keyStore)
+////        }
+////
+////        // Create an SSLContext that uses our TrustManager
+//////        val sslContext = SSLContext.getInstance("TLS").apply {
+//////            init(null, tmf.trustManagers, null)
+//////        }
+////
+////        val sslContext = SSLContext.getInstance("TLS").apply {
+////            init(null, tmf.trustManagers, SecureRandom())
+////        }
+////        val sslSocketFactory = sslContext.socketFactory
+////        val trustManager = tmf.trustManagers[0] as X509TrustManager
+//
+//    return OkHttpClient.Builder()
+//        .addInterceptor(loggingInterceptor)
+//        .addInterceptor { chain ->
+//            val requestBuilder = chain.request().newBuilder()
+//
+////                requestBuilder.addHeader("accept: ","application/json")
+////                requestBuilder.addHeader("Content-Type: ","application/json")
+//
+//            val token = getSharedAuthToken(context)
+//            if (token.isNotEmpty()) {
+//                requestBuilder.addHeader("Authorization", "Bearer $token")
+//            }
+//            chain.proceed(requestBuilder.build())
+//        }
+//
+//
+////            .sslSocketFactory(sslSocketFactory, trustManager) // current version
+////             //            .sslSocketFactory(sslContext.socketFactory) // old version
+//
+//        .connectTimeout(10L, TimeUnit.SECONDS)
+//        .writeTimeout(10L, TimeUnit.SECONDS)
+//        .readTimeout(10L, TimeUnit.SECONDS)
+//        .build()
+//}
+
+
+
+//
+//private fun getUnsafeOkHttpClient(): OkHttpClient {
+//    try {
+//        // Create a trust manager that does not validate certificate chains
+//        val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
+//            @Throws(CertificateException::class)
+//            override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
+//            }
+//
+//            @Throws(CertificateException::class)
+//            override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
+//            }
+//
+//            override fun getAcceptedIssuers(): Array<X509Certificate> {
+//                return arrayOf()
+//            }
+//        }
+//        )
+//
+//        // Install the all-trusting trust manager
+//        val sslContext = SSLContext.getInstance("SSL")
+//        sslContext.init(null, trustAllCerts, SecureRandom())
+//        // Create an ssl socket factory with our all-trusting manager
+//        val sslSocketFactory: SSLSocketFactory = sslContext.socketFactory
+//
+//        val builder: Builder = Builder()
+//        builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
+//        builder.hostnameVerifier(HostnameVerifier { hostname, session -> true })
+//
+//        val okHttpClient: OkHttpClient = builder.build()
+//        return okHttpClient
+//    } catch (e: Exception) {
+//        throw RuntimeException(e)
+//    }
+//}
