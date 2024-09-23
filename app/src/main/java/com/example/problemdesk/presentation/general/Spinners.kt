@@ -1,4 +1,4 @@
-package com.example.problemdesk.presentation.problemform
+package com.example.problemdesk.presentation.general
 
 import android.content.Context
 import android.view.View
@@ -7,8 +7,8 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.problemdesk.R
 import com.example.problemdesk.domain.models.Specialization
+import com.example.problemdesk.domain.models.Status
 import com.example.problemdesk.domain.models.Workplace
-
 
 //custom adapters for handling custom data classes (name-id pairs)
 class SpecializationAdapter(context: Context, specializations: Array<Specialization>) :
@@ -33,6 +33,16 @@ class WorkplaceAdapter(context: Context, workplaces: Array<Workplace>) :
     }
 }
 
+class StatusAdapter(context: Context, statuses: Array<String>) :
+    ArrayAdapter<String>(context, R.layout.my_spinner_item, statuses) {
+//    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+//        val view = super.getDropDownView(position, convertView, parent)
+//        val item = getItem(position)
+//        view.findViewById<TextView>(android.R.id.text1).text = item?.name
+//        return view
+//    }
+}
+
 
 fun getSpecializationArray(): Array<Specialization> {
     return arrayOf(
@@ -52,10 +62,18 @@ fun getWorkplaceArray(): Array<Workplace> {
         Workplace("№2", 2),
         Workplace("№3", 3),
         Workplace("№4", 4)
-//        Workplace("№5", 5),
-//        Workplace("№6", 6),
-//        Workplace("№7", 7),
-//        Workplace("№8", 8)
     )
 }
 
+fun getStatusArray(): Array<String> {
+    return arrayOf(
+        "Выберите статус...",
+        "Исполненные",
+        "Отклоненные",
+        "В работе"
+    )
+}
+
+//"done" -6
+//denied
+//in-progress

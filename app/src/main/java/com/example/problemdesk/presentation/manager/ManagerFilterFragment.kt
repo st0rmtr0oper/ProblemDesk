@@ -5,9 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.problemdesk.databinding.FragmentManagerFilterBinding
+import com.example.problemdesk.presentation.general.SpecializationAdapter
+import com.example.problemdesk.presentation.general.StatusAdapter
+import com.example.problemdesk.presentation.general.WorkplaceAdapter
+import com.example.problemdesk.presentation.general.getSpecializationArray
+import com.example.problemdesk.presentation.general.getStatusArray
+import com.example.problemdesk.presentation.general.getWorkplaceArray
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
@@ -34,9 +41,9 @@ class ManagerFilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //TODO графики
-
+        setUpSpinners()
         setUpDatePicker()
+        setUpObservers()
     }
 
     override fun onDestroyView() {
@@ -62,7 +69,6 @@ class ManagerFilterFragment : Fragment() {
             builder.setTitleText("Выберите временной диапазон:")
 
             val constraintBuilder = CalendarConstraints.Builder()
-//                .setStart(MaterialDatePicker.todayInUtcMilliseconds())
                 .build()
             builder.setCalendarConstraints(constraintBuilder)
             val dateRangerPicker = builder.build()
@@ -85,6 +91,22 @@ class ManagerFilterFragment : Fragment() {
         val formattedStartDate = dateFormat.format(startCalendar.time)
         val formattedEndDate = dateFormat.format(endCalendar.time)
         binding.chartDateFilterPicker.setText("$formattedStartDate - $formattedEndDate")
+    }
+
+    private fun setUpSpinners() {
+        val typeSpinner: Spinner = binding.chartTypeFilterSpinner
+        val specializationAdapter =
+            SpecializationAdapter(requireContext(), getSpecializationArray())
+        typeSpinner.adapter = specializationAdapter
+
+        val areaSpinner: Spinner = binding.chartAreaFilterSpinner
+        val workplaceAdapter = WorkplaceAdapter(requireContext(), getWorkplaceArray())
+        areaSpinner.adapter = workplaceAdapter
+
+        val statusSpinner: Spinner = binding.chartStatusFilterSpinner
+        val statusAdapter = StatusAdapter(requireContext(), getStatusArray())
+        statusSpinner.adapter = statusAdapter
+        //spinners should receive areas and specialisations list from backend. In ideal world
     }
 
     private fun setUpObservers() {
