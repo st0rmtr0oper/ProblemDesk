@@ -128,16 +128,19 @@ import com.example.problemdesk.databinding.ActivityMainBinding
 //-----------------------------------------------------
 //TODO обязательно для бетки 1.1
 
-//TODO remember me test (it may be not working when access token dies???)
+
 //TODO fcm refresh test
 //TODO https migration
-//TODO тест flow
 
-
+//TODO push test
+//TODO access token refresh
+//TODO remember me test (it may be not working when access token dies???)
 //TODO закрытие ботом шита не всегда запускает загрузку
 //TODO логи с okhttp в диалогах ошибок (подумать над реализацией диалогов)
 //TODO landscape mode!!!! ---- test on tablets
 //TODO тест UI
+
+//TODO тесты
 
 
 //-----------------------------------------------------
