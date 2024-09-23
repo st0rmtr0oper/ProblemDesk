@@ -81,6 +81,15 @@ interface DeskApi {
         @Body taskManipulationRequest: TaskManipulationRequest
     ): TaskManipulationResponse
 
+    @POST("/boss-requests")
+    suspend fun bossRequests(
+        @Query("from_date") fromDate: String,   //TODO string(date)
+        @Query("until_date") untilDate: String, //TODO string(date)
+        @Query("status") status: String,
+        @Query("request_type") requestType: Int,
+        @Query("area_id") areaId: Int
+    ): List<Card>
+
 
 
     @GET("/request-history")
