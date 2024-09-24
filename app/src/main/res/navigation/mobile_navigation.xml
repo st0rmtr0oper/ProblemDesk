@@ -70,6 +70,10 @@
     <fragment
         android:id="@+id/navigation_rating"
         android:name="com.example.problemdesk.presentation.rating.RatingFragment"
-        android:label="RatingFragment"
-        tools:layout="@layout/fragment_rating" />
+        android:label="@string/title_rating"
+        tools:layout="@layout/fragment_rating">
+        <action
+            android:id="@+id/action_navigation_rating_to_navigation_login"
+            app:destination="@id/navigation_login" />
+    </fragment>
 </navigation>

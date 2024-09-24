@@ -1,5 +1,6 @@
 package com.example.problemdesk.presentation.rating
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.problemdesk.MainActivity
+import com.example.problemdesk.R
+import com.example.problemdesk.data.models.LogOutRequest
 import com.example.problemdesk.data.models.RatingResponse
+import com.example.problemdesk.data.sharedprefs.OLD_FCM
+import com.example.problemdesk.data.sharedprefs.PreferenceUtil
+import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.databinding.FragmentRatingBinding
 import kotlinx.coroutines.launch
 
@@ -37,6 +45,7 @@ class RatingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
+        setUpLogOutButton()
         loadInfo()
     }
 
@@ -78,7 +87,47 @@ class RatingFragment : Fragment() {
 
             showContent()
         }
+
+
+
+
+
+        ratingViewModel.logoutStatus.observe(viewLifecycleOwner) { status ->
+            if (status) {
+                findNavController().navigate(RatingFragmentDirections.actionNavigationRatingToNavigationLogin())
+                val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+                sharedPreferences?.edit()?.clear()?.apply()
+            } else {
+                showErrorDialog()
+                findNavController().navigate(RatingFragmentDirections.actionNavigationRatingToNavigationLogin())
+                val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+                sharedPreferences?.edit()?.clear()?.apply()
+            }
+        }
     }
+
+    private fun setUpLogOutButton() {
+        val exitMenuItem = (activity as MainActivity).binding.toolbar.menu.findItem(R.id.action_exit)
+        exitMenuItem?.setOnMenuItemClickListener {
+
+            //i dont know is this a good way to use SP, cause it have troubles with context inside ViewModel
+            val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+            val userId = sharedPreferences?.getInt(USER_ID, 0)
+            val oldFcm = sharedPreferences?.getString(OLD_FCM, "")
+
+            if (userId != null && oldFcm != null && userId != 0 && oldFcm != "") {
+                val request = LogOutRequest(userId, oldFcm)
+                showLogOutConfirmationDialog(request)
+            }
+            true
+        }
+    }
+
+
+
+
+
+
 
 
     private fun loadInfo() {
@@ -88,6 +137,34 @@ class RatingFragment : Fragment() {
 //            if (userId != null) {
                 ratingViewModel.loadRating()
 //            }
+        }
+    }
+
+
+
+
+
+
+    private fun showLogOutConfirmationDialog(request: LogOutRequest) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Выход из аккаунта")
+            setMessage("Вы хотите выйти из своей учетной записи?")
+            setPositiveButton("Да") { _, _ ->
+                ratingViewModel.logOut(request)
+                val exitMenuItem = (activity as MainActivity).binding.toolbar.menu.findItem(R.id.action_exit)
+                exitMenuItem.isVisible = false
+            }
+            setNegativeButton("Нет", null)
+            show()
+        }
+    }
+
+    private fun showErrorDialog() {
+        androidx.appcompat.app.AlertDialog.Builder(requireContext()).apply {
+            setTitle("Выход")
+            setMessage("Что-то пошло не так в сети")
+            setNegativeButton("Ок", null)
+            show()
         }
     }
 }

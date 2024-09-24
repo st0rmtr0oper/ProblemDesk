@@ -1,6 +1,7 @@
 package com.example.problemdesk
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
@@ -9,12 +10,12 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserRole
 import com.example.problemdesk.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     val binding get() = _binding!!
-//    private lateinit var navView: BottomNavigationView
 
     override fun onResume() {
         super.onResume()
@@ -30,13 +31,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setUpBottomNavigation()
-//        setUpActionBar()
+        val userId = getSharedPrefsUserRole(application)
+        if (userId!=0) {
+            setUpBottomNavMenu(userId)
+        }
         setUpExit()
     }
 
     private fun setUpBottomNavigation() {
-
-        //TODO toolbar
         val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -71,6 +73,13 @@ class MainActivity : AppCompatActivity() {
                     binding.navView.visibility = View.VISIBLE // Show Bottom Navigation Bar
                 }
 
+                R.id.navigation_rating -> {
+                    toolbar.menu.clear()
+                    toolbar.inflateMenu(R.menu.profile_exit_menu)
+                    supportActionBar?.title = getString(R.string.title_rating)
+                    binding.navView.visibility = View.VISIBLE // Show Bottom Navigation Bar
+                }
+
                 R.id.navigation_login -> {
                     toolbar.menu.clear()
                     binding.navView.visibility = View.GONE // Hide Bottom Navigation Bar
@@ -91,13 +100,14 @@ class MainActivity : AppCompatActivity() {
     fun setUpBottomNavMenu(userRole: Int) {
         val navView = binding.navView
         navView.menu.clear()
+        Log.i("userrole", userRole.toString())
         when (userRole) {
             1 -> {
-                navView.inflateMenu(R.menu.bottom_nav_master)
+                navView.inflateMenu(R.menu.bottom_nav_menu_common)
             }
 
             2 -> {
-                navView.inflateMenu(R.menu.bottom_nav_menu_common)
+                navView.inflateMenu(R.menu.bottom_nav_master)
             }
 
             3 -> {
@@ -106,12 +116,6 @@ class MainActivity : AppCompatActivity() {
         }
         navView.visibility = View.VISIBLE
     }
-
-//    private fun setUpActionBar() {
-//        val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
-//        setSupportActionBar(toolbar)
-//        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-//    }
 
     private fun setUpExit() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
@@ -172,3 +176,30 @@ class MainActivity : AppCompatActivity() {
 //        )
 //        setupActionBarWithNavController(navController, appBarConfiguration)
 //
+
+
+
+
+
+//TODO что это за хуйня
+//2024-09-24 20:53:50.104  3008-4267  System                  com.example.problemdesk              W  ClassLoader referenced unknown path: system/framework/mediatek-cta.jar
+//2024-09-24 20:53:50.107  3008-4267  System.out              com.example.problemdesk              I  [socket] e:java.lang.ClassNotFoundException: com.mediatek.cta.CtaUtils
+//2024-09-24 20:53:50.468  3008-4267  okhttp.OkHttpClient     com.example.problemdesk              I  <-- 401 Unauthorized https://timofmax1.fvds.ru/refresh-user-token (559ms)
+//2024-09-24 20:53:50.468  3008-4267  okhttp.OkHttpClient     com.example.problemdesk              I  Server: nginx/1.27.1
+//2024-09-24 20:53:50.469  3008-4267  okhttp.OkHttpClient     com.example.problemdesk              I  Date: Tue, 24 Sep 2024 13:54:59 GMT
+//2024-09-24 20:53:50.469  3008-4267  okhttp.OkHttpClient     com.example.problemdesk              I  Content-Type: application/json
+//2024-09-24 20:53:50.469  3008-4267  okhttp.OkHttpClient     com.example.problemdesk              I  Content-Length: 30
+//2024-09-24 20:53:50.470  3008-4267  okhttp.OkHttpClient     com.example.problemdesk              I  Connection: keep-alive
+//2024-09-24 20:53:50.470  3008-4267  okhttp.OkHttpClient     com.example.problemdesk              I  www-authenticate: Bearer
+//2024-09-24 20:53:50.471  3008-4267  okhttp.OkHttpClient     com.example.problemdesk              I  {"detail":"Not authenticated"}
+//2024-09-24 20:53:50.472  3008-4267  okhttp.OkHttpClient     com.example.problemdesk              I  <-- END HTTP (30-byte body)
+//2024-09-24 20:53:50.488  3008-4236  AndroidRuntime          com.example.problemdesk              E  FATAL EXCEPTION: DefaultDispatcher-worker-1
+//Process: com.example.problemdesk, PID: 3008
+//retrofit2.HttpException: HTTP 401 Unauthorized
+//at retrofit2.KotlinExtensions$await$2$2.onResponse(KotlinExtensions.kt:53)
+//at retrofit2.OkHttpCall$1.onResponse(OkHttpCall.java:161)
+//at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:519)
+//at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+//at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+//at java.lang.Thread.run(Thread.java:919)
+//Suppressed: kotlinx.coroutines.internal.DiagnosticCoroutineContextException: [StandaloneCoroutine{Cancelling}@c7b92bc, Dispatchers.IO]

@@ -70,7 +70,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        profileViewModel.logoutStatus.observe(viewLifecycleOwner, Observer { status ->
+        profileViewModel.logoutStatus.observe(viewLifecycleOwner) { status ->
             if (status) {
                 findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationLogin())
                 val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
@@ -83,7 +83,7 @@ class ProfileFragment : Fragment() {
                 //TODO need to test how its working
                 sharedPreferences?.edit()?.clear()?.apply()
             }
-        })
+        }
     }
 
     private fun setUpSubFragments() {
@@ -130,8 +130,6 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    //TODO not the best way to solve this problem
-//    прил не дает выйти вручную если что то идет не так
     private fun showErrorDialog() {
         androidx.appcompat.app.AlertDialog.Builder(requireContext()).apply {
             setTitle("Выход")
