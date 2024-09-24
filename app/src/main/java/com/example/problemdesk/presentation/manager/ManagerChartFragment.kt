@@ -188,7 +188,6 @@ class ManagerChartFragment : Fragment() {
 
     private fun setUpObservers() {
         managerChartViewModel.chartData.observe(viewLifecycleOwner) { chartData: List<BarEntry> ->
-            Log.i("chart data", chartData.toString())
             if(chartData.isEmpty()) {
                 showPlug()
             } else {
@@ -248,7 +247,6 @@ class ManagerChartFragment : Fragment() {
     }
 
     private fun setUpChart(chartData: List<BarEntry>) {
-        Log.i("set up", "set up")
         // Initialize the BarChart
         val barChart = binding.chart // Assuming you have a BarChart in your Fragment's layout
 
@@ -290,9 +288,3 @@ class ManagerChartFragment : Fragment() {
         }
     }
 }
-
-//TODO
-// viewModel.load()
-// converting data
-// observers
-// showing in chart

@@ -1,4 +1,4 @@
-package com.example.problemdesk.presentation.profile.pagersubfragments
+package com.example.problemdesk.presentation.rating
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

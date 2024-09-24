@@ -20,5 +20,4 @@
         android:id="@+id/navigation_profile"
         android:icon="@drawable/contacts_svgrepo_com"
         android:title="@string/title_profile" />
-
 </menu>

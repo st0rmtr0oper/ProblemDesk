@@ -1,4 +1,4 @@
-package com.example.problemdesk.presentation.profile.pagersubfragments
+package com.example.problemdesk.presentation.rating
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,13 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.data.models.RatingResponse
-import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
-import com.example.problemdesk.databinding.FragmentSubRatingBinding
+import com.example.problemdesk.databinding.FragmentRatingBinding
 import kotlinx.coroutines.launch
 
 class RatingFragment : Fragment() {
 
-    private var _binding: FragmentSubRatingBinding? = null
+    private var _binding: FragmentRatingBinding? = null
     private val binding get() = _binding!!
 
     private val ratingViewModel: RatingViewModel by viewModels()
@@ -30,7 +29,7 @@ class RatingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSubRatingBinding.inflate(inflater, container, false)
+        _binding = FragmentRatingBinding.inflate(inflater, container, false)
         val root = binding.root
         return root
     }

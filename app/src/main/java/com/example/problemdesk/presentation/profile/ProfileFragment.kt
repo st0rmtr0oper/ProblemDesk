@@ -20,7 +20,6 @@ import com.example.problemdesk.databinding.FragmentProfileBinding
 import com.example.problemdesk.presentation.general.PagerAdapter
 import com.example.problemdesk.presentation.profile.pagersubfragments.AwardFragment
 import com.example.problemdesk.presentation.profile.pagersubfragments.ProfileInfoFragment
-import com.example.problemdesk.presentation.profile.pagersubfragments.RatingFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -92,8 +91,7 @@ class ProfileFragment : Fragment() {
         viewPager = binding.profilePager
         val fragmentList = arrayListOf(
             ProfileInfoFragment.newInstance(),
-            AwardFragment.newInstance(),
-            RatingFragment.newInstance()
+            AwardFragment.newInstance()
         )
         viewPager.adapter = PagerAdapter(this, fragmentList)
 
@@ -114,7 +112,6 @@ class ProfileFragment : Fragment() {
             when (position) {
                 0 -> tab.text = "Мои данные"
                 1 -> tab.text = "Награды"
-                2 -> tab.text = "Рейтинг"
             }
         }.attach()
     }
