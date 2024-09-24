@@ -188,36 +188,53 @@ class ManagerChartFragment : Fragment() {
 
     private fun setUpObservers() {
         managerChartViewModel.chartData.observe(viewLifecycleOwner) { chartData: List<BarEntry> ->
-            setUpChart(chartData)
-            showContent()
+            Log.i("chart data", chartData.toString())
+            if(chartData.isEmpty()) {
+                showPlug()
+            } else {
+                setUpChart(chartData)
+                showContent()
+            }
         }
     }
 
     private fun showLoading() {
         with(binding) {
-            filterHeader.isVisible = true
             filterLayout.isGone = true
             progressBar.isVisible = true
             chartLayout.isGone = true
+            plug.isGone = true
+            closeButton.isGone = true
         }
     }
 
     private fun showContent() {
         with(binding) {
-            //TODO check UI
-            filterHeader.isVisible = true
             filterLayout.isGone = true
             progressBar.isGone = true
             chartLayout.isVisible = true
+            plug.isGone = true
+            closeButton.isVisible = true
         }
     }
 
     private fun showFilter() {
         with(binding) {
-            filterHeader.isVisible = true
             filterLayout.isVisible = true
             progressBar.isGone = true
             chartLayout.isGone = true
+            plug.isGone = true
+            closeButton.isGone = true
+        }
+    }
+
+    private fun showPlug() {
+        with(binding) {
+            filterLayout.isGone = true
+            progressBar.isGone = true
+            chartLayout.isGone = true
+            plug.isVisible = true
+            closeButton.isVisible = true
         }
     }
 
@@ -231,6 +248,7 @@ class ManagerChartFragment : Fragment() {
     }
 
     private fun setUpChart(chartData: List<BarEntry>) {
+        Log.i("set up", "set up")
         // Initialize the BarChart
         val barChart = binding.chart // Assuming you have a BarChart in your Fragment's layout
 

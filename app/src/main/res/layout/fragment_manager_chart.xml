@@ -94,6 +94,7 @@
         android:id="@+id/chart_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="100"
         android:orientation="vertical"
         android:visibility="visible">
 
@@ -101,20 +102,45 @@
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="20"/>
+            android:layout_weight="20" />
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/close_button"
-            style="@style/buttonStyle"
+    <LinearLayout
+        android:id="@+id/plug"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="100"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="160dp"
+            android:src="@drawable/empty_box" />
+
+        <TextView
+            style="@style/headerTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Построить новый график"
-            android:layout_weight="1"/>
+            android:layout_gravity="center_horizontal"
+            android:text="@string/plug_chart_text"
+            android:textAlignment="center" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/close_button"
+        style="@style/buttonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-medium"
+        android:text="Построить новый график" />
+
 </LinearLayout>
