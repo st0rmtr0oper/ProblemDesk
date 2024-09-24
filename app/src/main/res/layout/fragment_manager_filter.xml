@@ -2,7 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/filter_header"
+        style="@style/headerTextViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Просмотр статистики" />
+
+    <View style="@style/dividerStyle" />
 
     <EditText
         android:id="@+id/chart_date_filter_picker"
@@ -45,7 +56,7 @@
         android:layout_marginEnd="40dp" />
 
     <Button
-        android:id="@+id/login_button"
+        android:id="@+id/load_button"
         style="@style/buttonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

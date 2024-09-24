@@ -55,7 +55,7 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.problemdesk.presentation.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_navigation_profile_to_navigation_login"
             app:destination="@id/navigation_login" />
@@ -65,6 +65,17 @@
         android:id="@+id/navigation_statistics"
         android:name="com.example.problemdesk.presentation.manager.ManagerFilterFragment"
         android:label="@string/title_statistics"
-        tools:layout="@layout/fragment_statistics" />
+        tools:layout="@layout/fragment_manager_filter">
+        <action
+            android:id="@+id/action_navigation_statistics_to_charts"
+            app:destination="@id/navigation_charts" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/navigation_charts"
+        android:name="com.example.problemdesk.presentation.manager.ManagerFilterFragment"
+        android:label="@string/title_charts"
+        tools:layout="@layout/fragment_manager_chart">
+    </fragment>
+<!--    TODO safeargs breaks graddle-->
 </navigation>

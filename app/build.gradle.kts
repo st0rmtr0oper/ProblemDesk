@@ -1,10 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.gms.google-services")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
     id("org.jetbrains.kotlin.kapt")
-    id("kotlin-kapt")
+//    id("kotlin-kapt")
 }
 
 android {
@@ -37,9 +37,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-//    dataBinding {
-//        enabled = true
-//    }
     buildFeatures {
         viewBinding = true
         dataBinding = true
@@ -53,8 +50,6 @@ allprojects {
         maven { url = uri("https://jitpack.io")}
     }
 }
-
-//TODO remove dataBinding
 
 dependencies {
 

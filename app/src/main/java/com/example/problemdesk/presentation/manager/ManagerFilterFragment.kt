@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.problemdesk.databinding.FragmentManagerFilterBinding
 import com.example.problemdesk.presentation.general.SpecializationAdapter
 import com.example.problemdesk.presentation.general.StatusAdapter
@@ -15,19 +15,17 @@ import com.example.problemdesk.presentation.general.WorkplaceAdapter
 import com.example.problemdesk.presentation.general.getSpecializationArray
 import com.example.problemdesk.presentation.general.getStatusArray
 import com.example.problemdesk.presentation.general.getWorkplaceArray
+import com.example.problemdesk.presentation.profile.ProfileFragmentDirections
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+
 class ManagerFilterFragment : Fragment() {
 
     private var _binding: FragmentManagerFilterBinding? = null
     private val binding get() = _binding!!
-
-    private val managerFilterViewModel: ManagerFilterViewModel by viewModels()
-
-    private val calendar: Calendar = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,24 +41,11 @@ class ManagerFilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpSpinners()
         setUpDatePicker()
-        setUpObservers()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun showLoading() {
-
-    }
-
-    private fun showContent() {
-
-    }
-
-    private fun showPlug() {
-
     }
 
     private fun setUpDatePicker() {
@@ -87,10 +72,10 @@ class ManagerFilterFragment : Fragment() {
     private fun updateLabel(startDate: Long, endDate: Long) {
         val startCalendar = Calendar.getInstance().apply { timeInMillis = startDate }
         val endCalendar = Calendar.getInstance().apply { timeInMillis = endDate }
-        val dateFormat = SimpleDateFormat("MM.dd.yyyy", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val formattedStartDate = dateFormat.format(startCalendar.time)
         val formattedEndDate = dateFormat.format(endCalendar.time)
-        binding.chartDateFilterPicker.setText("$formattedStartDate - $formattedEndDate")
+        binding.chartDateFilterPicker.setText("$formattedStartDate <-> $formattedEndDate")
     }
 
     private fun setUpSpinners() {
@@ -109,15 +94,27 @@ class ManagerFilterFragment : Fragment() {
         //spinners should receive areas and specialisations list from backend. In ideal world
     }
 
-    private fun setUpObservers() {
 
+    private fun setUpClickListeners() {
+        binding.loadButton.setOnClickListener {
+            val dates = binding.chartDateFilterPicker.text.split(" <-> ")
+            val dateStart = dates[0]
+            val dateEnd = dates[1]
+            val status = binding.chartStatusFilterSpinner.selectedItem.toString()
+            val type = binding.chartTypeFilterSpinner.selectedItem.toString().toInt()
+            val area = binding.chartAreaFilterSpinner.selectedItem.toString().toInt()
+
+//TODO ебаные сейф арги все ломают нхуй
+            findNavController().navigate(
+                ManagerFilterFragmentDirections.actionNavigationStatisticsToCharts(
+//                    dateStart,
+//                    dateEnd,
+//                    status,
+//                    type,
+//                    area
+                )
+            )
+        }
     }
-
-    private fun loadChart() {
-
-    }
-
-    private fun CLICKLISTENERS() {
-
-    }
+    //TODO обнуляется после перехода
 }
