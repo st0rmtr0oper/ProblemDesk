@@ -41,7 +41,7 @@ class RatingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
-        binding.ratingRv.adapter = RaitingRecyclerViewAdapter(::handleCardClick)
+        binding.ratingRv.adapter = RaitingRecyclerViewAdapter(::handleUserClick)
         setUpLogOutButton()
         loadRating()
     }
@@ -67,7 +67,8 @@ class RatingFragment : Fragment() {
 
     private fun setUpObservers() {
         ratingViewModel.ratingData.observe(viewLifecycleOwner) { userRatings: List<UserRating> ->
-            (binding.ratingRv.adapter as? RaitingRecyclerViewAdapter)?.userRatings = userRatings
+            val sortedRatings = sortRatingsByTokens(userRatings) // Sort the list
+            (binding.ratingRv.adapter as? RaitingRecyclerViewAdapter)?.userRatings = sortedRatings
             showContent()
         }
         ratingViewModel.logoutStatus.observe(viewLifecycleOwner) { status ->
@@ -84,6 +85,10 @@ class RatingFragment : Fragment() {
                 sharedPreferences?.edit()?.clear()?.apply()
             }
         }
+    }
+
+    private fun sortRatingsByTokens(userRatings: List<UserRating>): List<UserRating> {
+        return userRatings.sortedByDescending { it.tokens } // Sort by rating in descending order
     }
 
     private fun setUpLogOutButton() {
@@ -112,7 +117,7 @@ class RatingFragment : Fragment() {
         }
     }
 
-    private fun handleCardClick(userRating: UserRating) {
+    private fun handleUserClick(userRating: UserRating) {
         //TODO i dont need this
     }
 
@@ -139,4 +144,19 @@ class RatingFragment : Fragment() {
             show()
         }
     }
+
+//    private fun setUpSortButton() {
+//        val sortMenuItem =
+//            (activity as MainActivity).binding.toolbar.menu.findItem(R.id.???)
+//        sortMenuItem?.setOnMenuItemClickListener {
+// //             Get the current ratings
+//            val currentRatings = (binding.ratingRv.adapter as? RaitingRecyclerViewAdapter)?.userRatings
+//            if (currentRatings != null) {
+// //                 Sort the ratings
+//                val sortedRatings = sortRatingsByTokens(currentRatings)
+//                (binding.ratingRv.adapter as? RaitingRecyclerViewAdapter)?.userRatings = sortedRatings
+//            }
+//            true
+//        }
+//    }
 }
