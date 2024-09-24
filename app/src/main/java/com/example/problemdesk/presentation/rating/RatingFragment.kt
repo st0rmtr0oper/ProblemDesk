@@ -14,11 +14,11 @@ import androidx.navigation.fragment.findNavController
 import com.example.problemdesk.MainActivity
 import com.example.problemdesk.R
 import com.example.problemdesk.data.models.LogOutRequest
-import com.example.problemdesk.data.models.RatingResponse
 import com.example.problemdesk.data.sharedprefs.OLD_FCM
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.databinding.FragmentRatingBinding
+import com.example.problemdesk.domain.models.UserRating
 import kotlinx.coroutines.launch
 
 class RatingFragment : Fragment() {
@@ -27,10 +27,6 @@ class RatingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val ratingViewModel: RatingViewModel by viewModels()
-
-    companion object {
-        fun newInstance() = RatingFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,8 +41,9 @@ class RatingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObservers()
+        binding.ratingRv.adapter = RaitingRecyclerViewAdapter(::handleCardClick)
         setUpLogOutButton()
-        loadInfo()
+        loadRating()
     }
 
     override fun onDestroyView() {
@@ -54,64 +51,49 @@ class RatingFragment : Fragment() {
         _binding = null
     }
 
-
     private fun showLoading() {
         with(binding) {
             progressBar.isVisible = true
-            contentLayout.isGone = true
+            ratingRv.isGone = true
         }
     }
 
     private fun showContent() {
         with(binding) {
             progressBar.isGone = true
-            contentLayout.isVisible = true
+            ratingRv.isVisible = true
         }
     }
 
     private fun setUpObservers() {
-        ratingViewModel.ratingData.observe(viewLifecycleOwner) { ratingData: RatingResponse ->
-//            with(binding) {
-//                profileEmployeeLogin.text = profileData.username
-//                profileEmploymentDate.text = profileData.hireDate
-//                profileFullName.text = buildString {
-//                    append(profileData.name)
-//                    append(" ")
-//                    append(profileData.surname)
-//                    append(" ")
-//                    append(profileData.middleName)
-//                }
-//                profileContactPhone.text = profileData.phoneNumber
-//                profileDateOfBirth.text = profileData.birthDate
-//                profileEmail.text = profileData.email
-
+        ratingViewModel.ratingData.observe(viewLifecycleOwner) { userRatings: List<UserRating> ->
+            (binding.ratingRv.adapter as? RaitingRecyclerViewAdapter)?.userRatings = userRatings
             showContent()
         }
-
-
-
-
-
         ratingViewModel.logoutStatus.observe(viewLifecycleOwner) { status ->
             if (status) {
                 findNavController().navigate(RatingFragmentDirections.actionNavigationRatingToNavigationLogin())
-                val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+                val sharedPreferences =
+                    context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
                 sharedPreferences?.edit()?.clear()?.apply()
             } else {
                 showErrorDialog()
                 findNavController().navigate(RatingFragmentDirections.actionNavigationRatingToNavigationLogin())
-                val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+                val sharedPreferences =
+                    context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
                 sharedPreferences?.edit()?.clear()?.apply()
             }
         }
     }
 
     private fun setUpLogOutButton() {
-        val exitMenuItem = (activity as MainActivity).binding.toolbar.menu.findItem(R.id.action_exit)
+        val exitMenuItem =
+            (activity as MainActivity).binding.toolbar.menu.findItem(R.id.action_exit)
         exitMenuItem?.setOnMenuItemClickListener {
 
             //i dont know is this a good way to use SP, cause it have troubles with context inside ViewModel
-            val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
+            val sharedPreferences =
+                context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
             val userId = sharedPreferences?.getInt(USER_ID, 0)
             val oldFcm = sharedPreferences?.getString(OLD_FCM, "")
 
@@ -123,27 +105,16 @@ class RatingFragment : Fragment() {
         }
     }
 
-
-
-
-
-
-
-
-    private fun loadInfo() {
+    private fun loadRating() {
         showLoading()
-//        val userId = context?.let { getSharedPrefsUserId(it) }
         lifecycleScope.launch {
-//            if (userId != null) {
-                ratingViewModel.loadRating()
-//            }
+            ratingViewModel.loadRating()
         }
     }
 
-
-
-
-
+    private fun handleCardClick(userRating: UserRating) {
+        //TODO i dont need this
+    }
 
     private fun showLogOutConfirmationDialog(request: LogOutRequest) {
         AlertDialog.Builder(requireContext()).apply {
@@ -151,7 +122,8 @@ class RatingFragment : Fragment() {
             setMessage("Вы хотите выйти из своей учетной записи?")
             setPositiveButton("Да") { _, _ ->
                 ratingViewModel.logOut(request)
-                val exitMenuItem = (activity as MainActivity).binding.toolbar.menu.findItem(R.id.action_exit)
+                val exitMenuItem =
+                    (activity as MainActivity).binding.toolbar.menu.findItem(R.id.action_exit)
                 exitMenuItem.isVisible = false
             }
             setNegativeButton("Нет", null)

@@ -7,23 +7,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.problemdesk.data.models.LogOutRequest
 import com.example.problemdesk.data.models.LogOutResponse
-import com.example.problemdesk.data.models.RatingResponse
 import com.example.problemdesk.data.repository.DeskRepositoryImpl
+import com.example.problemdesk.domain.models.UserRating
 import kotlinx.coroutines.launch
 
 class RatingViewModel(private val application: Application) : AndroidViewModel(application) {
 
-    private val _ratingData = MutableLiveData<RatingResponse>()
-    val ratingData: LiveData<RatingResponse> get() = _ratingData
+    private val _ratingData = MutableLiveData<List<UserRating>>()
+    val ratingData: LiveData<List<UserRating>> get() = _ratingData
 
     fun loadRating() {
         val repository = DeskRepositoryImpl(application)
-        val response: RatingResponse
+        var response: List<UserRating>
 
         viewModelScope.launch {
             try {
-//                response = repository.loadRating()
-//                _ratingData.postValue(response)
+                response = repository.getRating()
+                _ratingData.postValue(response)
             } catch (e: Exception) {
             }
         }
@@ -35,7 +35,7 @@ class RatingViewModel(private val application: Application) : AndroidViewModel(a
     private val repository = DeskRepositoryImpl(application)
     private lateinit var logoutResponse: LogOutResponse
 
-    fun logOut(request: LogOutRequest){
+    fun logOut(request: LogOutRequest) {
         viewModelScope.launch {
             try {
                 logoutResponse = repository.logout(request)
