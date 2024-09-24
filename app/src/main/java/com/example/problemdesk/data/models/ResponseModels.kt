@@ -57,4 +57,7 @@ data class MyRewardsResponse(
     @SerializedName("last_completed") val lastCompleted: String
 )
 
-
+//TODO data class
+data class RatingResponse(
+    val i: String
+)

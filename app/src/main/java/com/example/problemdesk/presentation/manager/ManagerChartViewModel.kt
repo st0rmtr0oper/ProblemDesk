@@ -19,6 +19,7 @@ class ManagerChartViewModel(private val application: Application) : AndroidViewM
     //TODO implement
     private val _chartData = MutableLiveData<List<BarEntry>>()
     val chartData: LiveData<List<BarEntry>> get() = _chartData
+
     fun loadChartData(
         request: BossRequest
     ) {

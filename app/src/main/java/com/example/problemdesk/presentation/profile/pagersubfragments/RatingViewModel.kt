@@ -5,23 +5,23 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.problemdesk.data.models.MyDataResponse
+import com.example.problemdesk.data.models.RatingResponse
 import com.example.problemdesk.data.repository.DeskRepositoryImpl
 import kotlinx.coroutines.launch
 
-class ProfileInfoViewModel(private val application: Application) : AndroidViewModel(application) {
+class RatingViewModel(private val application: Application) : AndroidViewModel(application) {
 
-    private val _profileData = MutableLiveData<MyDataResponse>()
-    val profileData: LiveData<MyDataResponse> get() = _profileData
+    private val _ratingData = MutableLiveData<RatingResponse>()
+    val ratingData: LiveData<RatingResponse> get() = _ratingData
 
-    fun loadInfo(userId: Int) {
+    fun loadRating() {
         val repository = DeskRepositoryImpl(application)
-        var myDataResponse: MyDataResponse
+        val response: RatingResponse
 
         viewModelScope.launch {
             try {
-                myDataResponse = repository.getMyData(userId)
-                _profileData.postValue(myDataResponse)
+//                response = repository.loadRating()
+//                _ratingData.postValue(response)
             } catch (e: Exception) {
             }
         }
