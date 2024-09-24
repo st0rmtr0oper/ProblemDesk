@@ -230,7 +230,7 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.navigation_login,
                 R.id.navigation_master,
-                R.id.navigation_statistics,
+                R.id.navigation_charts,
                 R.id.navigation_my_problems,
                 R.id.navigation_my_tasks,
                 R.id.navigation_problem_form,

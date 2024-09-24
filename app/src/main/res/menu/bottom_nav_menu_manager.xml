@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_statistics"
+        android:id="@+id/navigation_charts"
         android:icon="@drawable/chart_bars_svgrepo_com"
-        android:title="@string/title_statistics" />
+        android:title="@string/title_charts" />
 
     <item
         android:id="@+id/navigation_profile"

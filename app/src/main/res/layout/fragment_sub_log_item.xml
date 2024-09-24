@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="4dp"
         android:paddingLeft="16dp"
+        android:paddingTop="4dp"
         android:paddingRight="16dp"
         android:paddingBottom="4dp">
 
@@ -75,18 +75,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                tools:text="Абобус Жмышенко"/>
+                tools:text="Абобус Жмышенко" />
         </LinearLayout>
 
         <!-- Row for Reason -->
         <LinearLayout
+            android:id="@+id/reason_combined"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
-                style="@style/textViewStyle"
                 android:id="@+id/reason_label"
+                style="@style/textViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/log_bottom_sheet_dialog_reason_label" />
@@ -97,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                tools:text="патамушта"/>
+                tools:text="патамушта" />
         </LinearLayout>
 
     </LinearLayout>

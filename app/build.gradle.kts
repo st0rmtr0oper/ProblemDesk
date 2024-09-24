@@ -1,11 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.gms.google-services")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
     id("org.jetbrains.kotlin.kapt")
-    id("kotlin-kapt")
+//    id("kotlin-kapt")
 }
+
+//TODO safeargs ARENt working
 
 android {
     namespace = "com.example.problemdesk"
@@ -37,16 +39,19 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-//    dataBinding {
-//        enabled = true
-//    }
     buildFeatures {
         viewBinding = true
         dataBinding = true
     }
 }
 
-//TODO remove dataBinding
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io")}
+    }
+}
 
 dependencies {
 
@@ -62,6 +67,9 @@ dependencies {
 //    implementation("com.google.firebase:firebase-messaging-ktx:24.0.0")
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-messaging")
+
+    //charts
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

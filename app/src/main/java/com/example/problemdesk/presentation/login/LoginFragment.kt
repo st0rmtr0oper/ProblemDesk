@@ -71,7 +71,7 @@ class LoginFragment : Fragment() {
             when (userRole) {
                 1 -> findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationProblemForm())
                 2 -> findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationMaster())
-                3 -> findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationStatistics())
+                3 -> findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationCharts())
             }
         }
     }
@@ -112,7 +112,7 @@ class LoginFragment : Fragment() {
                 3 -> {
                     (activity as MainActivity).setupBottomNavMenu("manager")
                     role.let { sharedPreferences?.edit()?.putInt(ROLE, it)?.apply() }
-                    findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationStatistics())
+                    findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationCharts())
                 }
 
                 0 -> {

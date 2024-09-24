@@ -1,8 +1,10 @@
 package com.example.problemdesk.presentation.details
 
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.problemdesk.databinding.FragmentSubLogItemBinding
 import com.example.problemdesk.domain.models.RequestLog
@@ -39,11 +41,9 @@ class CardsViewHolder(private val binding: FragmentSubLogItemBinding) :
             status.text = getStatus(log.newStatusId)
             time.text = getDate(log.changedAt)
             name.text = log.changerName
-            if (log.reason == null) { //TODO too
-                reasonLabel.visibility = View.GONE
-                reason.visibility = View.GONE
-            } else {
+            if (log.reason != null && log.reason != "") {
                 reason.text = log.reason
+                reasonCombined.isVisible = true
             }
         }
         itemView.setOnClickListener {

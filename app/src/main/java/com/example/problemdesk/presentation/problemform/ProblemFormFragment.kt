@@ -19,6 +19,10 @@ import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentProblemFormBinding
 import com.example.problemdesk.domain.models.Specialization
 import com.example.problemdesk.domain.models.Workplace
+import com.example.problemdesk.presentation.general.SpecializationAdapter
+import com.example.problemdesk.presentation.general.WorkplaceAdapter
+import com.example.problemdesk.presentation.general.getSpecializationArray
+import com.example.problemdesk.presentation.general.getWorkplaceArray
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,7 +79,6 @@ class ProblemFormFragment : Fragment() {
             apply()
         }
     }
-   
 
     private fun setUpSpinners() {
         val problemTypeSpinner: Spinner = binding.problemTypeSpinner

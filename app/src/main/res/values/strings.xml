@@ -6,7 +6,6 @@
     <string name="title_master">Меню мастера</string>
     <string name="title_profile">Мой профиль</string>
     <string name="title_login">Войти</string>
-
     <string name="login1">ivanov@sinara.ru</string>
     <string name="password1">123456</string>
     <string name="login2">smirnov@sinara.ru</string>
@@ -27,7 +26,7 @@
     <string name="profile_sub_created_requests_label">Кол-во заведенных заявок</string>
     <string name="profile_sub_completed_requests_label">Кол-во исполненных заявок</string>
     <string name="profile_sub_last_completed_date_label">Дата последней исполненной заявки</string>
-    <string name="title_statistics">Статистика</string>
+    <string name="title_charts">Статистика</string>
     <string name="profile_exit_button_title">Выйти</string>
     <string name="login_password_forgot_button_title">Забыли пароль?</string>
     <string name="login_button_title">Вход</string>
