@@ -1,9 +1,11 @@
 package com.example.problemdesk.presentation.login
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +37,8 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private val loginViewModel: LoginViewModel by lazy { ViewModelProvider(this)[LoginViewModel::class.java]
+    private val loginViewModel: LoginViewModel by lazy {
+        ViewModelProvider(this)[LoginViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -45,17 +48,25 @@ class LoginFragment : Fragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        checkLogin()
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val sharedPreferences = context?.let { PreferenceUtil.getEncryptedSharedPreferences(it) }
-        //i dont know is this a good way to use SP, cause it have troubles with context inside ViewModel
         setUpObservers(sharedPreferences)
         setUpTextChangedListeners()
         setUpClickListeners(sharedPreferences)
+//        checkLogin()
+    }
+
+
+    //TODO it says that this is deprecated, but it works. i have trouble with checkLogin -
+    // it seems it try to called before activity fully created (idk), so onCreateView and onViewCreated
+    // are not working with that shit
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        checkLogin()
     }
 
     override fun onDestroyView() {
@@ -67,11 +78,28 @@ class LoginFragment : Fragment() {
     private fun checkLogin() {
         val userId = context?.let { getSharedPrefsUserId(it) }
         val userRole = context?.let { getSharedPrefsUserRole(it) }
-        if (userId!=0 && userRole!=0) {
+        if (userId != 0 && userRole != 0) {
             when (userRole) {
-                1 -> findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationProblemForm())
-                2 -> findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationMaster())
-                3 -> findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationCharts())
+                1 -> {
+                    //added this
+                    (activity as MainActivity).setupBottomNavMenu("executor")
+                    //added this
+                    findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationProblemForm())
+                }
+
+                2 -> {
+                    //added this
+                    (activity as MainActivity).setupBottomNavMenu("master")
+                    //added this
+                    findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationMaster())
+                }
+
+                3 -> {
+                    //added this
+                    (activity as MainActivity).setupBottomNavMenu("manager")
+                    //added this
+                    findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationCharts())
+                }
             }
         }
     }
