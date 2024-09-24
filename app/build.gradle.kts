@@ -7,6 +7,8 @@ plugins {
 //    id("kotlin-kapt")
 }
 
+//TODO safeargs ARENt working
+
 android {
     namespace = "com.example.problemdesk"
     compileSdk = 35

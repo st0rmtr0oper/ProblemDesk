@@ -3,7 +3,7 @@ package com.example.problemdesk.presentation.general
 //TODO in ideal world, this should be done automatically with backend cus list of <...> can change
 
 fun getSpecialization(id: Int): String {
-    return when(id){
+    return when (id) {
         1 -> "Электрика"
         2 -> "Инструменты"
         3 -> "СанПиН условия"
@@ -17,9 +17,18 @@ fun getArea(id: Int): String {
     return "Участок №$id"
 }
 
+fun getStatusForCharts(status: String): String {
+    return when (status) {
+        "Исполненные" -> "done"
+        "Отклоненные" -> "denied"
+        "В работе" -> "in-progress"
+        else -> "status error"
+    }
+}
+
 //TODO getStatusBarColor
 fun getStatusBarColor(id: Int): Int {
-    return when(id){
+    return when (id) {
         1 -> 0
         2 -> 0
         3 -> 0
@@ -32,7 +41,7 @@ fun getStatusBarColor(id: Int): Int {
 }
 
 fun getStatus(id: Int): String {
-    return when(id){
+    return when (id) {
         1 -> "На рассмотрении"
         2 -> "Утверждено"
         3 -> "Отклонено"

@@ -7,7 +7,6 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.problemdesk.R
 import com.example.problemdesk.domain.models.Specialization
-import com.example.problemdesk.domain.models.Status
 import com.example.problemdesk.domain.models.Workplace
 
 //custom adapters for handling custom data classes (name-id pairs)
@@ -34,15 +33,9 @@ class WorkplaceAdapter(context: Context, workplaces: Array<Workplace>) :
 }
 
 class StatusAdapter(context: Context, statuses: Array<String>) :
-    ArrayAdapter<String>(context, R.layout.my_spinner_item, statuses) {
-//    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-//        val view = super.getDropDownView(position, convertView, parent)
-//        val item = getItem(position)
-//        view.findViewById<TextView>(android.R.id.text1).text = item?.name
-//        return view
-//    }
-}
+    ArrayAdapter<String>(context, R.layout.my_spinner_item, statuses)
 
+//TODO do i need that?
 
 fun getSpecializationArray(): Array<Specialization> {
     return arrayOf(

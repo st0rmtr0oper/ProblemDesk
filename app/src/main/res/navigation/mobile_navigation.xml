@@ -45,10 +45,10 @@
             app:popUpTo="@id/navigation_master"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_navigation_login_to_navigation_statistics"
-            app:destination="@id/navigation_statistics"
-            app:popUpTo="@id/navigation_statistics"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_navigation_login_to_navigation_charts"
+            app:destination="@id/navigation_charts"
+            app:popUpTo="@id/navigation_charts"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -62,20 +62,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_statistics"
-        android:name="com.example.problemdesk.presentation.manager.ManagerFilterFragment"
-        android:label="@string/title_statistics"
-        tools:layout="@layout/fragment_manager_filter">
-        <action
-            android:id="@+id/action_navigation_statistics_to_charts"
-            app:destination="@id/navigation_charts" />
-    </fragment>
-
-    <fragment
         android:id="@+id/navigation_charts"
-        android:name="com.example.problemdesk.presentation.manager.ManagerFilterFragment"
+        android:name="com.example.problemdesk.presentation.manager.ManagerChartFragment"
         android:label="@string/title_charts"
         tools:layout="@layout/fragment_manager_chart">
     </fragment>
-<!--    TODO safeargs breaks graddle-->
 </navigation>

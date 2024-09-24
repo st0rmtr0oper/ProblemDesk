@@ -2,16 +2,119 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/filter_header"
+            style="@style/headerTextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Просмотр статистики" />
+
+        <View style="@style/dividerStyle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/filter_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/chart_date_filter_picker"
+            style="@style/spinnerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="40dp"
+            android:focusable="false"
+            android:hint="Выберите даты"
+            android:inputType="date"
+            android:textAlignment="center" />
+
+        <Spinner
+            android:id="@+id/chart_status_filter_spinner"
+            style="@style/spinnerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp" />
+
+        <Spinner
+            android:id="@+id/chart_type_filter_spinner"
+            style="@style/spinnerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp" />
+
+        <Spinner
+            android:id="@+id/chart_area_filter_spinner"
+            style="@style/spinnerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp" />
+
+        <Button
+            android:id="@+id/load_button"
+            style="@style/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="40dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Построить" />
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar"
         style="@style/progressBar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chart"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/chart_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.github.mikephil.charting.charts.BarChart>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="20"/>
+
+        <Button
+            android:id="@+id/close_button"
+            style="@style/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="40dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Построить новый график"
+            android:layout_weight="1"/>
+    </LinearLayout>
 </LinearLayout>
