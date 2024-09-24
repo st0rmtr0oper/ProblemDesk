@@ -219,7 +219,6 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupWithNavController(navView, navController)
 
-//        NavigationUI.setupActionBarWithNavController(this, navController)
         val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -249,6 +248,7 @@ class MainActivity : AppCompatActivity() {
                     binding.navView.visibility = View.VISIBLE // Show Bottom Navigation Bar
                 }
                 R.id.navigation_login -> {
+                    toolbar.menu.clear()
                     binding.navView.visibility = View.GONE // Hide Bottom Navigation Bar
                     supportActionBar?.title = getString(R.string.title_login) // Set title for Login
                 }
@@ -259,7 +259,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
