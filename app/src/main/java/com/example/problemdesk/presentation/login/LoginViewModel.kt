@@ -66,7 +66,7 @@ class LoginViewModel(private val application: Application) : AndroidViewModel(ap
                 } catch (e: Exception) {
                     Log.i("!--{{{LOGIN}}}--!", e.toString())
                     _userRole.postValue(0)
-                    if (e.toString()!="retrofit2.HttpEcxeption: HTTP 401 Unauthorized") {
+                    if (e.toString()!="retrofit2.HttpException: HTTP 401 Unauthorized") {
                         _errorStatus.postValue(SingleLiveEvent(e.toString()))
                     } //TODO костыль пиздец
 
