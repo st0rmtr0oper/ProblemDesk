@@ -280,6 +280,9 @@ class ManagerChartFragment : Fragment() {
 
         // Use the custom formatter to display dates, weeks, or months
         xAxis.valueFormatter = CustomDateFormatter(labels)
+        // Optionally, apply the same to the right axis if it's enabled
+        barChart.axisRight.isEnabled = false // If you don't want the right axis
+
 
         // Set up y-axis to display integer values only
         val leftAxis = barChart.axisLeft
@@ -288,9 +291,10 @@ class ManagerChartFragment : Fragment() {
                 return value.toInt().toString() // Display y-axis values as integers
             }
         }
-
         // Optionally, apply the same to the right axis if it's enabled
         barChart.axisRight.isEnabled = false // If you don't want the right axis
+
+
 
         // Refresh the chart
         barChart.invalidate() // Refreshes the chart to display updated data
