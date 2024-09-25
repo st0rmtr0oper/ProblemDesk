@@ -34,6 +34,7 @@ class RaitingViewHolder(private val binding: FragmentSubRatingItemBinding) :
     fun bind(userRating: UserRating, userRatingCardListener: (UserRating) -> Unit) {
         with(binding) {
             name.text = "${userRating.surname} ${userRating.name} ${userRating.middleName}"
+            specialization.text = userRating.specialization
             tokens.text = userRating.tokens.toString()
             numCreated.text = userRating.numCreated.toString()
             numCompleted.text = userRating.numCompleted.toString()

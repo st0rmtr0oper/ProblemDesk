@@ -7,6 +7,7 @@ data class UserRating(
     val surname: String?,
     val name: String?,
     @SerializedName("middle_name") val middleName: String?,
+    val specialization: String,
     val tokens: Int,
     @SerializedName("num_created") val numCreated: Int,
     @SerializedName("num_completed") val numCompleted: Int
