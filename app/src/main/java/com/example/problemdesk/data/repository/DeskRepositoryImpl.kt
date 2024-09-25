@@ -162,7 +162,7 @@ class DeskRepositoryImpl(private val context: Context) : DeskRepository {
     suspend fun getUnderMasterApproval(userId: Int): List<Card> =
         deskApi.getUnderMasterApproval(userId)
 
-    suspend fun bossRequests(fromDate: String, untilDate: String, status: String, requestType: Int, areaId: Int): List<Card> =
+    suspend fun bossRequests(fromDate: String?, untilDate: String?, status: String?, requestType: Int?, areaId: Int?): List<Card> =
         deskApi.bossRequests(fromDate, untilDate, status, requestType, areaId)
 
     suspend fun getAllStats(): List<MockStat> = deskApi.getAllStats()

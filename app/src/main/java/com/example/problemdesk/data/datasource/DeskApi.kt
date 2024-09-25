@@ -144,11 +144,11 @@ interface DeskApi {
 
     @GET("/boss-requests")
     suspend fun bossRequests(
-        @Query("from_date") fromDate: String,   //TODO string(date)
-        @Query("until_date") untilDate: String, //TODO string(date)
-        @Query("status") status: String,
-        @Query("request_type") requestType: Int,
-        @Query("area_id") areaId: Int
+        @Query("from_date") fromDate: String?,
+        @Query("until_date") untilDate: String?,
+        @Query("status") status: String?,
+        @Query("request_type") requestType: Int?,
+        @Query("area_id") areaId: Int?
     ): List<Card>
 
     @GET("/get-all-stats")

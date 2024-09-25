@@ -42,9 +42,9 @@ data class TaskManipulationRequest(
 
 //used only inside this app
 data class BossRequest(
-    val fromDate: String,
-    val untilDate: String,
-    val status: String,
-    val requestType: Int,
-    val areaId: Int
+    val fromDate: String?,
+    val untilDate: String?,
+    val status: String?,
+    val requestType: Int?,
+    val areaId: Int?
 )

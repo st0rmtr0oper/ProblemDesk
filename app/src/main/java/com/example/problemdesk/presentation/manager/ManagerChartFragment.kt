@@ -2,7 +2,6 @@ package com.example.problemdesk.presentation.manager
 
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -156,29 +155,57 @@ class ManagerChartFragment : Fragment() {
     }
 
     private fun setUpClickListeners() {
+
         binding.loadButton.setOnClickListener {
+            var dateStart: String? = null
+            var dateEnd: String? = null
+            var status: String? = null
+            var type: Int? = null
+            var area: Int? = null
+
             if (binding.chartDateFilterPicker.text.isNotEmpty()) {
                 val dates = binding.chartDateFilterPicker.text.split(" <-> ")
-                val dateStart = dates[0]
-                val dateEnd = dates[1]
-
-                val status =
-                    getStatusForCharts(binding.chartStatusFilterSpinner.selectedItem.toString())
-                val spec = binding.chartTypeFilterSpinner.selectedItem as Specialization
-                val type = spec.id
-                val workplace = binding.chartAreaFilterSpinner.selectedItem as Workplace
-                val area = workplace.id
-                val request = BossRequest(dateStart, dateEnd, status, type, area)
-
-                if (validate()) {
-                    loadChart(request)
-                } else {
-                    showNotValidatedDialog()
-                }
-            } else {
-                showNotValidatedDialog()
+                dateStart = dates[0]
+                dateEnd = dates[1]
             }
+            if (getStatusForCharts(binding.chartStatusFilterSpinner.selectedItem.toString()) != "status error") {
+                status =
+                    getStatusForCharts(binding.chartStatusFilterSpinner.selectedItem.toString())
+            }
+            val spec = binding.chartTypeFilterSpinner.selectedItem as Specialization
+            if (spec.id != 0) {
+                type = spec.id
+            }
+            val workplace = binding.chartAreaFilterSpinner.selectedItem as Workplace
+            if (workplace.id != 0) {
+                area = workplace.id
+            }
+            val request = BossRequest(dateStart, dateEnd, status, type, area)
+            loadChart(request)
         }
+//        binding.loadButton.setOnClickListener {
+//            if (binding.chartDateFilterPicker.text.isNotEmpty()) {
+//                val dates = binding.chartDateFilterPicker.text.split(" <-> ")
+//                val dateStart = dates[0]
+//                val dateEnd = dates[1]
+//
+//                val status =
+//                    getStatusForCharts(binding.chartStatusFilterSpinner.selectedItem.toString())
+//                val spec = binding.chartTypeFilterSpinner.selectedItem as Specialization
+//                val type = spec.id
+//                val workplace = binding.chartAreaFilterSpinner.selectedItem as Workplace
+//                val area = workplace.id
+//                val request = BossRequest(dateStart, dateEnd, status, type, area)
+//
+//                if (validate()) {
+//                    loadChart(request)
+//                } else {
+//                    showNotValidatedDialog()
+//                }
+//            } else {
+//                showNotValidatedDialog()
+//            }
+//        }
     }
 
     private fun setUpObservers() {
@@ -253,7 +280,8 @@ class ManagerChartFragment : Fragment() {
         // Create a BarDataSet from the chart data
         val barDataSet = BarDataSet(chartData, "График по датам").apply {
             color = resources.getColor(R.color.primary_color, null) // Set color for bars
-            valueTextColor = resources.getColor(R.color.primary_color, null) // Set color for value text
+            valueTextColor =
+                resources.getColor(R.color.primary_color, null) // Set color for value text
             valueTextSize = 12f // Set text size for values
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
@@ -293,7 +321,6 @@ class ManagerChartFragment : Fragment() {
         }
         // Optionally, apply the same to the right axis if it's enabled
         barChart.axisRight.isEnabled = false // If you don't want the right axis
-
 
 
         // Refresh the chart
