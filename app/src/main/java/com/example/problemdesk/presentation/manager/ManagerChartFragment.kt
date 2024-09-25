@@ -184,7 +184,6 @@ class ManagerChartFragment : Fragment() {
     private fun setUpObservers() {
         managerChartViewModel.chartData.observe(viewLifecycleOwner) { chartData: Pair<List<BarEntry>, List<String>> ->
             //TODO костыльное решение
-            Log.i("chart data ", chartData.toString())
             if (chartData.first.isEmpty()) {
                 showPlug()
             } else {
@@ -254,10 +253,13 @@ class ManagerChartFragment : Fragment() {
         // Create a BarDataSet from the chart data
         val barDataSet = BarDataSet(chartData, "График по датам").apply {
             color = resources.getColor(R.color.primary_color, null) // Set color for bars
-            valueTextColor = resources.getColor(
-                R.color.primary_color, null
-            ) // Set color for value text
+            valueTextColor = resources.getColor(R.color.primary_color, null) // Set color for value text
             valueTextSize = 12f // Set text size for values
+            valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    return value.toInt().toString() // Convert float values to integers
+                }
+            }
         }
 
         // Create BarData object with the dataset
@@ -273,14 +275,22 @@ class ManagerChartFragment : Fragment() {
         val xAxis = barChart.xAxis
         xAxis.labelRotationAngle = -45f // Rotate x-axis labels if needed
         xAxis.granularity = 1f // Set granularity to ensure one label per value
-
-
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.textColor = resources.getColor(R.color.primary_color, null)
 
-
         // Use the custom formatter to display dates, weeks, or months
         xAxis.valueFormatter = CustomDateFormatter(labels)
+
+        // Set up y-axis to display integer values only
+        val leftAxis = barChart.axisLeft
+        leftAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return value.toInt().toString() // Display y-axis values as integers
+            }
+        }
+
+        // Optionally, apply the same to the right axis if it's enabled
+        barChart.axisRight.isEnabled = false // If you don't want the right axis
 
         // Refresh the chart
         barChart.invalidate() // Refreshes the chart to display updated data
@@ -290,6 +300,51 @@ class ManagerChartFragment : Fragment() {
         barChart.isDragEnabled = true
         barChart.setScaleEnabled(true)
     }
+
+
+//    private fun setUpChart(chartData: List<BarEntry>, labels: List<String>) {
+//        // Initialize the BarChart
+//        val barChart = binding.chart // Assuming you have a BarChart in your Fragment's layout
+//
+//        // Create a BarDataSet from the chart data
+//        val barDataSet = BarDataSet(chartData, "График по датам").apply {
+//            color = resources.getColor(R.color.primary_color, null) // Set color for bars
+//            valueTextColor = resources.getColor(
+//                R.color.primary_color, null
+//            ) // Set color for value text
+//            valueTextSize = 12f // Set text size for values
+//        }
+//
+//        // Create BarData object with the dataset
+//        val barData = BarData(barDataSet)
+//
+//        // Set data to the chart
+//        barChart.data = barData
+//
+//        // Customize chart appearance
+//        barChart.description.text = "" // Set chart description
+//
+//        // Set up x-axis labels
+//        val xAxis = barChart.xAxis
+//        xAxis.labelRotationAngle = -45f // Rotate x-axis labels if needed
+//        xAxis.granularity = 1f // Set granularity to ensure one label per value
+//
+//
+//        xAxis.position = XAxis.XAxisPosition.BOTTOM
+//        xAxis.textColor = resources.getColor(R.color.primary_color, null)
+//
+//
+//        // Use the custom formatter to display dates, weeks, or months
+//        xAxis.valueFormatter = CustomDateFormatter(labels)
+//
+//        // Refresh the chart
+//        barChart.invalidate() // Refreshes the chart to display updated data
+//
+//        // Optionally enable touch gestures and scaling
+//        barChart.setTouchEnabled(true)
+//        barChart.isDragEnabled = true
+//        barChart.setScaleEnabled(true)
+//    }
 
     private fun showNotValidatedDialog() {
         AlertDialog.Builder(requireContext()).apply {
