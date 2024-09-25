@@ -66,7 +66,9 @@ class LoginViewModel(private val application: Application) : AndroidViewModel(ap
                 } catch (e: Exception) {
                     Log.i("!--{{{LOGIN}}}--!", e.toString())
                     _userRole.postValue(0)
-                    _errorStatus.postValue(SingleLiveEvent(e.toString()))
+                    if (e.toString()!="retrofit2.HttpEcxeption: HTTP 401 Unauthorized") {
+                        _errorStatus.postValue(SingleLiveEvent(e.toString()))
+                    } //TODO костыль пиздец
 
                     //postValue used because of anync work - live data update allowed only in main thread
                     //this thing somehow helps with this ussue

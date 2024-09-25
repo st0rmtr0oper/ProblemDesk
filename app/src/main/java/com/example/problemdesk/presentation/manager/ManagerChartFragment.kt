@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Spinner
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -15,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.R
 import com.example.problemdesk.data.models.BossRequest
 import com.example.problemdesk.databinding.FragmentManagerChartBinding
+import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.domain.models.Specialization
 import com.example.problemdesk.domain.models.Workplace
 import com.example.problemdesk.presentation.general.SpecializationAdapter
@@ -44,6 +44,8 @@ class ManagerChartFragment : Fragment() {
     private val managerChartViewModel: ManagerChartViewModel by lazy {
         ViewModelProvider(this)[ManagerChartViewModel::class.java]
     }
+
+    private val cards: MutableList<Card> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,18 +83,6 @@ class ManagerChartFragment : Fragment() {
             val dateRangerPicker = builder.build()
             dateRangerPicker.show(requireActivity().supportFragmentManager, "date_range_picker")
 
-//            val constraintBuilder = CalendarConstraints.Builder()
-//                .build()
-//            builder.setCalendarConstraints(constraintBuilder)
-//            val dateRangerPicker = builder.build()
-//            dateRangerPicker.show(requireActivity().supportFragmentManager, "date_range_picker")
-
-//            dateRangerPicker.addOnPositiveButtonClickListener { selection ->
-//                val startDate = selection.first
-//                val endDate = selection.second
-//                updateLabel(startDate, endDate)
-//            }
-
             dateRangerPicker.addOnPositiveButtonClickListener { selection ->
                 val startDate = selection.first ?: return@addOnPositiveButtonClickListener
                 val endDate = selection.second ?: return@addOnPositiveButtonClickListener
@@ -119,25 +109,6 @@ class ManagerChartFragment : Fragment() {
         }
     }
 
-//    private fun updateLabel(startDate: Long, endDate: Long) {
-//        val startCalendar = Calendar.getInstance().apply { timeInMillis = startDate }
-//        val endCalendar = Calendar.getInstance().apply { timeInMillis = endDate }
-//        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-//        val formattedStartDate = dateFormat.format(startCalendar.time)
-//        val formattedEndDate = dateFormat.format(endCalendar.time)
-//        binding.chartDateFilterPicker.setText("$formattedStartDate <-> $formattedEndDate")
-//    }
-
-
-    private fun validate(): Boolean {
-        //TODO data validation
-        val dates = binding.chartDateFilterPicker.text
-        val status = binding.chartStatusFilterSpinner.selectedItem.toString()
-        val type = binding.chartTypeFilterSpinner.selectedItem.toString()
-        val area = binding.chartAreaFilterSpinner.selectedItem.toString()
-        return dates.contains(" <-> ") && status != "Выберите статус..." && type != "Выберите тип проблемы..." && area != "Выберите участок..."
-    }
-
     private fun setUpSpinners() {
         val typeSpinner: Spinner = binding.chartTypeFilterSpinner
         val specializationAdapter =
@@ -155,7 +126,6 @@ class ManagerChartFragment : Fragment() {
     }
 
     private fun setUpClickListeners() {
-
         binding.loadButton.setOnClickListener {
             var dateStart: String? = null
             var dateEnd: String? = null
@@ -183,29 +153,9 @@ class ManagerChartFragment : Fragment() {
             val request = BossRequest(dateStart, dateEnd, status, type, area)
             loadChart(request)
         }
-//        binding.loadButton.setOnClickListener {
-//            if (binding.chartDateFilterPicker.text.isNotEmpty()) {
-//                val dates = binding.chartDateFilterPicker.text.split(" <-> ")
-//                val dateStart = dates[0]
-//                val dateEnd = dates[1]
-//
-//                val status =
-//                    getStatusForCharts(binding.chartStatusFilterSpinner.selectedItem.toString())
-//                val spec = binding.chartTypeFilterSpinner.selectedItem as Specialization
-//                val type = spec.id
-//                val workplace = binding.chartAreaFilterSpinner.selectedItem as Workplace
-//                val area = workplace.id
-//                val request = BossRequest(dateStart, dateEnd, status, type, area)
-//
-//                if (validate()) {
-//                    loadChart(request)
-//                } else {
-//                    showNotValidatedDialog()
-//                }
-//            } else {
-//                showNotValidatedDialog()
-//            }
-//        }
+        binding.detailsButton.setOnClickListener {
+            showBottomSheetDialogFragmentDetails(cards)
+        }
     }
 
     private fun setUpObservers() {
@@ -215,8 +165,12 @@ class ManagerChartFragment : Fragment() {
                 showPlug()
             } else {
                 setUpChart(chartData.first, chartData.second)
-                showContent()
+//                showContent()
             }
+        }
+        managerChartViewModel.cards.observe(viewLifecycleOwner) { newCards: List<Card> ->
+            cards.addAll(newCards)
+            binding.detailsButton.isVisible = true
         }
     }
 
@@ -233,6 +187,7 @@ class ManagerChartFragment : Fragment() {
             progressBar.isGone = true
             chartLayout.isVisible = true
             plug.isGone = true
+            detailsButton.isVisible = true
         }
     }
 
@@ -241,6 +196,7 @@ class ManagerChartFragment : Fragment() {
             progressBar.isGone = true
             chartLayout.isGone = true
             plug.isVisible = true
+            detailsButton.isGone = true
         }
     }
 
@@ -248,6 +204,11 @@ class ManagerChartFragment : Fragment() {
         showLoading()
         lifecycleScope.launch {
             managerChartViewModel.loadMockChartData()
+            //TODO нихуя это не работает
+            withContext(Dispatchers.Main) {
+                showContent()
+                binding.detailsButton.isGone = true
+            }
         }
     }
 
@@ -257,6 +218,9 @@ class ManagerChartFragment : Fragment() {
         lifecycleScope.launch {
             if (request != null) {
                 managerChartViewModel.loadChartData(request)
+                withContext(Dispatchers.Main) {
+                    showContent()
+                }
             }
         }
     }
@@ -335,57 +299,12 @@ class ManagerChartFragment : Fragment() {
         barChart.setPinchZoom(true)
     }
 
-
-//    private fun setUpChart(chartData: List<BarEntry>, labels: List<String>) {
-//        // Initialize the BarChart
-//        val barChart = binding.chart // Assuming you have a BarChart in your Fragment's layout
-//
-//        // Create a BarDataSet from the chart data
-//        val barDataSet = BarDataSet(chartData, "График по датам").apply {
-//            color = resources.getColor(R.color.primary_color, null) // Set color for bars
-//            valueTextColor = resources.getColor(
-//                R.color.primary_color, null
-//            ) // Set color for value text
-//            valueTextSize = 12f // Set text size for values
-//        }
-//
-//        // Create BarData object with the dataset
-//        val barData = BarData(barDataSet)
-//
-//        // Set data to the chart
-//        barChart.data = barData
-//
-//        // Customize chart appearance
-//        barChart.description.text = "" // Set chart description
-//
-//        // Set up x-axis labels
-//        val xAxis = barChart.xAxis
-//        xAxis.labelRotationAngle = -45f // Rotate x-axis labels if needed
-//        xAxis.granularity = 1f // Set granularity to ensure one label per value
-//
-//
-//        xAxis.position = XAxis.XAxisPosition.BOTTOM
-//        xAxis.textColor = resources.getColor(R.color.primary_color, null)
-//
-//
-//        // Use the custom formatter to display dates, weeks, or months
-//        xAxis.valueFormatter = CustomDateFormatter(labels)
-//
-//        // Refresh the chart
-//        barChart.invalidate() // Refreshes the chart to display updated data
-//
-//        // Optionally enable touch gestures and scaling
-//        barChart.setTouchEnabled(true)
-//        barChart.isDragEnabled = true
-//        barChart.setScaleEnabled(true)
-//    }
-
-    private fun showNotValidatedDialog() {
-        AlertDialog.Builder(requireContext()).apply {
-            setTitle("Неполные данные")
-            setMessage("Пожалуйста, заполните все поля")
-            setNegativeButton("Ок", null)
-            show()
-        }
+    private fun showBottomSheetDialogFragmentDetails(cards: List<Card>) {
+        val chartDetailsBottomSheetDialogFragment =
+            ChartDetailsBottomSheetDialogFragment.newInstance(cards)
+        chartDetailsBottomSheetDialogFragment.show(
+            parentFragmentManager,
+            ChartDetailsBottomSheetDialogFragment::class.java.simpleName
+        )
     }
 }

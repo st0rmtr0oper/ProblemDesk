@@ -18,6 +18,9 @@ import java.util.Locale
 
 class ManagerChartViewModel(private val application: Application) : AndroidViewModel(application) {
 
+    private val _cards = MutableLiveData<List<Card>>()
+    val cards: LiveData<List<Card>> get() = _cards
+
     private val _chartData = MutableLiveData<Pair<List<BarEntry>, List<String>>>()
     val chartData: LiveData<Pair<List<BarEntry>, List<String>>> get() = _chartData
 
@@ -35,6 +38,7 @@ class ManagerChartViewModel(private val application: Application) : AndroidViewM
                     request.requestType,
                     request.areaId
                 )
+                _cards.postValue(response)
                 if (response.isEmpty()) {
                     val emptyList1 = emptyList<BarEntry>()
                     val emptyList2 = emptyList<String>()

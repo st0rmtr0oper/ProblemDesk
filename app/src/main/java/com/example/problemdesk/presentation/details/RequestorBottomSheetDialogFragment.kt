@@ -68,16 +68,10 @@ class RequestorBottomSheetDialogFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setUpObservers()
         binding.logsRv.adapter = DetailsRecyclerViewAdapter(::handleLogClick)
-
         loadLogs()
-
         setUpClickListeners()
-
-        //TODO click listeners
-        //включаются нужные клик листенеры в onViewCreated
     }
 
     override fun onDestroyView() {
