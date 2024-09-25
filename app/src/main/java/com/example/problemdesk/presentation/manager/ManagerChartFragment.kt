@@ -110,7 +110,7 @@ class ManagerChartFragment : Fragment() {
         withContext(Dispatchers.Default) {
             val startCalendar = Calendar.getInstance().apply { timeInMillis = startDate }
             val endCalendar = Calendar.getInstance().apply { timeInMillis = endDate }
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
             val formattedStartDate = dateFormat.format(startCalendar.time)
             val formattedEndDate = dateFormat.format(endCalendar.time)
 
@@ -303,6 +303,9 @@ class ManagerChartFragment : Fragment() {
         barChart.setTouchEnabled(true)
         barChart.isDragEnabled = true
         barChart.setScaleEnabled(true)
+
+        barChart.isDoubleTapToZoomEnabled = true
+        barChart.setPinchZoom(true)
     }
 
 
