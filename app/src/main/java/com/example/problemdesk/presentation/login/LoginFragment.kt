@@ -1,23 +1,18 @@
 package com.example.problemdesk.presentation.login
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.problemdesk.MainActivity
-import com.example.problemdesk.data.models.CreateRequestRequest
 import com.example.problemdesk.databinding.FragmentLoginBinding
 import com.example.problemdesk.data.sharedprefs.OLD_FCM
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
@@ -81,23 +76,17 @@ class LoginFragment : Fragment() {
         if (userId != 0 && userRole != 0) {
             when (userRole) {
                 1 -> {
-                    //added this
-                    (activity as MainActivity).setupBottomNavMenu("executor")
-                    //added this
+                    (activity as MainActivity).setUpBottomNavMenu(1)
                     findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationProblemForm())
                 }
 
                 2 -> {
-                    //added this
-                    (activity as MainActivity).setupBottomNavMenu("master")
-                    //added this
+                    (activity as MainActivity).setUpBottomNavMenu(2)
                     findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationMaster())
                 }
 
                 3 -> {
-                    //added this
-                    (activity as MainActivity).setupBottomNavMenu("manager")
-                    //added this
+                    (activity as MainActivity).setUpBottomNavMenu(3)
                     findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationCharts())
                 }
             }
@@ -126,19 +115,19 @@ class LoginFragment : Fragment() {
 
             when (role) {
                 1 -> {
-                    (activity as MainActivity).setupBottomNavMenu("executor")
+                    (activity as MainActivity).setUpBottomNavMenu(role)
                     role.let { sharedPreferences?.edit()?.putInt(ROLE, it)?.apply() }
                     findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationProblemForm())
                 }
 
                 2 -> {
-                    (activity as MainActivity).setupBottomNavMenu("master")
+                    (activity as MainActivity).setUpBottomNavMenu(role)
                     role.let { sharedPreferences?.edit()?.putInt(ROLE, it)?.apply() }
                     findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationMaster())
                 }
 
                 3 -> {
-                    (activity as MainActivity).setupBottomNavMenu("manager")
+                    (activity as MainActivity).setUpBottomNavMenu(role)
                     role.let { sharedPreferences?.edit()?.putInt(ROLE, it)?.apply() }
                     findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToNavigationCharts())
                 }

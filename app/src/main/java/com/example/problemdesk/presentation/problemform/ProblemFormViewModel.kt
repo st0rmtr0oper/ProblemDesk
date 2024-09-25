@@ -18,7 +18,7 @@ class ProblemFormViewModel(private val application: Application) : AndroidViewMo
     private val _errorStatus = MutableLiveData<SingleLiveEvent<String>>()
     val errorStatus: LiveData<SingleLiveEvent<String>> get() = _errorStatus
 
-    suspend fun createRequest(request: CreateRequestRequest) {
+    fun createRequest(request: CreateRequestRequest) {
         val repository = DeskRepositoryImpl(application)
         var createRequestResponse: CreateRequestResponse
 

@@ -14,7 +14,7 @@ class ProfileInfoViewModel(private val application: Application) : AndroidViewMo
     private val _profileData = MutableLiveData<MyDataResponse>()
     val profileData: LiveData<MyDataResponse> get() = _profileData
 
-    suspend fun loadInfo(userId: Int) {
+    fun loadInfo(userId: Int) {
         val repository = DeskRepositoryImpl(application)
         var myDataResponse: MyDataResponse
 

@@ -16,7 +16,9 @@ import com.example.problemdesk.data.models.TaskManipulationRequest
 import com.example.problemdesk.data.models.TaskManipulationResponse
 import com.example.problemdesk.data.sharedprefs.getSharedAuthToken
 import com.example.problemdesk.domain.models.Card
+import com.example.problemdesk.domain.models.MockStat
 import com.example.problemdesk.domain.models.RequestLog
+import com.example.problemdesk.domain.models.UserRating
 import com.example.problemdesk.domain.repository.DeskRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -162,4 +164,8 @@ class DeskRepositoryImpl(private val context: Context) : DeskRepository {
 
     suspend fun bossRequests(fromDate: String, untilDate: String, status: String, requestType: Int, areaId: Int): List<Card> =
         deskApi.bossRequests(fromDate, untilDate, status, requestType, areaId)
+
+    suspend fun getAllStats(): List<MockStat> = deskApi.getAllStats()
+
+    suspend fun getRating(): List<UserRating> = deskApi.getRating()
 }

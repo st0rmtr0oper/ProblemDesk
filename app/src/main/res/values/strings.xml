@@ -60,4 +60,6 @@
     <string name="bottom_sheet_dialog_fragment_executor_send">Отправить ✉️</string>
     <string name="bottom_sheet_dialog_fragment_executor_drop">✖️ Отказаться</string>
     <string name="plug_text">Пока здесь ничего нет...</string>
+    <string name="plug_chart_text">По выбранным фильтрам ничего не найдено...</string>
+    <string name="title_rating">Рейтинг</string>
 </resources>
