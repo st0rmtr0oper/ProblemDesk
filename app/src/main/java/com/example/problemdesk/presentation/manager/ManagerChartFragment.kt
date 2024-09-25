@@ -11,13 +11,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.problemdesk.R
 import com.example.problemdesk.data.models.BossRequest
 import com.example.problemdesk.databinding.FragmentManagerChartBinding
-import com.example.problemdesk.domain.models.Card
 import com.example.problemdesk.domain.models.Specialization
 import com.example.problemdesk.domain.models.Workplace
 import com.example.problemdesk.presentation.general.SpecializationAdapter
@@ -27,11 +25,11 @@ import com.example.problemdesk.presentation.general.getSpecializationArray
 import com.example.problemdesk.presentation.general.getStatusArray
 import com.example.problemdesk.presentation.general.getStatusForCharts
 import com.example.problemdesk.presentation.general.getWorkplaceArray
-import com.example.problemdesk.presentation.login.LoginViewModel
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.google.android.material.datepicker.CalendarConstraints
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,15 +53,16 @@ class ManagerChartFragment : Fragment() {
     ): View {
         _binding = FragmentManagerChartBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        showFilter()
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        loadMockChart()
+
         setUpSpinners()
         setUpDatePicker()
-
         setUpObservers()
         setUpClickListeners()
     }
@@ -180,18 +179,16 @@ class ManagerChartFragment : Fragment() {
                 showNotValidatedDialog()
             }
         }
-        binding.closeButton.setOnClickListener {
-            binding.chart.clear()
-            showFilter()
-        }
     }
 
     private fun setUpObservers() {
-        managerChartViewModel.chartData.observe(viewLifecycleOwner) { chartData: List<BarEntry> ->
-            if(chartData.isEmpty()) {
+        managerChartViewModel.chartData.observe(viewLifecycleOwner) { chartData: Pair<List<BarEntry>, List<String>> ->
+            //TODO костыльное решение
+            Log.i("chart data ", chartData.toString())
+            if (chartData.first.isEmpty()) {
                 showPlug()
             } else {
-                setUpChart(chartData)
+                setUpChart(chartData.first, chartData.second)
                 showContent()
             }
         }
@@ -199,45 +196,37 @@ class ManagerChartFragment : Fragment() {
 
     private fun showLoading() {
         with(binding) {
-            filterLayout.isGone = true
             progressBar.isVisible = true
             chartLayout.isGone = true
             plug.isGone = true
-            closeButton.isGone = true
         }
     }
 
     private fun showContent() {
         with(binding) {
-            filterLayout.isGone = true
             progressBar.isGone = true
             chartLayout.isVisible = true
             plug.isGone = true
-            closeButton.isVisible = true
-        }
-    }
-
-    private fun showFilter() {
-        with(binding) {
-            filterLayout.isVisible = true
-            progressBar.isGone = true
-            chartLayout.isGone = true
-            plug.isGone = true
-            closeButton.isGone = true
         }
     }
 
     private fun showPlug() {
         with(binding) {
-            filterLayout.isGone = true
             progressBar.isGone = true
             chartLayout.isGone = true
             plug.isVisible = true
-            closeButton.isVisible = true
+        }
+    }
+
+    private fun loadMockChart() {
+        showLoading()
+        lifecycleScope.launch {
+            managerChartViewModel.loadMockChartData()
         }
     }
 
     private fun loadChart(request: BossRequest?) {
+        binding.chart.clear()
         showLoading()
         lifecycleScope.launch {
             if (request != null) {
@@ -246,7 +235,19 @@ class ManagerChartFragment : Fragment() {
         }
     }
 
-    private fun setUpChart(chartData: List<BarEntry>) {
+    class CustomDateFormatter(private val labels: List<String>) : ValueFormatter() {
+        override fun getFormattedValue(value: Float): String {
+            // Ensure the index is within bounds of labels
+            val index = value.toInt()
+            return if (index >= 0 && index < labels.size) {
+                labels[index]
+            } else {
+                ""
+            }
+        }
+    }
+
+    private fun setUpChart(chartData: List<BarEntry>, labels: List<String>) {
         // Initialize the BarChart
         val barChart = binding.chart // Assuming you have a BarChart in your Fragment's layout
 
@@ -265,10 +266,21 @@ class ManagerChartFragment : Fragment() {
         // Set data to the chart
         barChart.data = barData
 
-        // Customize chart appearance (optional)
-        barChart.description.text = "График по датам" // Set chart description
-        barChart.xAxis.labelRotationAngle = -45f // Rotate x-axis labels if needed
-        barChart.xAxis.granularity = 1f // Set granularity to ensure one label per day
+        // Customize chart appearance
+        barChart.description.text = "" // Set chart description
+
+        // Set up x-axis labels
+        val xAxis = barChart.xAxis
+        xAxis.labelRotationAngle = -45f // Rotate x-axis labels if needed
+        xAxis.granularity = 1f // Set granularity to ensure one label per value
+
+
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.textColor = resources.getColor(R.color.primary_color, null)
+
+
+        // Use the custom formatter to display dates, weeks, or months
+        xAxis.valueFormatter = CustomDateFormatter(labels)
 
         // Refresh the chart
         barChart.invalidate() // Refreshes the chart to display updated data

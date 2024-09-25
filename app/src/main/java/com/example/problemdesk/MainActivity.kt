@@ -57,7 +57,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_my_problems,
                 R.id.navigation_my_tasks,
                 R.id.navigation_problem_form,
-                R.id.navigation_profile
+                R.id.navigation_profile,
+                R.id.navigation_rating
             )
         )
 

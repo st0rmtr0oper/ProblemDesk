@@ -145,14 +145,18 @@ class RatingFragment : Fragment() {
         }
     }
 
+
+
+    //TODO sort button
+
 //    private fun setUpSortButton() {
 //        val sortMenuItem =
 //            (activity as MainActivity).binding.toolbar.menu.findItem(R.id.???)
 //        sortMenuItem?.setOnMenuItemClickListener {
-// //             Get the current ratings
+//              Get the current ratings
 //            val currentRatings = (binding.ratingRv.adapter as? RaitingRecyclerViewAdapter)?.userRatings
 //            if (currentRatings != null) {
-// //                 Sort the ratings
+//                  Sort the ratings
 //                val sortedRatings = sortRatingsByTokens(currentRatings)
 //                (binding.ratingRv.adapter as? RaitingRecyclerViewAdapter)?.userRatings = sortedRatings
 //            }

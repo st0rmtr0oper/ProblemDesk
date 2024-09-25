@@ -6,28 +6,62 @@
     android:padding="20dp">
 
     <LinearLayout
-        android:id="@+id/header_layout"
+        android:id="@+id/progress_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_weight="100"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="@style/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/plug"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="100"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="160dp"
+            android:src="@drawable/empty_box" />
 
         <TextView
-            android:id="@+id/filter_header"
             style="@style/headerTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Просмотр статистики" />
+            android:layout_gravity="center_horizontal"
+            android:text="@string/plug_chart_text"
+            android:textAlignment="center" />
+    </LinearLayout>
 
-        <View style="@style/dividerStyle" />
+    <LinearLayout
+        android:id="@+id/chart_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="100"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/filter_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/chart_date_filter_picker"
@@ -35,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
             android:focusable="false"
             android:hint="Выберите даты"
@@ -80,67 +114,5 @@
             android:layout_marginRight="40dp"
             android:fontFamily="sans-serif-medium"
             android:text="Построить" />
-
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="@style/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
-    <LinearLayout
-        android:id="@+id/chart_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="100"
-        android:orientation="vertical"
-        android:visibility="visible">
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/chart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="20" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/plug"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="100"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="160dp"
-            android:src="@drawable/empty_box" />
-
-        <TextView
-            style="@style/headerTextViewStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/plug_chart_text"
-            android:textAlignment="center" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/close_button"
-        style="@style/buttonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="1"
-        android:fontFamily="sans-serif-medium"
-        android:text="Построить новый график" />
-
 </LinearLayout>

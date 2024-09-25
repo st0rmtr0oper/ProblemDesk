@@ -33,7 +33,7 @@ class RaitingViewHolder(private val binding: FragmentSubRatingItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(userRating: UserRating, userRatingCardListener: (UserRating) -> Unit) {
         with(binding) {
-            name.text = userRating.name + userRating.surname + userRating.middleName
+            name.text = "${userRating.surname} ${userRating.name} ${userRating.middleName}"
             tokens.text = userRating.tokens.toString()
             numCreated.text = userRating.numCreated.toString()
             numCompleted.text = userRating.numCompleted.toString()
