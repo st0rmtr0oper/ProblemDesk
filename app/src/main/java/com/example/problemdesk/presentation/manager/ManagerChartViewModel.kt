@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.problemdesk.data.models.BossRequest
 import com.example.problemdesk.data.repository.DeskRepositoryImpl
 import com.example.problemdesk.domain.models.Card
-import com.example.problemdesk.domain.models.MockStat
+import com.example.problemdesk.domain.models.Stat
 import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -51,13 +51,13 @@ class ManagerChartViewModel(private val application: Application) : AndroidViewM
         }
     }
 
-    fun loadMockChartData() {
+    fun loadStatChartData() {
         val repository = DeskRepositoryImpl(application)
-        var response: List<MockStat>
+        var response: List<Stat>
         viewModelScope.launch {
             try {
                 response = repository.getAllStats()
-                val barEntries = convertMockStatToBarEntries(response)
+                val barEntries = convertStatStatToBarEntries(response)
                 val pair = Pair(barEntries, response.map { it.date })
                 _chartData.postValue(pair)
             } catch (e: Exception) {
@@ -65,17 +65,17 @@ class ManagerChartViewModel(private val application: Application) : AndroidViewM
         }
     }
 
-    private fun convertMockStatToBarEntries(mockStats: List<MockStat>): List<BarEntry> {
+    private fun convertStatStatToBarEntries(stats: List<Stat>): List<BarEntry> {
         // Assuming the date in MockStat is in "yyyy-MM-dd" format
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
         // Parse the dates and create BarEntries
         val barEntries = mutableListOf<BarEntry>()
 
-        mockStats.forEachIndexed { index, mockStat ->
-            val date = dateFormat.parse(mockStat.date)!!
+        stats.forEachIndexed { index, stat ->
+            val date = dateFormat.parse(stat.date)!!
             val xValue = index.toFloat() // Use the index as the x-axis value
-            val yValue = mockStat.events.toFloat() // The number of events as the y-axis value
+            val yValue = stat.events.toFloat() // The number of events as the y-axis value
             barEntries.add(BarEntry(xValue, yValue))
         }
 
@@ -165,9 +165,7 @@ class ManagerChartViewModel(private val application: Application) : AndroidViewM
 //
 
 
-
-
-    //        when {
+        //        when {
 //             1-7 days: Show data by day
 //            daysRange <= 7 -> {
 //                sortedDates.forEachIndexed { index, date ->
@@ -201,12 +199,12 @@ class ManagerChartViewModel(private val application: Application) : AndroidViewM
 //                    barEntries.add(BarEntry(index.toFloat(), count.toFloat()))
 //                }
 //            }
-        }
+    }
 
 //        barEntries.sortBy { it.x }
 
 
-        //TODO labels
+    //TODO labels
 
 //        val labels: List<String> =
 //            generateLabelsForDataRange(rawData) // This function generates day/week/month labels
@@ -214,23 +212,23 @@ class ManagerChartViewModel(private val application: Application) : AndroidViewM
 //        val pair = Pair(barEntries, labels)
 //        return pair
 //    }
-//
-    private fun generateLabelsForDataRange(rawData: List<Card>): List<String> {
-//         Extract the dates from rawData
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-//
-//         Map to store dates either from updatedAt or createdAt
-        val dates = rawData.map { card ->
-            val dateStr = if (card.updatedAt.isNullOrEmpty()) card.createdAt else card.updatedAt
-            dateFormat.parse(dateStr.substring(0, 10))!!
-        }.sorted()
+////
+//    private fun generateLabelsForDataRange(rawData: List<Card>): List<String> {
+////         Extract the dates from rawData
+//        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+////
+////         Map to store dates either from updatedAt or createdAt
+//        val dates = rawData.map { card ->
+//            val dateStr = if (card.updatedAt.isNullOrEmpty()) card.createdAt else card.updatedAt
+//            dateFormat.parse(dateStr.substring(0, 10))!!
+//        }.sorted()
 //
 //         Check the number of days between the first and last date
 //        val firstDate = dates.first()
 //        val lastDate = dates.last()
 //        val diffInDays = ((lastDate.time - firstDate.time) / (1000 * 60 * 60 * 24)).toInt() + 1
 //
-        return dates.map { dateFormat.format(it) }
+/////////        return dates.map { dateFormat.format(it) }
 //        when
 //        {
 //
@@ -253,7 +251,7 @@ class ManagerChartViewModel(private val application: Application) : AndroidViewM
 //                generateMonthlyLabels(firstDate, lastDate)
 //            }
 //        }
-    }
+}
 
 //    private fun generateWeeklyLabels(startDate: Date, endDate: Date): List<String> {
 //        val calendar = Calendar.getInstance()
@@ -294,24 +292,24 @@ class ManagerChartViewModel(private val application: Application) : AndroidViewM
 //    }
 
 
-    private fun calculateDaysRange(startDate: String, endDate: String): Int {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val start = dateFormat.parse(startDate) ?: return 0
-        val end = dateFormat.parse(endDate) ?: return 0
-        val difference = end.time - start.time
-        return (difference / (1000 * 60 * 60 * 24)).toInt() // Convert milliseconds to days
-    }
-
-    private fun getWeekOfYear(date: String): Int {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val calendar = Calendar.getInstance()
-        calendar.time = dateFormat.parse(date)!!
-        return calendar.get(Calendar.WEEK_OF_YEAR)
-    }
-
-    private fun getYearMonth(date: String): String {
-        return date.substring(0, 7) // Returns "yyyy-MM"
-    }
+//    private fun calculateDaysRange(startDate: String, endDate: String): Int {
+//        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+//        val start = dateFormat.parse(startDate) ?: return 0
+//        val end = dateFormat.parse(endDate) ?: return 0
+//        val difference = end.time - start.time
+//        return (difference / (1000 * 60 * 60 * 24)).toInt() // Convert milliseconds to days
+//    }
+//
+//    private fun getWeekOfYear(date: String): Int {
+//        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+//        val calendar = Calendar.getInstance()
+//        calendar.time = dateFormat.parse(date)!!
+//        return calendar.get(Calendar.WEEK_OF_YEAR)
+//    }
+//
+//    private fun getYearMonth(date: String): String {
+//        return date.substring(0, 7) // Returns "yyyy-MM"
+//    }
 
 
 //    private fun convertChartData(rawData: List<Card>): List<BarEntry> {
@@ -349,4 +347,4 @@ class ManagerChartViewModel(private val application: Application) : AndroidViewM
 //
 //        return barEntries.toList()
 //    }
-}
+//}

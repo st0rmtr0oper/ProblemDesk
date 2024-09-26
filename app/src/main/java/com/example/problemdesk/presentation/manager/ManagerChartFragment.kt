@@ -62,7 +62,7 @@ class ManagerChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadMockChart()
+        loadStatChart()
         setUpSpinners()
         setUpDatePicker()
         setUpObservers()
@@ -208,11 +208,11 @@ class ManagerChartFragment : Fragment() {
         }
     }
 
-    private fun loadMockChart() {
+    private fun loadStatChart() {
         showLoading()
         cards.clear()
         lifecycleScope.launch {
-            managerChartViewModel.loadMockChartData()
+            managerChartViewModel.loadStatChartData()
             binding.detailsButton.isGone = true
         }
     }
@@ -228,15 +228,46 @@ class ManagerChartFragment : Fragment() {
     }
 
     class CustomDateFormatter(private val labels: List<String>) : ValueFormatter() {
-
         override fun getFormattedValue(value: Float): String {
-
             // Ensure the index is within bounds of labels
             val index = value.toInt()
-            return if (index >= 0 && index < labels.size) {
-                labels[index]
+            //TODO пиздец костыли
+            if (index >= 0 && index < labels.size && labels[0].substring(2,3) != "-") {
+                Log . i ("1", labels[index])
+                return formatCustomDate(labels[index])
+            } else if (index >= 0 && index < labels.size && labels[0].substring(2,3) == "-") {
+                return formatStatCustomDate(labels[index])
             } else {
-                ""
+                return ""
+            }
+        }
+
+        private fun formatCustomDate(string: String): String {
+            Log.i("2", string.substring(8, 10))
+            return string.substring(8, 10) + " " + giveMonth(string.substring(5, 7))
+        }
+
+        private fun formatStatCustomDate(string: String): String {
+            Log.i("2", string.substring(8, 10))
+            return string.substring(0, 2) + " " + giveMonth(string.substring(3, 5))
+        }
+
+        private fun giveMonth(string: String): String {
+            Log.i("3", string)
+            return when (string) {
+                "01" -> "янв."
+                "02" -> "фев."
+                "03" -> "мар."
+                "04" -> "апр."
+                "05" -> "мая"
+                "06" -> "июн."
+                "07" -> "июл."
+                "08" -> "авг."
+                "09" -> "сен."
+                "10" -> "окт."
+                "11" -> "ноя."
+                "12" -> "дек."
+                else -> "date error"
             }
         }
     }
@@ -321,6 +352,6 @@ class ManagerChartFragment : Fragment() {
             chartTypeFilterSpinner.setSelection(0)
             chartStatusFilterSpinner.setSelection(0)
         }
-        loadMockChart()
+        loadStatChart()
     }
 }
