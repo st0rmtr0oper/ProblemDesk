@@ -15,11 +15,6 @@ data class LogOutResponse(
     val message: String
 )
 
-data class AuthTokenResponse(
-    @SerializedName("access_token") val accessToken: String,
-    @SerializedName("token_type") val tokenType: String
-)
-
 data class RefreshResponse(
     val message: String  //FCM token refreshed successfully
 )
