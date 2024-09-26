@@ -13,7 +13,6 @@ import com.github.mikephil.charting.data.BarEntry
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 
 class ManagerChartViewModel(private val application: Application) : AndroidViewModel(application) {
@@ -86,15 +85,16 @@ class ManagerChartViewModel(private val application: Application) : AndroidViewM
 
     //TODO AI generated
     private fun convertChartData(rawData: List<Card>): Pair<List<BarEntry>, List<String>> {
+
+
         val dateCountMap = mutableMapOf<String, Int>()
 
-        // Step 1: Collect card data into dateCountMap (same as before)
+        // Step 1: Collect card data into dateCountMap
         for (card in rawData) {
-            val date: String
-            if (card.updatedAt.isNullOrEmpty()) {
-                date = card.createdAt.substring(0, 10) // Extract the date part
+            val date: String = if (card.updatedAt.isNullOrEmpty()) {
+                card.createdAt.substring(0, 10) // Extract the date part
             } else {
-                date = card.updatedAt.substring(0, 10)
+                card.updatedAt.substring(0, 10)
             }
             dateCountMap[date] = dateCountMap.getOrDefault(date, 0) + 1
         }
@@ -103,126 +103,195 @@ class ManagerChartViewModel(private val application: Application) : AndroidViewM
         val sortedDates = dateCountMap.keys.sorted()
         val firstDate = sortedDates.first()
         val lastDate = sortedDates.last()
-        val daysRange = calculateDaysRange(firstDate, lastDate)
+
+        // Step 3: Generate all dates from firstDate to lastDate
+        val allDates = generateDateRange(firstDate, lastDate)
 
         val barEntries = mutableListOf<BarEntry>()
 
-        when {
-            // 1-7 days: Show data by day
-            daysRange <= 7 -> {
-                sortedDates.forEachIndexed { index, date ->
-                    val count = dateCountMap[date]?.toFloat() ?: 0f
-                    barEntries.add(BarEntry(index.toFloat(), count))
-                }
-            }
-
-            // 8-31 days: Show data grouped by week
-            daysRange in 8..31 -> {
-                val weekCountMap = mutableMapOf<Int, Int>()
-                sortedDates.forEach { date ->
-                    val weekOfYear = getWeekOfYear(date)
-                    weekCountMap[weekOfYear] =
-                        weekCountMap.getOrDefault(weekOfYear, 0) + dateCountMap[date]!!
-                }
-                weekCountMap.forEach { (week, count) ->
-                    barEntries.add(BarEntry(week.toFloat(), count.toFloat()))
-                }
-            }
-
-            // 32+ days: Show data grouped by month
-            daysRange > 31 -> {
-                val monthCountMap = mutableMapOf<String, Int>()
-                sortedDates.forEach { date ->
-                    val month = getYearMonth(date)
-                    monthCountMap[month] =
-                        monthCountMap.getOrDefault(month, 0) + dateCountMap[date]!!
-                }
-                monthCountMap.toList().forEachIndexed { index, (month, count) ->
-                    barEntries.add(BarEntry(index.toFloat(), count.toFloat()))
-                }
-            }
+        // Step 4: Create BarEntries for all dates including those with zero counts
+        allDates.forEachIndexed { index, date ->
+            val count = dateCountMap[date]?.toFloat() ?: 0f // Use 0 if no count found
+            barEntries.add(BarEntry(index.toFloat(), count))
         }
 
-        barEntries.sortBy { it.x }
+        return Pair(barEntries, allDates)
+    }
+
+    // Helper function to generate a list of dates between start and end dates
+    private fun generateDateRange(startDate: String, endDate: String): List<String> {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val start = dateFormat.parse(startDate)!!
+        val end = dateFormat.parse(endDate)!!
+
+        val dates = mutableListOf<String>()
+        val calendar = Calendar.getInstance()
+
+        calendar.time = start
+        while (!calendar.time.after(end)) {
+            dates.add(dateFormat.format(calendar.time))
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+        return dates
+//
+//
+//
+//        val dateCountMap = mutableMapOf<String, Int>()
+//
+//        // Step 1: Collect card data into dateCountMap (same as before)
+//        for (card in rawData) {
+//            val date: String
+//            if (card.updatedAt.isNullOrEmpty()) {
+//                date = card.createdAt.substring(0, 10) // Extract the date part
+//            } else {
+//                date = card.updatedAt.substring(0, 10)
+//            }
+//            dateCountMap[date] = dateCountMap.getOrDefault(date, 0) + 1
+//        }
+//
+//        // Step 2: Convert the dates to a sorted list and determine the range of days
+//        val sortedDates = dateCountMap.keys.sorted()
+//        val firstDate = sortedDates.first()
+//        val lastDate = sortedDates.last()
+//        val daysRange = calculateDaysRange(firstDate, lastDate)
+//
+//        val barEntries = mutableListOf<BarEntry>()
+//
+//
+//        sortedDates.forEachIndexed { index, date ->
+//            val count = dateCountMap[date]?.toFloat() ?: 0f
+//            barEntries.add(BarEntry(index.toFloat(), count))
+//
+
+
+
+
+    //        when {
+//             1-7 days: Show data by day
+//            daysRange <= 7 -> {
+//                sortedDates.forEachIndexed { index, date ->
+//                    val count = dateCountMap[date]?.toFloat() ?: 0f
+//                    barEntries.add(BarEntry(index.toFloat(), count))
+//                }
+//            }
+//
+//             8-31 days: Show data grouped by week
+//            daysRange in 8..31 -> {
+//                val weekCountMap = mutableMapOf<Int, Int>()
+//                sortedDates.forEach { date ->
+//                    val weekOfYear = getWeekOfYear(date)
+//                    weekCountMap[weekOfYear] =
+//                        weekCountMap.getOrDefault(weekOfYear, 0) + dateCountMap[date]!!
+//                }
+//                weekCountMap.forEach { (week, count) ->
+//                    barEntries.add(BarEntry(week.toFloat(), count.toFloat()))
+//                }
+//            }
+//
+//             32+ days: Show data grouped by month
+//            daysRange > 31 -> {
+//                val monthCountMap = mutableMapOf<String, Int>()
+//                sortedDates.forEach { date ->
+//                    val month = getYearMonth(date)
+//                    monthCountMap[month] =
+//                        monthCountMap.getOrDefault(month, 0) + dateCountMap[date]!!
+//                }
+//                monthCountMap.toList().forEachIndexed { index, (month, count) ->
+//                    barEntries.add(BarEntry(index.toFloat(), count.toFloat()))
+//                }
+//            }
+        }
+
+//        barEntries.sortBy { it.x }
 
 
         //TODO labels
 
-        val labels: List<String> =
-            generateLabelsForDataRange(rawData) // This function generates day/week/month labels
+//        val labels: List<String> =
+//            generateLabelsForDataRange(rawData) // This function generates day/week/month labels
 //        Pair<barEntries, labels>
-        val pair = Pair(barEntries, labels)
-        return pair
-    }
-
+//        val pair = Pair(barEntries, labels)
+//        return pair
+//    }
+//
     private fun generateLabelsForDataRange(rawData: List<Card>): List<String> {
-        // Extract the dates from rawData
+//         Extract the dates from rawData
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-
-        // Map to store dates either from updatedAt or createdAt
+//
+//         Map to store dates either from updatedAt or createdAt
         val dates = rawData.map { card ->
             val dateStr = if (card.updatedAt.isNullOrEmpty()) card.createdAt else card.updatedAt
             dateFormat.parse(dateStr.substring(0, 10))!!
         }.sorted()
-
-        // Check the number of days between the first and last date
-        val firstDate = dates.first()
-        val lastDate = dates.last()
-        val diffInDays = ((lastDate.time - firstDate.time) / (1000 * 60 * 60 * 24)).toInt() + 1
-
-        return when {
-            diffInDays <= 7 -> {
-                // Return each day as a label
-                dates.map { dateFormat.format(it) }
-            }
-
-            diffInDays in 8..31 -> {
-                // Group by week and return week-based labels
-                generateWeeklyLabels(firstDate, lastDate)
-            }
-
-            else -> {
-                // Group by month and return month-based labels
-                generateMonthlyLabels(firstDate, lastDate)
-            }
-        }
+//
+//         Check the number of days between the first and last date
+//        val firstDate = dates.first()
+//        val lastDate = dates.last()
+//        val diffInDays = ((lastDate.time - firstDate.time) / (1000 * 60 * 60 * 24)).toInt() + 1
+//
+        return dates.map { dateFormat.format(it) }
+//        when
+//        {
+//
+//            diffInDays <= 7 -> {
+//                Log.i("diff", diffInDays.toString())
+//                 Return each day as a label
+//                dates.map { dateFormat.format(it) }
+//            }
+//
+//            diffInDays in 8..31 -> {
+//                Log.i("diff", diffInDays.toString())
+//                 Group by week and return week-based labels
+//                generateWeeklyLabels(firstDate, lastDate)
+//                Log.i("")
+//            }
+//
+//            else -> {
+//                Log.i("diff", diffInDays.toString())
+//                 Group by month and return month-based labels
+//                generateMonthlyLabels(firstDate, lastDate)
+//            }
+//        }
     }
 
-    private fun generateWeeklyLabels(startDate: Date, endDate: Date): List<String> {
-        val calendar = Calendar.getInstance()
-        calendar.time = startDate
+//    private fun generateWeeklyLabels(startDate: Date, endDate: Date): List<String> {
+//        val calendar = Calendar.getInstance()
+//        calendar.time = startDate
+//
+//        val weeklyLabels = mutableListOf<String>()
+//        var weekCounter = 1
+//
+//        while (calendar.time.before(endDate) || calendar.time == endDate) {
+//            val weekLabel = "Неделя $weekCounter"
+//            Log.i("label", weekLabel)
+//            Log.i("counter", weekCounter.toString())
+//            weeklyLabels.add(weekLabel)
+//
+//             Move to the next week
+//            calendar.add(Calendar.WEEK_OF_YEAR, 1)
+//            weekCounter++
+//        }
+//
+//        return weeklyLabels
+//    }
 
-        val weeklyLabels = mutableListOf<String>()
-        var weekCounter = 1
-
-        while (calendar.time.before(endDate) || calendar.time == endDate) {
-            val weekLabel = "Неделя $weekCounter"
-            weeklyLabels.add(weekLabel)
-
-            // Move to the next week
-            calendar.add(Calendar.WEEK_OF_YEAR, 1)
-            weekCounter++
-        }
-
-        return weeklyLabels
-    }
-
-    private fun generateMonthlyLabels(startDate: Date, endDate: Date): List<String> {
-        val calendar = Calendar.getInstance()
-        calendar.time = startDate
-
-        val monthlyLabels = mutableListOf<String>()
-
-        while (calendar.time.before(endDate) || calendar.time == endDate) {
-            val monthLabel = SimpleDateFormat("MMM yyyy", Locale.getDefault()).format(calendar.time)
-            monthlyLabels.add(monthLabel)
-
-            // Move to the next month
-            calendar.add(Calendar.MONTH, 1)
-        }
-
-        return monthlyLabels
-    }
+//    private fun generateMonthlyLabels(startDate: Date, endDate: Date): List<String> {
+//        val calendar = Calendar.getInstance()
+//        calendar.time = startDate
+//
+//        val monthlyLabels = mutableListOf<String>()
+//
+//        while (calendar.time.before(endDate) || calendar.time == endDate) {
+//            val monthLabel = SimpleDateFormat("MMM yyyy", Locale.getDefault()).format(calendar.time)
+//            monthlyLabels.add(monthLabel)
+//
+//             Move to the next month
+//            calendar.add(Calendar.MONTH, 1)
+//        }
+//
+//        return monthlyLabels
+//    }
 
 
     private fun calculateDaysRange(startDate: String, endDate: String): Int {

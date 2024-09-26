@@ -151,8 +151,8 @@ interface DeskApi {
         @Query("area_id") areaId: Int?
     ): List<Card>
 
-    @GET("/get-all-stats")
-    suspend fun getAllStats(): List<MockStat>
+    @GET("/get-stats")
+    suspend fun getStats(): List<MockStat>
 
     @GET("/get-rating")
     suspend fun getRating(): List<UserRating>

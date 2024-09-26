@@ -155,7 +155,10 @@ class ManagerChartFragment : Fragment() {
             loadChart(request)
         }
         binding.detailsButton.setOnClickListener {
-            showBottomSheetDialogFragmentDetails(cards)
+            showBottomSheetDialogFragmentDetails()
+        }
+        binding.dropButton.setOnClickListener {
+            dropFilters()
         }
     }
 
@@ -170,6 +173,8 @@ class ManagerChartFragment : Fragment() {
             }
         }
         managerChartViewModel.cards.observe(viewLifecycleOwner) { newCards: List<Card> ->
+            Log.i("newCards", newCards.count().toString())
+            cards.clear()
             cards.addAll(newCards)
             binding.detailsButton.isVisible = true
         }
@@ -190,7 +195,7 @@ class ManagerChartFragment : Fragment() {
             progressBar.isGone = true
             chartLayout.isVisible = true
             plug.isGone = true
-            detailsButton.isVisible = true
+//            detailsButton.isVisible = true
         }
     }
 
@@ -205,9 +210,10 @@ class ManagerChartFragment : Fragment() {
 
     private fun loadMockChart() {
         showLoading()
+        cards.clear()
         lifecycleScope.launch {
             managerChartViewModel.loadMockChartData()
-                binding.detailsButton.isGone = true
+            binding.detailsButton.isGone = true
         }
     }
 
@@ -222,7 +228,9 @@ class ManagerChartFragment : Fragment() {
     }
 
     class CustomDateFormatter(private val labels: List<String>) : ValueFormatter() {
+
         override fun getFormattedValue(value: Float): String {
+
             // Ensure the index is within bounds of labels
             val index = value.toInt()
             return if (index >= 0 && index < labels.size) {
@@ -271,6 +279,7 @@ class ManagerChartFragment : Fragment() {
         // Optionally, apply the same to the right axis if it's enabled
         barChart.axisRight.isEnabled = false // If you don't want the right axis
 
+        xAxis.yOffset = 0f
 
         // Set up y-axis to display integer values only
         val leftAxis = barChart.axisLeft
@@ -295,12 +304,23 @@ class ManagerChartFragment : Fragment() {
         barChart.setPinchZoom(true)
     }
 
-    private fun showBottomSheetDialogFragmentDetails(cards: List<Card>) {
+    private fun showBottomSheetDialogFragmentDetails() {
         val chartDetailsBottomSheetDialogFragment =
             ChartDetailsBottomSheetDialogFragment.newInstance(cards)
+        Log.i("cards", cards.count().toString())
         chartDetailsBottomSheetDialogFragment.show(
             parentFragmentManager,
             ChartDetailsBottomSheetDialogFragment::class.java.simpleName
         )
+    }
+
+    private fun dropFilters() {
+        with(binding) {
+            chartDateFilterPicker.text.clear()
+            chartAreaFilterSpinner.setSelection(0)
+            chartTypeFilterSpinner.setSelection(0)
+            chartStatusFilterSpinner.setSelection(0)
+        }
+        loadMockChart()
     }
 }
