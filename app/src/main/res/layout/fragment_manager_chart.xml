@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="100"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <ProgressBar
             style="@style/progressBar"
@@ -49,7 +48,7 @@
         android:layout_height="match_parent"
         android:layout_weight="100"
         android:orientation="vertical"
-        android:visibility="invisible">
+        android:visibility="gone">
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart"

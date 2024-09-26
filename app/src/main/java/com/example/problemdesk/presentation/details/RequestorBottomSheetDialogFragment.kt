@@ -115,6 +115,10 @@ class RequestorBottomSheetDialogFragment(
                 }
                 //inflate master
             }
+        } else if (role == "manager") {
+            with(binding) {
+                hideAll()
+            }
         }
     }
 

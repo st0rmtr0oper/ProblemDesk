@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.problemdesk.databinding.FragmentChartDetailsBottomSheetDialogBinding
 import com.example.problemdesk.domain.models.Card
+import com.example.problemdesk.presentation.details.RequestorBottomSheetDialogFragment
 import com.example.problemdesk.presentation.general.CardRecyclerViewAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -40,6 +41,13 @@ class ChartDetailsBottomSheetDialogFragment(private val cards: List<Card>) : Bot
 
     private fun handleLogClick(card: Card) {
         //TODO i dont need it
+        showBottomSheetDialogFragmentRequestor(card.requestId, card.statusId, card.createdAt, card.requestType.toString(), card.areaId.toString(), card.description)
+    }
+
+    private fun showBottomSheetDialogFragmentRequestor(requestId: Int, stat: Int, date:String, spec: String, area: String, desc: String) {
+        val role = "manager"
+        val requestorBottomSheetDialogFragment = RequestorBottomSheetDialogFragment(requestId, stat, role, date, spec, area, desc)
+        requestorBottomSheetDialogFragment.show(parentFragmentManager, RequestorBottomSheetDialogFragment::class.java.simpleName)
     }
 
     private fun setUpCards(cards: List<Card>) {

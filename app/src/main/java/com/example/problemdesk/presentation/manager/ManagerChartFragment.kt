@@ -2,6 +2,7 @@ package com.example.problemdesk.presentation.manager
 
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,8 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+//TODO loading doesnt work
+
 class ManagerChartFragment : Fragment() {
 
     private var _binding: FragmentManagerChartBinding? = null
@@ -59,9 +62,7 @@ class ManagerChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         loadMockChart()
-
         setUpSpinners()
         setUpDatePicker()
         setUpObservers()
@@ -165,7 +166,7 @@ class ManagerChartFragment : Fragment() {
                 showPlug()
             } else {
                 setUpChart(chartData.first, chartData.second)
-//                showContent()
+                showContent()
             }
         }
         managerChartViewModel.cards.observe(viewLifecycleOwner) { newCards: List<Card> ->
@@ -175,6 +176,7 @@ class ManagerChartFragment : Fragment() {
     }
 
     private fun showLoading() {
+        Log.i("loading", "loading")
         with(binding) {
             progressBar.isVisible = true
             chartLayout.isGone = true
@@ -183,6 +185,7 @@ class ManagerChartFragment : Fragment() {
     }
 
     private fun showContent() {
+        Log.i("content", "content")
         with(binding) {
             progressBar.isGone = true
             chartLayout.isVisible = true
@@ -204,11 +207,7 @@ class ManagerChartFragment : Fragment() {
         showLoading()
         lifecycleScope.launch {
             managerChartViewModel.loadMockChartData()
-            //TODO нихуя это не работает
-            withContext(Dispatchers.Main) {
-                showContent()
                 binding.detailsButton.isGone = true
-            }
         }
     }
 
@@ -218,9 +217,6 @@ class ManagerChartFragment : Fragment() {
         lifecycleScope.launch {
             if (request != null) {
                 managerChartViewModel.loadChartData(request)
-                withContext(Dispatchers.Main) {
-                    showContent()
-                }
             }
         }
     }
