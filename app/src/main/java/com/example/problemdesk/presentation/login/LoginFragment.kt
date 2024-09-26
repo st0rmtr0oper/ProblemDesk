@@ -8,12 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.problemdesk.MainActivity
-import com.example.problemdesk.databinding.FragmentLoginBinding
 import com.example.problemdesk.data.sharedprefs.OLD_FCM
 import com.example.problemdesk.data.sharedprefs.PreferenceUtil
 import com.example.problemdesk.data.sharedprefs.ROLE
@@ -21,6 +22,7 @@ import com.example.problemdesk.data.sharedprefs.USER_ID
 import com.example.problemdesk.data.sharedprefs.USER_ROLE
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserRole
+import com.example.problemdesk.databinding.FragmentLoginBinding
 import kotlinx.coroutines.launch
 
 //TODO error messages for user (no connection, dead server and etc) ---
@@ -52,7 +54,6 @@ class LoginFragment : Fragment() {
         setUpObservers(sharedPreferences)
         setUpTextChangedListeners()
         setUpClickListeners(sharedPreferences)
-//        checkLogin()
     }
 
 
@@ -95,12 +96,14 @@ class LoginFragment : Fragment() {
 
     private fun setUpObservers(sharedPreferences: SharedPreferences?) {
         loginViewModel.errorStatus.observe(viewLifecycleOwner) { event ->
+            hideLoading()
             event.getContentIfNotHandled()?.let { errorStatus ->
                 showErrorDialog(errorStatus)
             }
         }
 
         loginViewModel.userId.observe(viewLifecycleOwner) { userId ->
+            hideLoading()
             //Storing user ID
             //null hell - looks like shit
             userId?.let {
@@ -109,6 +112,7 @@ class LoginFragment : Fragment() {
         }
 
         loginViewModel.userRole.observe(viewLifecycleOwner) { role ->
+            hideLoading()
             role?.let {
                 sharedPreferences?.edit()?.putInt(USER_ROLE, it)?.apply()
             }
@@ -155,6 +159,7 @@ class LoginFragment : Fragment() {
 
             if (validate(login, password)) {
                 var fcm: String?
+                showLoading()
                 lifecycleScope.launch {
                     loginViewModel.validate(login, password)
                     fcm = loginViewModel.getFcm()
@@ -163,6 +168,20 @@ class LoginFragment : Fragment() {
             } else {
                 showNotValidatedDialog()
             }
+        }
+    }
+
+    private fun showLoading() {
+        with(binding) {
+            progressBar.isVisible = true
+            header.isGone = true
+        }
+    }
+
+    private fun hideLoading() {
+        with(binding) {
+            progressBar.isGone = true
+            header.isVisible = true
         }
     }
 
