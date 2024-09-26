@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.problemdesk.R
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentSubPickedTasksBinding
 import com.example.problemdesk.domain.models.Card
@@ -43,6 +44,7 @@ class PickedTasksFragment : Fragment() {
         binding.pickedTasksRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
         loadCards()
         setUpResultListener()
+        setUpRefresh()
     }
 
     override fun onDestroyView() {
@@ -50,27 +52,34 @@ class PickedTasksFragment : Fragment() {
         _binding = null
     }
 
+    private fun setUpRefresh() {
+        binding.newTasksRvSwipe.setOnRefreshListener {
+            loadCards()
+        }
+        binding.newTasksRvSwipe.setColorSchemeResources(R.color.primary_color)
+    }
+
     private fun showLoading() {
         with(binding) {
-            progressBar.isVisible = true
             pickedTasksRv.isGone = true
             plug.isGone = true
+            binding.newTasksRvSwipe.isRefreshing = false
         }
     }
 
     private fun showContent() {
         with(binding) {
-            progressBar.isGone = true
             pickedTasksRv.isVisible = true
             plug.isGone = true
+            binding.newTasksRvSwipe.isRefreshing = false
         }
     }
 
     private fun showPlug() {
         with(binding) {
-            progressBar.isGone = true
             pickedTasksRv.isGone = true
             plug.isVisible = true
+            binding.newTasksRvSwipe.isRefreshing = false
         }
     }
 
@@ -100,6 +109,7 @@ class PickedTasksFragment : Fragment() {
                 pickedTasksViewModel.loadCards(userId)
             }
         }
+        binding.newTasksRvSwipe.isRefreshing = false
     }
 
     private fun handleCardClick(card: Card) {

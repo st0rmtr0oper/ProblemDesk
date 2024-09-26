@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.problemdesk.R
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentSubNewTasksBinding
 import com.example.problemdesk.domain.models.Card
@@ -33,7 +34,7 @@ class NewTasksFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSubNewTasksBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
@@ -45,6 +46,7 @@ class NewTasksFragment : Fragment() {
         binding.newTasksRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
         loadCards()
         setUpResultListener()
+        setUpRefresh()
     }
 
     override fun onDestroyView() {
@@ -52,27 +54,34 @@ class NewTasksFragment : Fragment() {
         _binding = null
     }
 
+    private fun setUpRefresh() {
+        binding.newTasksRvSwipe.setOnRefreshListener {
+            loadCards()
+        }
+        binding.newTasksRvSwipe.setColorSchemeResources(R.color.primary_color)
+    }
+
     private fun showLoading() {
         with(binding) {
-            progressBar.isVisible = true
             newTasksRv.isGone = true
             plug.isGone = true
+            binding.newTasksRvSwipe.isRefreshing = true
         }
     }
 
     private fun showContent() {
         with(binding) {
-            progressBar.isGone = true
             newTasksRv.isVisible = true
             plug.isGone = true
+            binding.newTasksRvSwipe.isRefreshing = false
         }
     }
 
     private fun showPlug() {
         with(binding) {
-            progressBar.isGone = true
             newTasksRv.isGone = true
             plug.isVisible = true
+            binding.newTasksRvSwipe.isRefreshing = false
         }
     }
 
@@ -102,6 +111,7 @@ class NewTasksFragment : Fragment() {
                 newTasksViewModel.loadCards(userId)
             }
         }
+        binding.newTasksRvSwipe.isRefreshing = false
     }
 
     private fun handleCardClick(card: Card) {

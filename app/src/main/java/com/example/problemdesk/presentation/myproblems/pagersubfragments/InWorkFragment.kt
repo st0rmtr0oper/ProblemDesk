@@ -52,7 +52,7 @@ class InWorkFragment : Fragment() {
 
     private fun showLoading() {
         with(binding) {
-            progressBar.isVisible = true
+//            progressBar.isVisible = true
             inWorkRv.isGone = true
             plug.isGone = true
         }
@@ -60,7 +60,7 @@ class InWorkFragment : Fragment() {
 
     private fun showContent() {
         with(binding) {
-            progressBar.isGone = true
+//            progressBar.isGone = true
             inWorkRv.isVisible = true
             plug.isGone = true
         }
@@ -68,7 +68,7 @@ class InWorkFragment : Fragment() {
 
     private fun showPlug() {
         with(binding) {
-            progressBar.isGone = true
+//            progressBar.isGone = true
             inWorkRv.isGone = true
             plug.isVisible = true
         }

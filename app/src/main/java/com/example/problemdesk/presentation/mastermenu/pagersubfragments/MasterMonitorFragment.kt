@@ -51,7 +51,7 @@ class MasterMonitorFragment : Fragment() {
 
     private fun showLoading() {
         with(binding) {
-            progressBar.isVisible = true
+//            progressBar.isVisible = true
             monitorRv.isGone = true
             plug.isGone = true
         }
@@ -59,7 +59,7 @@ class MasterMonitorFragment : Fragment() {
 
     private fun showContent() {
         with(binding) {
-            progressBar.isGone = true
+//            progressBar.isGone = true
             monitorRv.isVisible = true
             plug.isGone = true
         }
@@ -67,7 +67,7 @@ class MasterMonitorFragment : Fragment() {
 
     private fun showPlug() {
         with(binding) {
-            progressBar.isGone = true
+//            progressBar.isGone = true
             monitorRv.isGone = true
             plug.isVisible = true
         }
