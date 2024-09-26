@@ -105,7 +105,7 @@ class RequestorBottomSheetDialogViewModel(private val application: Application) 
         viewModelScope.launch {
             try {
                 response = repository.executorCancel(request)
-                if (response.message == "Request cancelled successfully") {
+                if (response.message == "Request canceled successfully") {
                     _cancelSuccess.postValue(SingleLiveEvent("success"))
                 }
             } catch (e: Exception) {
