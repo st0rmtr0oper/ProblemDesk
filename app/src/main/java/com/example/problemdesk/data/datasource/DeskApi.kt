@@ -13,7 +13,7 @@ import com.example.problemdesk.data.models.RefreshResponse
 import com.example.problemdesk.data.models.TaskManipulationRequest
 import com.example.problemdesk.data.models.TaskManipulationResponse
 import com.example.problemdesk.domain.models.Card
-import com.example.problemdesk.domain.models.MockStat
+import com.example.problemdesk.domain.models.Stat
 import com.example.problemdesk.domain.models.RequestLog
 import com.example.problemdesk.domain.models.UserRating
 import retrofit2.http.Body
@@ -151,8 +151,8 @@ interface DeskApi {
         @Query("area_id") areaId: Int?
     ): List<Card>
 
-    @GET("/get-all-stats")
-    suspend fun getAllStats(): List<MockStat>
+    @GET("/get-stats")
+    suspend fun getStats(): List<Stat>
 
     @GET("/get-rating")
     suspend fun getRating(): List<UserRating>

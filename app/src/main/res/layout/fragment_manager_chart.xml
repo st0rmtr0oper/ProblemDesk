@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="100"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <ProgressBar
             style="@style/progressBar"
@@ -49,12 +48,12 @@
         android:layout_height="match_parent"
         android:layout_weight="100"
         android:orientation="vertical"
-        android:visibility="invisible">
+        android:visibility="gone">
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <LinearLayout
@@ -103,16 +102,43 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="40dp" />
 
-        <Button
-            android:id="@+id/load_button"
-            style="@style/buttonStyle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Построить" />
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/load_button"
+                style="@style/smallButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:text="Построить" />
+
+            <Button
+                android:id="@+id/drop_button"
+                style="@style/smallButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:text="Сбросить" />
+
+            <Button
+                android:id="@+id/details_button"
+                style="@style/smallButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:text="Детали"
+                android:visibility="gone" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
