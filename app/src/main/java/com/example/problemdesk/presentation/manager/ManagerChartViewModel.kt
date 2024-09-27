@@ -91,11 +91,13 @@ class ManagerChartViewModel(private val application: Application) : AndroidViewM
 
         // Step 1: Collect card data into dateCountMap
         for (card in rawData) {
-            val date: String = if (card.updatedAt.isNullOrEmpty()) {
-                card.createdAt.substring(0, 10) // Extract the date part
-            } else {
-                card.updatedAt.substring(0, 10)
-            }
+//            val date: String = if (card.updatedAt.isNullOrEmpty()) {
+//                card.createdAt.substring(0, 10) // Extract the date part
+//            } else {
+//                card.updatedAt.substring(0, 10)
+//            }
+
+            val date: String = card.createdAt.substring(0, 10)
             dateCountMap[date] = dateCountMap.getOrDefault(date, 0) + 1
         }
 
