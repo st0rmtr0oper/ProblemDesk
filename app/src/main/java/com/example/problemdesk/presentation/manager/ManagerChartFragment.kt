@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Spinner
+import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -280,7 +281,8 @@ class ManagerChartFragment : Fragment() {
         val barDataSet = BarDataSet(chartData, "График по датам").apply {
             color = resources.getColor(R.color.primary_color, null) // Set color for bars
             valueTextColor =
-                resources.getColor(R.color.primary_color, null) // Set color for value text
+                    ContextCompat.getColor(requireContext(), R.color.text_color)
+//                resources.getColor(R.color.primary_color, null) // Set color for value text
             valueTextSize = 12f // Set text size for values
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
@@ -288,6 +290,7 @@ class ManagerChartFragment : Fragment() {
                 }
             }
         }
+
 
         // Create BarData object with the dataset
         val barData = BarData(barDataSet)
@@ -303,7 +306,10 @@ class ManagerChartFragment : Fragment() {
         xAxis.labelRotationAngle = -45f // Rotate x-axis labels if needed
         xAxis.granularity = 1f // Set granularity to ensure one label per value
         xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.textColor = resources.getColor(R.color.primary_color, null)
+
+        xAxis.textColor = resources.getColor(R.color.text_color, null)
+//        barChart.legend.textColor = ContextCompat.getColor(requireContext(), R.color.text_color)
+
 
         // Use the custom formatter to display dates, weeks, or months
         xAxis.valueFormatter = CustomDateFormatter(labels)

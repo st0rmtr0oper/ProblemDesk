@@ -3,15 +3,13 @@
 <!--        TODO colors, themes, style colors, etc-->
         <color name="primary_color">#F87E16</color>
 
-        <color name="text_color">#222222</color>
-        <color name="background_color_variant">#E9E9E9</color>
+        <color name="text_color">#FFFFFF</color>
+        <color name="background_color_variant">#2C2C2C</color>
 
         <color name="status_unchecked_color">#7C1879</color>
         <color name="status_approved_color">#E4AF26</color>
         <color name="status_in_work_color">#FD7215</color>
         <color name="status_completed_color">#339371</color>
         <color name="status_cancelled_color">#F0000F</color>
-        <color name="chart_green">#3BE242</color>
-        <color name="chart_blue">#03A9F4</color>
 </resources>
 

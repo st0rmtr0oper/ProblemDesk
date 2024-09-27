@@ -29,7 +29,7 @@
 
     <!-- TextInputLayout Style -->
     <style name="textInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/text_input_outline_color</item>
+        <item name="boxStrokeColor">@color/text_color</item>
         <item name="boxStrokeWidth">2dp</item>
         <item name="boxCornerRadiusTopStart">10dp</item>
         <item name="boxCornerRadiusTopEnd">10dp</item>
