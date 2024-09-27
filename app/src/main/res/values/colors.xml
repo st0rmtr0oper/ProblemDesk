@@ -4,7 +4,7 @@
         <color name="primary_color">#F87E16</color>
 
         <color name="text_color">#222222</color>
-        <color name="background_color_variant">#E9E9E9</color>
+        <color name="background_color_variant">#FDFDFD</color>
 
         <color name="status_unchecked_color">#7C1879</color>
         <color name="status_approved_color">#E4AF26</color>

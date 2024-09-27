@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Interactive -->
 
@@ -29,7 +29,7 @@
 
     <!-- TextInputLayout Style -->
     <style name="textInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/text_color</item>
+                <item name="boxStrokeColor">@color/selector</item>
         <item name="boxStrokeWidth">2dp</item>
         <item name="boxCornerRadiusTopStart">10dp</item>
         <item name="boxCornerRadiusTopEnd">10dp</item>
@@ -45,7 +45,7 @@
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:padding">8dp</item>
         <!-- ?attr -->
-        <item name="hintTextColor">?attr/colorOnPrimary</item>
+        <item name="hintTextColor">@color/text_color</item>
     </style>
 
     <!-- Error message Style -->
@@ -57,7 +57,7 @@
 
     <!-- Custom EditText Style -->
     <style name="customEditTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
-        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:padding">8dp</item>
@@ -88,13 +88,11 @@
     <style name="spinnerStyle" parent="Widget.AppCompat.Spinner">
         <item name="android:backgroundTint">@color/primary_color</item>
         <item name="android:background">@drawable/spinner_background</item>
-        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">16sp</item>
         <item name="android:padding">8dp</item>
         <item name="android:popupBackground">@drawable/rounded_popup_background</item>
         <item name="android:fontFamily">sans-serif-medium</item>
-<!--        <item name="android:dropDownVerticalOffset">8dp</item>-->
-<!--        <item name="android:dropDownHorizontalOffset">8dp</item>-->
     </style>
 
     <!-- Progress Bar Style -->
@@ -166,7 +164,7 @@
     <style name="cardViewStyle">
         <item name="cardCornerRadius">10dp</item>
         <item name="cardElevation">4dp</item>
-        <item name="cardBackgroundColor">?attr/colorOnSecondary</item>
+        <item name="cardBackgroundColor">@color/background_color_variant</item>
         <item name="strokeColor">@color/primary_color</item>
         <item name="strokeWidth">2dp</item>
     </style>

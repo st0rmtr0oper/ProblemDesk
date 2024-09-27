@@ -56,7 +56,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        app:counterEnabled="true"
         app:errorEnabled="true"
         app:errorTextAppearance="@style/textInputLayoutErrorStyle"
         app:passwordToggleEnabled="true">
@@ -69,6 +68,9 @@
             android:hint="@string/edit_text_hint_password"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
+    <!--        app:counterEnabled="true"-->
+
+
 
     <Button
         android:id="@+id/login_button"
