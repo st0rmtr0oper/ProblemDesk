@@ -7,13 +7,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/show_button"
+        style="@style/smallButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Заявки" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/spec_chart"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_margin="20dp"
+        android:layout_weight="1" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/status_chart"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_margin="20sp"
+        android:layout_weight="1" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cards_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/fragment_sub_card_item" />
-
 </LinearLayout>
