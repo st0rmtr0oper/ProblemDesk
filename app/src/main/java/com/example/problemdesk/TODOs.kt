@@ -5,10 +5,11 @@ package com.example.problemdesk
 // 1 Rozov's MainActivity refactoring
 // 2 DI
 // 3 Color resources fix + crash fix
+// 4 User specialization in profile
 
 // CODE
-// Rozov's refactoring
-// DI (dagger2)
+    // Rozov's refactoring
+    // DI (dagger2)
 // singleLiveEvent
 // dataStorage?
 // fixed sharedPrefs
@@ -29,8 +30,8 @@ package com.example.problemdesk
 // usecases
 
 // UI
-// user specialization in profile
-// color resources
+    // user specialization in profile
+    // color resources
 // colors, design review
 // animations
 // alert dialogues
