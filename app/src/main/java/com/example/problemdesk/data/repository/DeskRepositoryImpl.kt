@@ -39,7 +39,8 @@ import javax.net.ssl.X509TrustManager
 class DeskRepositoryImpl(private val context: Context) : DeskRepository {
 
     companion object {
-        const val BASE_URL = "https://timofmax1.fvds.ru:443"
+//        const val BASE_URL = "https://timofmax1.fvds.ru:443"
+        const val BASE_URL = "http://192.168.43.230:8000"
     }
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
