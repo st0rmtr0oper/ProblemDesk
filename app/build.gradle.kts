@@ -59,6 +59,8 @@ dependencies {
     implementation(libs.androidx.media3.common)
     //this needed to create encrypted shared preferences
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation(libs.androidx.junit.ktx)
+    implementation(libs.core.ktx)
 //    implementation(libs.androidx.security.crypto.ktx)
     //kapt
     kapt("com.android.databinding:compiler:3.1.4")

@@ -1,10 +1,8 @@
 package com.example.problemdesk
 
-import android.util.MalformedJsonException
 import com.example.problemdesk.data.datasource.DeskApi
 import com.example.problemdesk.domain.models.Card
 import com.google.gson.Gson
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
