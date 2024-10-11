@@ -68,6 +68,12 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-messaging")
 
+    //testing
+//    testImplementation(libs.junit.v413)
+    testImplementation(libs.mockito.core)
+//    testImplementation(libs.assertj.core)
+    androidTestImplementation(libs.mockwebserver3)
+
     //charts
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
@@ -101,6 +107,8 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.firebase.messaging)
+
+    //????
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
