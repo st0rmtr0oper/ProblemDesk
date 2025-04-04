@@ -12,6 +12,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radio_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Сортировка по времени" />
+
+        <RadioButton
+            android:id="@+id/radio_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Сортировка по статусу" />
+
+        <RadioButton
+            android:id="@+id/radio_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Сортировка по подразделению" />
+    </RadioGroup>
+
+
     <LinearLayout
         android:id="@+id/plug"
         android:layout_width="match_parent"

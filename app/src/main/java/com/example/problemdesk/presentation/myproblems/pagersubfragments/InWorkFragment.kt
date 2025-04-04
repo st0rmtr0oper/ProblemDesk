@@ -1,6 +1,7 @@
 package com.example.problemdesk.presentation.myproblems.pagersubfragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.problemdesk.R
 import com.example.problemdesk.data.sharedprefs.getSharedPrefsUserId
 import com.example.problemdesk.databinding.FragmentSubInworkBinding
 import com.example.problemdesk.domain.models.Card
@@ -17,6 +19,10 @@ import com.example.problemdesk.presentation.general.CardRecyclerViewAdapter
 import com.example.problemdesk.presentation.general.getArea
 import com.example.problemdesk.presentation.general.getDate
 import com.example.problemdesk.presentation.general.getSpecialization
+import com.example.problemdesk.presentation.myproblems.CardListManager
+import com.example.problemdesk.presentation.myproblems.SortByTime
+import com.example.problemdesk.presentation.myproblems.SortByAreaId
+import com.example.problemdesk.presentation.myproblems.SortByStatusId
 import kotlinx.coroutines.launch
 
 class InWorkFragment : Fragment() {
@@ -24,6 +30,10 @@ class InWorkFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val inWorkViewModel: InWorkViewModel by viewModels()
+
+    private lateinit var cardListManager: CardListManager
+    private var currentCards: List<Card> = listOf()
+
 
     companion object {
         fun newInstance() = InWorkFragment()
@@ -39,11 +49,78 @@ class InWorkFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        cardListManager = CardListManager(SortByTime()) // or any initial sorting strategy
+        setUpRadioButtons()
+
         setUpObservers()
         binding.inWorkRv.adapter = CardRecyclerViewAdapter(::handleCardClick)
         loadCards()
         setUpResultListener()
     }
+
+    private fun setUpRadioButtons() {
+        val radioGroup = binding.radioGroup
+        radioGroup.setOnCheckedChangeListener {_, checkedId ->
+            val strategy = when (checkedId) {
+                R.id.radio_time -> SortByTime()
+                R.id.radio_status -> SortByStatusId()
+                R.id.radio_area -> SortByAreaId()
+                else -> SortByTime()
+            }
+
+
+            // TODO sorting throw empty list
+
+
+            cardListManager.setSortStrategy(strategy)
+            displaySortedCards(currentCards)
+
+            Log.wtf(">>---- setting strategy", strategy.toString())
+
+            Log.wtf(">>---- current cards", currentCards.toString())
+
+        }
+    }
+
+    private fun displaySortedCards(cards: List<Card>) {
+        val sortedCards = cardListManager.getSortedCards(cards)
+
+        // Explicitly setting the data to ensure the adapter recognizes the update
+        (binding.inWorkRv.adapter as? CardRecyclerViewAdapter)?.apply {
+            this.cards = sortedCards
+            notifyDataSetChanged() // Notify adapter of data change to refresh RecyclerView
+        }
+
+        if (sortedCards.isEmpty()) {
+            showPlug()
+        } else {
+            showContent()
+        }
+    }
+
+
+    private fun setUpObservers() {
+        inWorkViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
+
+            currentCards = cards
+
+            (binding.inWorkRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
+            if (cards.isEmpty()) {
+                showPlug()
+            } else {
+                showContent()
+            }
+        }
+
+        displaySortedCards(currentCards)
+
+
+    }
+
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -74,16 +151,6 @@ class InWorkFragment : Fragment() {
         }
     }
 
-    private fun setUpObservers() {
-        inWorkViewModel.cards.observe(viewLifecycleOwner) { cards: List<Card> ->
-            (binding.inWorkRv.adapter as? CardRecyclerViewAdapter)?.cards = cards
-            if (cards.isEmpty()) {
-                showPlug()
-            } else {
-                showContent()
-            }
-        }
-    }
 
     private fun setUpResultListener() {
         // Listen for the result from the BottomSheetDialogFragment

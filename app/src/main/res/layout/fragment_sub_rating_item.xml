@@ -21,18 +21,19 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/nameLabel"
                 style="@style/textViewStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Имя: " />
+                android:layout_height="wrap_content" />
+<!--                android:text="Имя: " />-->
 
             <TextView
                 android:id="@+id/name"
                 style="@style/textViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                tools:text="Абобус Абобусов Абобусович" />
+                android:layout_marginStart="4dp"/>
+<!--                tools:text="Абобус Абобусов Абобусович" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -41,18 +42,19 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/specializationLabel"
                 style="@style/textViewStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Должность: " />
+                android:layout_height="wrap_content"/>
+<!--                android:text="Должность: " />-->
 
             <TextView
                 android:id="@+id/specialization"
                 style="@style/textViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                tools:text="Сварщик" />
+                android:layout_marginStart="4dp"/>
+<!--                tools:text="Сварщик" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -61,18 +63,19 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tokensLabel"
                 style="@style/textViewStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Токены: " />
+                android:layout_height="wrap_content"/>
+<!--                android:text="Токены: " />-->
 
             <TextView
                 android:id="@+id/tokens"
                 style="@style/textViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                tools:text="760" />
+                android:layout_marginStart="4dp"/>
+<!--                tools:text="760" />-->
         </LinearLayout>
 
         <!-- Row for numCreated -->
@@ -82,18 +85,19 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/num_createdLabel"
                 style="@style/textViewStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Создано: " />
+                android:layout_height="wrap_content"/>
+<!--                android:text="Создано: " />-->
 
             <TextView
                 android:id="@+id/num_created"
                 style="@style/textViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                tools:text="43" />
+                android:layout_marginStart="4dp"/>
+<!--                tools:text="43" />-->
         </LinearLayout>
 
         <!-- Row for numCompleted -->
@@ -107,16 +111,16 @@
                 android:id="@+id/reason_label"
                 style="@style/textViewStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Выполнено: " />
+                android:layout_height="wrap_content" />
+<!--                android:text="Выполнено: " />-->
 
             <TextView
                 android:id="@+id/num_completed"
                 style="@style/textViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                tools:text="100" />
+                android:layout_marginStart="4dp" />
+<!--                tools:text="100" />-->
         </LinearLayout>
 
     </LinearLayout>
