@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //TODO splash inst working on old versions
+
         installSplashScreen()
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
@@ -125,8 +125,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
-//    https://stackoverflow.com/questions/65182773/what-does-androidconfigchanges-do
 
     private fun showExitConfirmationDialog() {
         AlertDialog.Builder(this).apply {
